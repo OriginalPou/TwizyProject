@@ -1,0 +1,3 @@
+module TwizyProject {
+	requires opencv;
+}
