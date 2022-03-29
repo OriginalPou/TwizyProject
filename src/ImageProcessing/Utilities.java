@@ -34,7 +34,6 @@ import javax.swing.JLabel;
 
 public class Utilities {
 	
-	private static Mat dst;
 
 	/*
 	 * @brief : method that reads images
