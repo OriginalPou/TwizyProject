@@ -42,16 +42,17 @@ public class Utilities {
 	
 	/*
 	 * @brief : method that detects colors with thresholds (seuillage)
-	 * @input : matrix of the image, threshold for red-orange colors, threshold for red-violet colors, threshold for saturation colors (to remove the grays)
+	 * @input : matrix of the image, threshold for red-orange colors, threshold for red-violet colors, 
+	 * 			threshold for saturation colors (to remove the grays)
 	 * @return : matrix of the image after filtering the colors, in binary ( black & white)
 	 */
-	public static Mat Multiple_Threshhold(Mat input, int RedOrange, int RedViolet,int Saturation){
+	public static Mat multipleThreshhold(Mat input, int RedOrange, int RedViolet,int Saturation){
 			//creating matrix
 		Mat threshold_redviolet = new Mat();
 		Mat threshold_redorange = new Mat();
 		Mat threshold = new Mat();
 			
-			// check in range of redoraneg
+			// check in range of redorange
 		Scalar lower_redorange = new Scalar(0,Saturation,Saturation);
 		Scalar upper_redorange = new Scalar(RedOrange,255,255);
 		Core.inRange(input, lower_redorange, upper_redorange, threshold_redviolet);
