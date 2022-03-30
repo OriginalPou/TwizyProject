@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-=======
 # ignore .mp4 and .avi files
 .mp4
 .avi
->>>>>>> RGB_HSV_Contours-detection
+/module-info.class
 /ImageProcessing/
-/.settings/
-/Images/
-/Videos/
