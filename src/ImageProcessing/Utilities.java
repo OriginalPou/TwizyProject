@@ -49,6 +49,8 @@ import java.util.List;
 	
 public class Utilities {
 	
+		private String[] signs =new String[] {"30", "50", "70", "90", "110", "double"}; 
+	
 		/*
 		 * @brief : method that reads images
 		 * @input : string name of file
@@ -247,7 +249,32 @@ public class Utilities {
 			return(grayObject);
 		}
 		
-		//public static String 
+		/*
+		 * @brief : function that superposes an object with one sign
+		 * @input : matrix of the object and name of the sign template
+		 * @return : the ratio of similitude
+		 */
+		
+		public static int templateSuperpose(Mat object, String sign_) {
+			Mat sign = Utilities.readImage("Images/ref"+sign_+".jpg");
+		    object= Utilities.scale(sign, object);
+		    Mat result = new Mat();
+		    Core.bitwise_or(object, sign, result);
+		    imShow("Superposition result", result);
+		    //turn the result matrix BW to help with measuring similarity
+		    result=turnBW(result);
+		    //instantiate the number of black pixels
+		    int blackPixels = 0;
+		    for (int i=0; i<result.rows();i++) {
+		    	for(int j=0; j<result.cols(); j++) {
+		    		if(result.get(i,j)[0]<10) {
+		    			blackPixels++;
+		    		}
+		    	}
+		    }
+		    // return the ratio of black pixels to all pixels
+		    return((int)blackPixels/(result.rows()*result.cols()));
+		}
 		
 		/*
 		 * @brief :

@@ -35,11 +35,7 @@ public class Main {
 				break;
 			}
       }
-      Mat sign = Utilities.readImage("Images/ref90.jpg");
-      objetrond= Utilities.scale(sign, objetrond);
-      Mat result = new Mat();
-      Core.bitwise_or(objetrond, sign, result);
-      Utilities.imShow("result", result);
+      //System.out.println(Utilities.templateSuperpose(objetrond, "90"));
 
       
       //Utilities.streamVideo("Videos/video1.mp4");
