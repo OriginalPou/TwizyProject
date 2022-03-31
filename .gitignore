@@ -1,3 +1,5 @@
 # ignore .mp4 and .avi files
 .mp4
 .avi
+.class
+.jpg
