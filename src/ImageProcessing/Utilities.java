@@ -13,10 +13,12 @@ import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
+import org.opencv.videoio.VideoCapture;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Vector;
 
@@ -172,7 +174,8 @@ public class Utilities {
 		 * @return : List of point of a specific contour
 		 */
 		public static List<MatOfPoint> detectContours(Mat mat) {
-			Mat threshold_img=multipleThreshhold(mat, 6, 170, 110);
+			Mat threshold_img=multipleThreshhold(mat, 16, 160, 70);
+			//imshow("threshold",threshold_img);
 			int thresh =50;
 			Mat canny_output=new Mat();
 			List<MatOfPoint> contours = new ArrayList<MatOfPoint>();
@@ -243,6 +246,51 @@ public class Utilities {
 			Core.normalize(grayObject, grayObject,0,255,Core.NORM_MINMAX);
 			return(grayObject);
 		}
-	
+		
+		//public static String 
+		
+		/*
+		 * @brief :
+		 */
+		
+		public static void streamVideo (String videoTitle) {
+			JFrame jframe = new JFrame("Detection de panneaux sur un flux vidéo");
+			jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			JLabel vidpanel = new JLabel();
+			jframe.setContentPane(vidpanel);
+			jframe.setSize(720, 480);
+			jframe.setVisible(true);
 
+			Mat frame = new Mat();
+			VideoCapture camera = new VideoCapture(videoTitle);
+			Mat PanneauAAnalyser = null;
+
+				while (camera.read(frame)) {
+				
+
+
+				ImageIcon image = new ImageIcon(Mat2bufferedImage(frame));
+				vidpanel.setIcon(image);
+				vidpanel.repaint();
+			}
+		}
+		
+		/*
+		 * @brief :
+		 */
+	
+		public static BufferedImage Mat2bufferedImage(Mat image) {
+			MatOfByte bytemat = new MatOfByte();
+			Imgcodecs.imencode(".jpg", image, bytemat);
+			byte[] bytes = bytemat.toArray();
+			InputStream in = new ByteArrayInputStream(bytes);
+			BufferedImage img = null;
+			try {
+				img = ImageIO.read(in);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return img;
+		}
 }

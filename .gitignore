@@ -3,3 +3,6 @@
 .avi
 .class
 .jpg
+Images/*
+Videos/*
+bin/

@@ -23,24 +23,28 @@ import org.opencv.imgproc.Imgproc;
 public class Main {
     public static void main( String[] args ) {
       System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-      /*Mat img = Utilities.readImage("Images/ref90.jpg");
-      Utilities.GreyMode(img);
-      Utilities.BGRMode(img);
-      Mat mat = Mat.eye(3, 3, CvType.CV_8UC1);
-      System.out.println("mat = " + mat.dump());
-      */Mat testFile = Utilities.readImage("Images/p1.jpg");
-      HighGui.imshow("110km/h", testFile);
+      Mat testFile = Utilities.readImage("Images/p5.jpg");
+      Utilities.imShow("Original Image", testFile);
       Mat hsvimage=Utilities.RGB2HSV(testFile);
-      HighGui.imshow("hsv 110km/h", hsvimage);
       List<MatOfPoint> listeContours = Utilities.detectContours(hsvimage);
       Mat objetrond = null;
       for (MatOfPoint contour:  listeContours ){
 			objetrond=Utilities.DetectForm(testFile,contour);
-			if (objetrond!= null)
+			if (objetrond!= null) {
 				Utilities.imShow("contour rond", objetrond);
+				break;
+			}
       }
+      Mat sign = Utilities.readImage("Images/ref90.jpg");
+      objetrond= Utilities.scale(sign, objetrond);
+      Mat result = new Mat();
+      Core.bitwise_or(objetrond, sign, result);
+      Utilities.imShow("result", result);
+
       
-      HighGui.waitKey(0);
+      //Utilities.streamVideo("Videos/video1.mp4");
+      
+      
       
    }
 }
