@@ -8,7 +8,9 @@ import org.opencv.core.Scalar;
 import org.opencv.highgui.HighGui;
 import org.opencv.core.MatOfInt4;
 import org.opencv.core.MatOfPoint;
+import org.opencv.core.MatOfPoint2f;
 import org.opencv.core.Point;
+import org.opencv.core.Rect;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
@@ -185,6 +187,61 @@ public class Utilities {
 			
 			return contours;
 		
+		}
+		
+		/*
+		 * @brief : method that allows to detect and extract round contours
+		 * @input : matrix of an image in RGB, MatOfPoint of the image contours
+		 * @return : a rectangular image containing the round contour 
+		 */
+		public static Mat DetectForm(Mat img,MatOfPoint contour) {
+			MatOfPoint2f matOfPoint2f = new MatOfPoint2f();
+			float[] radius = new float[1];
+			Point center = new Point();
+			Rect rect = Imgproc.boundingRect(contour);
+			double contourArea = Imgproc.contourArea(contour);
+
+
+			matOfPoint2f.fromList(contour.toList());
+			// We look for the smallest round object
+			Imgproc.minEnclosingCircle(matOfPoint2f, center, radius);
+			//System.out.println(contourArea+" "+Math.PI*radius[0]*radius[0]);
+			/*
+			 * We accept a contour as a circle if its minimum enclosing circle
+			 * has more than 80% the area of a perfect circle 
+			 */
+			
+			if ((contourArea / (Math.PI*radius[0]*radius[0])) >=0.8) {
+				//System.out.println("Cercle");
+				Imgproc.circle(img, center, (int)radius[0], new Scalar(255, 0, 0), 2);
+				Imgproc.rectangle(img, new Point(rect.x,rect.y), new Point(rect.x+rect.width,rect.y+rect.height), new Scalar (0, 255, 0), 2);
+				Mat tmp = img.submat(rect.y,rect.y+rect.height,rect.x,rect.x+rect.width);
+				Mat sign = Mat.zeros(tmp.size(),tmp.type());
+				tmp.copyTo(sign);
+				return sign;
+			}
+			return null;
+		}
+		
+		/*
+		 * @brief : function that makes similar the size of an object and the size of the template
+		 * @return : a resized matrix of the object extracted from an image
+		 */
+		public static Mat scale (Mat sign, Mat object) {
+			Mat sObject = new Mat();
+			Imgproc.resize(object, sObject, sign.size());
+			return(sObject);
+		}
+		
+		/*
+		 * @brief : function that does the important job of turning BW an image before template matching
+		 */
+		
+		public static Mat turnBW (Mat image) {
+			Mat grayObject = new Mat(image.rows(),image.cols(), image.type());
+			Imgproc.cvtColor(image, grayObject, Imgproc.COLOR_BGRA2GRAY);
+			Core.normalize(grayObject, grayObject,0,255,Core.NORM_MINMAX);
+			return(grayObject);
 		}
 	
 

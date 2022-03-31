@@ -28,11 +28,17 @@ public class Main {
       Utilities.BGRMode(img);
       Mat mat = Mat.eye(3, 3, CvType.CV_8UC1);
       System.out.println("mat = " + mat.dump());
-      */Mat testFile = Utilities.readImage("Images/ref110.jpg");
+      */Mat testFile = Utilities.readImage("Images/p1.jpg");
       HighGui.imshow("110km/h", testFile);
       Mat hsvimage=Utilities.RGB2HSV(testFile);
       HighGui.imshow("hsv 110km/h", hsvimage);
-      List<MatOfPoint> contours = Utilities.detectContours(hsvimage);
+      List<MatOfPoint> listeContours = Utilities.detectContours(hsvimage);
+      Mat objetrond = null;
+      for (MatOfPoint contour:  listeContours ){
+			objetrond=Utilities.DetectForm(testFile,contour);
+			if (objetrond!= null)
+				Utilities.imShow("contour rond", objetrond);
+      }
       
       HighGui.waitKey(0);
       
