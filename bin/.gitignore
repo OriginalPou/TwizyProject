@@ -1,6 +1,4 @@
 # ignore .mp4 and .avi files
 .mp4
 .avi
-/module-info.class
-/Images/
-/ImageProcessing/
+/bin/
