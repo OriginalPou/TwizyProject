@@ -49,7 +49,9 @@ import java.util.List;
 	
 public class Utilities {
 	
-		private String[] signs =new String[] {"30", "50", "70", "90", "110", "double"}; 
+		private static String[] signs =new String[] {"30", "50", "70", "90", "110", "double"};
+		private static String[] labels = new String[] {"70", "70", "110","30","110","30","50",
+														"50","90","30","30","double"};
 	
 		/*
 		 * @brief : method that reads images
@@ -154,12 +156,12 @@ public class Utilities {
 			Mat threshold = new Mat();
 				
 				// check in range of redorange
-			Scalar lower_redorange = new Scalar(0,Saturation,Saturation);
+			Scalar lower_redorange = new Scalar(0,Saturation,45);
 			Scalar upper_redorange = new Scalar(RedOrange,255,255);
 			Core.inRange(input, lower_redorange, upper_redorange, threshold_redviolet);
 				
 				//check in range of redviolet
-			Scalar lower_redviolet= new Scalar (RedViolet,Saturation,Saturation);
+			Scalar lower_redviolet= new Scalar (RedViolet,Saturation,45);
 			Scalar upper_redviolet = new Scalar (179,255,255);
 			Core.inRange(input, lower_redviolet, upper_redviolet, threshold_redorange);
 			    
@@ -176,7 +178,7 @@ public class Utilities {
 		 * @return : List of point of a specific contour
 		 */
 		public static List<MatOfPoint> detectContours(Mat mat) {
-			Mat threshold_img=multipleThreshhold(mat, 16, 160, 70);
+			Mat threshold_img=multipleThreshhold(mat, 6, 170, 70);
 			//imshow("threshold",threshold_img);
 			int thresh =50;
 			Mat canny_output=new Mat();
@@ -255,25 +257,75 @@ public class Utilities {
 		 * @return : the ratio of similitude
 		 */
 		
-		public static int templateSuperpose(Mat object, String sign_) {
+		public static double templateSuperpose(Mat object, String sign_) {
 			Mat sign = Utilities.readImage("Images/ref"+sign_+".jpg");
-		    object= Utilities.scale(sign, object);
+		    object= Utilities.scale(sign,object);
 		    Mat result = new Mat();
 		    Core.bitwise_or(object, sign, result);
-		    imShow("Superposition result", result);
+		    //imShow("Superposition result", result);
 		    //turn the result matrix BW to help with measuring similarity
-		    result=turnBW(result);
+		    //result=turnBW(result);
+		    //imShow("BW result", result);
 		    //instantiate the number of black pixels
 		    int blackPixels = 0;
 		    for (int i=0; i<result.rows();i++) {
 		    	for(int j=0; j<result.cols(); j++) {
-		    		if(result.get(i,j)[0]<10) {
+		    		byte[] data = new byte[3] ;
+		    		result.get(i,j,data);
+		    		if(data[2]>-2) {
 		    			blackPixels++;
 		    		}
 		    	}
 		    }
 		    // return the ratio of black pixels to all pixels
-		    return((int)blackPixels/(result.rows()*result.cols()));
+		    return((double)blackPixels/(result.rows()*result.cols()));
+		}
+		
+		/*
+		 * 
+		 */
+		
+		public static String similitude(Mat object) {
+			double similitudes []= new double[Utilities.signs.length];
+			for (int i=0; i<Utilities.signs.length; i++) {
+				similitudes[i]= templateSuperpose(object, Utilities.signs[i]);
+			}
+			double max=0;
+			int index = 0;
+			for (int i=0; i<similitudes.length;i++) {
+				if (similitudes[i]>max) {
+					max=similitudes[i];
+					index=i;
+				}
+			}
+			return(Utilities.signs[index]);
+		}
+		
+		public static void testing() {
+			int objectCounter = 0;
+			int rightResultCounter = 0;
+			for (int i=1; i <= 10; i++) {			
+				Mat testFile = Utilities.readImage("Images/p"+Integer.toString(i)+".jpg");
+			    //Utilities.imShow("Original Image", testFile);
+			    Mat hsvimage=Utilities.RGB2HSV(testFile);
+			    List<MatOfPoint> listeContours = Utilities.detectContours(hsvimage);
+			    Mat objetrond = null;
+			    String result = null;
+			    for (MatOfPoint contour:  listeContours ){
+					objetrond=Utilities.DetectForm(testFile,contour);
+					if (objetrond!= null) {
+						Utilities.imShow("contour rond", objetrond);
+						result=Utilities.similitude(objetrond);
+						if(result.equals(labels[objectCounter])) 
+							rightResultCounter++;
+						else
+							System.out.println("problem with picture: "+ Integer.toString(i));
+						objectCounter++;
+					}
+			    }
+			}
+			System.out.println("result: right positives "+ Integer.toString(rightResultCounter)+
+					"/"+Integer.toString(labels.length));
 		}
 		
 		/*

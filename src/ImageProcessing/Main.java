@@ -23,7 +23,7 @@ import org.opencv.imgproc.Imgproc;
 public class Main {
     public static void main( String[] args ) {
       System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-      Mat testFile = Utilities.readImage("Images/p5.jpg");
+      /*Mat testFile = Utilities.readImage("Images/p9.jpg");
       Utilities.imShow("Original Image", testFile);
       Mat hsvimage=Utilities.RGB2HSV(testFile);
       List<MatOfPoint> listeContours = Utilities.detectContours(hsvimage);
@@ -32,11 +32,12 @@ public class Main {
 			objetrond=Utilities.DetectForm(testFile,contour);
 			if (objetrond!= null) {
 				Utilities.imShow("contour rond", objetrond);
+				System.out.println(Utilities.similitude(objetrond));
 				break;
 			}
-      }
-      //System.out.println(Utilities.templateSuperpose(objetrond, "90"));
-
+      }*/
+      Utilities.testing();
+      
       
       //Utilities.streamVideo("Videos/video1.mp4");
       
