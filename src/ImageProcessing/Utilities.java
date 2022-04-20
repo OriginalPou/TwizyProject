@@ -17,6 +17,7 @@ import org.opencv.imgproc.Imgproc;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Vector;
 
@@ -183,7 +184,10 @@ public class Utilities {
 		    	Scalar color = new Scalar(130,41,98);
 				Imgproc.drawContours(threshold_img, contours, i, color,3,5,hierarchy,0, new Point());
 		    }
-		    imShow("contours", threshold_img);
+		    /* Modified by Maha: 
+		     * needed to comment the next line to prevent displaying each frame while running the video
+		     * */
+		    //imShow("contours", threshold_img); 
 			
 			return contours;
 		
@@ -243,6 +247,45 @@ public class Utilities {
 			Core.normalize(grayObject, grayObject,0,255,Core.NORM_MINMAX);
 			return(grayObject);
 		}
+		
+		
+		
+		//for video
+		public static BufferedImage Mat2bufferedImage(Mat image) {
+			MatOfByte bytemat = new MatOfByte();
+			Imgcodecs.imencode(".jpg", image, bytemat);
+			byte[] bytes = bytemat.toArray();
+			InputStream in = new ByteArrayInputStream(bytes);
+			BufferedImage img = null;
+			try {
+				img = ImageIO.read(in);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return img;
+		}
+		
+		public static void ImageDisplayPanel( Mat img){
+			MatOfByte matOfByte=new MatOfByte();
+			Imgcodecs.imencode(".png",img,matOfByte);
+			byte[] byteArray=matOfByte.toArray();
+			BufferedImage bufImage=null;
+			try{
+				InputStream in=new ByteArrayInputStream(byteArray);
+				bufImage=ImageIO.read(in);
+				JFrame frame=new JFrame();
+				frame.getContentPane().add(new JLabel(new ImageIcon(bufImage)));
+				frame.pack();
+				frame.setVisible(true);
+
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
+
+
+		}
+		
 	
 
 }
