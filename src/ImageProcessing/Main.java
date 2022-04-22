@@ -35,7 +35,7 @@ public class Main {
       Mat mat = Mat.eye(3, 3, CvType.CV_8UC1);
       System.out.println("mat = " + mat.dump());
       */
-      Mat testFile = Utilities.readImage("Images/p12.png");
+      Mat testFile = Utilities.readImage("Images/p17.png");
       //Mat ref = Utilities.readImage("Images/ref70.jpg");
       Utilities.imShow("test file", testFile);
       Mat hsvimage=Utilities.RGB2HSV(testFile);
@@ -50,20 +50,11 @@ public class Main {
 		  
 		  
 		  }
-		 
-      Utilities.Match(testFile,panels);
+	     // uncomment this if u are working on the images on drive ( we have some problems in seuillage )
+      //Utilities.Match(testFile,panels);
       //HighGui.waitKey(0);
-      //float x=Utilities.Matching(objetrond,ref);
-      //System.out.println(x);
-      //Utilities.imShow("contour rond", objetrond);
-      //Mat image = Utilities.readImage("Images/ref90.jpg");
-      //Utilities.imShow("pannel 90", image);
-      //Mat BW=Utilities.turnBW(image);
-      //Utilities.imShow("pannel 90", BW);
-      //Mat binary=Utilities.turnBinary(BW);
-     // System.out.println( "mat = \n" + binary);
-      //float result=Utilities.Matching2(ref, ref);
-     // System.out.println( "match = \n" + result);
+    
+      
 
       
       

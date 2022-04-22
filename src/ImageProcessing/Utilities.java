@@ -252,8 +252,9 @@ public class Utilities {
 		
 		
 		/*
-		 * @brief : function that compare 2 images 
-		 * @return : the similarity between the 2 images
+		 * @brief  : compare 2 images: when a pixel1(i,j) is black we compare if the pixel2(i,j) is also black or not
+		 * @input  : 2 matrix : panel and panel extracted from the image
+		 * @return : similarity ratio
 		 */
 		public static float MatchingWithDifference(Mat object, Mat sObject) {
 			float similarity=0;
@@ -296,7 +297,6 @@ public class Utilities {
 			int index=0;
 			for(int i=0;i<panels.size();i++) {
 				results[i]=MatchingWithRGB(object,panels.get(i));
-				//System.out.println(results[i]);
 			}
 			for(int i=0;i<panels.size();i++) {
 			if(results[i]>max) {
@@ -330,7 +330,11 @@ public class Utilities {
 			
 		
 		
-		
+			/*
+			 * @brief  : turn the 2 images into binary ( choose the best threshold to convert2binary the image)
+			 * @input  : a matrix (image)
+			 * @return : binary image
+			 */
 		public static Mat turnBinary (Mat image) {
 			Mat binaryObject = new Mat(image.rows(),image.cols(), image.type());
 			for(int i=0;i<image.width();i++) {
@@ -347,15 +351,17 @@ public class Utilities {
 			return(binaryObject);
 		}
 		
+		/*
+		 * @brief  : turn the 2 images into binary and compare each pixel one by one ( choose the best threshold to convert2binary the image)
+		 * @input  : 2 matrix : panel and panel extracted from the image
+		 * @return : similarity ratio
+		 */
 		public static float MatchingWithPPSimilarity(Mat object, Mat sObject) {
 			float similarity=0;
-			//sObject=scale(object,sObject);
 			// gray scale
 			Mat grayObject=turnBW(object);
 			Mat graySign=turnBW(sObject);
 			grayObject=scale(graySign,grayObject);
-			//graySign=scale(grayObject,graySign);
-		   // imShow("obj", sObject);
 			Mat binarySign=turnBinary(graySign);
 			Mat binaryObject=turnBinary(grayObject);
 
@@ -367,7 +373,6 @@ public class Utilities {
 					double[] xyObject = binaryObject.get(i,j);
 					int xy1= (int)xySign[0];
 					int xy2= (int)xyObject[0];
-					//System.out.println( "ij = \n" + (int)xyObject[0] );
 					if(  xy1 == xy2 )
 						similarity++;
 					}
@@ -378,23 +383,26 @@ public class Utilities {
 			}
 		
 		
+		/*
+		 * @brief  : method that compare 2 images based on the absolute difference between RGB values
+		 * @input  : 2 matrix : panel and panel extracted from the image
+		 * @return : similarity ratio
+		 */
+		
 		public static float MatchingWithRGB(Mat object, Mat sObject) {
-			//Increasing the brightness of an image
-			//imShow("before", object);
-		    //object.convertTo(object, -1, 1, -10);
-		    //Imgproc.blur(object, object, new Size(3.0, 3.0));
-			//imShow("after", object);
+		
 
 			Mat img1=scale(sObject,object);
 			Mat img2=sObject;
-			float brightness=getBrightness(img2);
-			//System.out.println("brightness="+brightness);
-			if(brightness<0.15)
-				img2.convertTo(img2, -1, 1, 60);
-			if(brightness>0.8)
-				img2.convertTo(img2, -1, 1, -10);
-			
-		    //imShow("obj", img1);
+			// in order to well recognise the panel the brightness should be around 0.6-0.64
+			float brightness=getBrightness(img1);
+			System.out.println("brightness="+brightness);
+			if(brightness<0.45)
+				img1.convertTo(img1, -1, 1, 50);
+			if(brightness>0.95)
+				img1.convertTo(img1, -1, 1, -85);
+			float brightnessAfter=getBrightness(img1);
+			System.out.println("brightness after="+brightnessAfter);
 			int height=img1.height();
 			int width =img1.width();
 			double diff = 0;
@@ -416,20 +424,23 @@ public class Utilities {
 	         }
 	         double avg = diff/(width*height*3);
 	         double percentageOfSimilarity =100- (avg/255)*100;
-	        // System.out.println("similarity: "+percentageOfSimilarity);
 	         return (float)percentageOfSimilarity;
 	      }
 	   
 		
 		
+		/*
+		 * @brief : method that allows to calculate the brightness of an image
+		 * @input : matrix of an image 
+		 * @return : float : brightness 
+		 */
+		
 		public static float getBrightness(Mat image) {
 			
 			double[] color = image.get(image.width()/2, image.height()/2);
-
 			// extract each color component
 			// calc brightness in range 0.0 to 1.0; using SRGB luminance constants
 			float brightness = ((float)color[0] * 0.2126f + (float)color[1] * 0.7152f + (float)color[2] * 0.0722f) / 255;
-
 			return brightness;
 			
 		}
