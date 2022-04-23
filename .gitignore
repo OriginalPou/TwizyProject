@@ -1,4 +1,12 @@
 # ignore .mp4 and .avi files
 .mp4
 .avi
+<<<<<<< HEAD
 /bin/
+=======
+.jpg
+Images/*
+Videos/*
+bin/ImageProcessing/
+bin/*
+>>>>>>> FixingObjectDetection

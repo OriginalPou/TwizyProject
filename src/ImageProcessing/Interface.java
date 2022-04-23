@@ -1,13 +1,19 @@
 package ImageProcessing;
 
+import java.awt.Color;
+
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.List;
 
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
@@ -15,77 +21,63 @@ import org.opencv.core.MatOfPoint;
 import org.opencv.highgui.HighGui;
 import org.opencv.videoio.VideoCapture;
 
+import ImageProcessing.imagePanel;
+import ImageProcessing.videoPanel;
 
 
-public class Interface {
 
-	 /*public void paint(Graphics g) {
-	     Toolkit t=Toolkit.getDefaultToolkit();  
-	     Image i=t.getImage("Interface_Images/background2.jpg");  
-	    // g.drawImage(i, 0,0,getWidth(),getHeight(),this);
-	  }  */
-	 static {
-			System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-				}
 
-		static Mat imag = null;
+public class Interface extends JFrame {
+	public JPanel container_vid = new JPanel(); // container of the video panel
+	public JPanel container_plate = new JPanel(); // container of the detected plate panel
+	
+	public videoPanel panel_video = new videoPanel(); // panel containing the video stream
+	
+	public JPanel panel_plate = new videoPanel(); // panel to display the detected plate and info
+	public imagePanel panel_plate_image = new imagePanel(); // panel to display the image of the detected plate inside the plate panel
+	private JLabel panel_plate_text = new JLabel();//panel to display a text in the detected plate panel
+	
+	private JPanel panel_plate_text_container = new JPanel(); //container of the text
+	
+	public int width=1300;
+	public int height=600;
+
+	public Interface(){
+		this.setTitle("Interface Twizzy");
+		this.setSize(width,height);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setVisible(true);
+		this.DisplayWindow();
+	}
+	 
 		
-	 public static void main(String[] args) {  
-		 JFrame jframe = new JFrame("Twizzy_Video");
-		 jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		 JLabel vidpanel = new JLabel();
-		 jframe.setContentPane(vidpanel);
-		 jframe.setSize(720, 480);
-		 jframe.setVisible(true);
-		 
-		 
-		 VideoCapture camera = new VideoCapture("C:\\Users\\mahag\\Downloads\\GitHub_WorkSpace\\project_Twizzy\\TwizyProject\\Videos\\video1.mp4");
-		 
-		Mat frame = new Mat();
+	private void DisplayWindow() {
+		container_vid.setLayout(new BoxLayout(container_vid, BoxLayout.Y_AXIS));
+		container_plate.setLayout(new BoxLayout(container_plate, BoxLayout.X_AXIS));
 		
-		 Mat PanneauAAnalyser = null;
-		int i=0;
-		//System.out.print(camera.read(frame));
-		 while (camera.read(frame) && i<100) {
-				//A completer
-			 
-			 	//Utilities.ImageDisplayPanel(frame);
-				Mat HSV_image=Utilities.RGB2HSV(frame);
-				if (i==70) {
-				Utilities.imShow("HSV_image", HSV_image);
-				}
-				i++;
-				//Mat threshold_image=Utilities.multipleThreshhold(HSV_image, 6, 170, 110);
-				
-				List<MatOfPoint> ListContours= Utilities.detectContours(HSV_image);
-				Mat round_object = null;
-				
-				for (MatOfPoint contour: ListContours  ){
-					round_object=Utilities.DetectForm(frame,contour);
-					System.out.print(round_object);
-					if (round_object!=null){
-						Utilities.imShow("contour", round_object);
-					}
-				}
-				
-			 ImageIcon image = new ImageIcon(Utilities.Mat2bufferedImage(frame));
-			 vidpanel.setIcon(image);
-			 vidpanel.repaint();
-		 }
-		 
-		 /*Interface m=new Interface();  
-		 JFrame f=new JFrame();
-		 f.setTitle("Detection des panneaux - TWIZZY");
-		 
-		 //button
-		 JButton b=new JButton("Start");  
-		 b.setBounds(50,100,95,30);  
-		 f.add(b);
+		panel_video.setPreferredSize(new Dimension(this.getWidth()-250,this.getHeight()-10));
 		
-	     f.add(m);  
-	     f.setSize(1920 ,1080);
-	     f.setVisible(true); */
-	     
+		panel_plate.setLayout(new BoxLayout(panel_plate, BoxLayout.Y_AXIS));
+		panel_plate_image.setPreferredSize(new Dimension(250,250));
+		panel_plate_image.setMaximumSize(new Dimension(250,250));
+		
+		panel_plate_text.setText("Detected: ");
+		panel_plate_text_container.setMaximumSize(new Dimension(254,40));
+		
+		panel_plate_text_container.add(panel_plate_text);
+		panel_plate_text_container.add(panel_plate_image);
+		
+		panel_plate.add(panel_plate_text_container);
+		panel_plate.add(panel_plate_image);
+		panel_plate.add(new JPanel());
+		
+		container_vid.add(panel_video);
+		container_plate.add(container_vid);
+		container_plate.add(panel_plate);
+		
+		this.setContentPane(container_plate);
+		pack();
+		
 	 }  
 }
 
