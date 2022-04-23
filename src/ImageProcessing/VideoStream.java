@@ -52,10 +52,11 @@ public class VideoStream {
 				round_object=Utilities.DetectForm(frame,contour);
 				if (round_object!=null){
 					Utilities.imShow("contour", round_object);
+					this.window.panel_plate_image.setImage(image_90);
 				}
 			}
 			
-			this.window.panel_plate_image.setImage(image_90);
+			//this.window.panel_plate_image.setImage(image_90);
 			this.window.panel_plate_image.repaint();
 		
 			this.image = new ImageIcon(Utilities.Mat2bufferedImage(frame));

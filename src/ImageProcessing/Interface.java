@@ -52,8 +52,9 @@ public class Interface extends JFrame {
 	 
 		
 	private void DisplayWindow() {
-		container_vid.setLayout(new BoxLayout(container_vid, BoxLayout.Y_AXIS));
+		
 		container_plate.setLayout(new BoxLayout(container_plate, BoxLayout.X_AXIS));
+		container_vid.setLayout(new BoxLayout(container_vid, BoxLayout.X_AXIS));
 		
 		panel_video.setPreferredSize(new Dimension(this.getWidth()-250,this.getHeight()-10));
 		
@@ -62,7 +63,7 @@ public class Interface extends JFrame {
 		panel_plate_image.setMaximumSize(new Dimension(250,250));
 		
 		panel_plate_text.setText("Detected: ");
-		panel_plate_text_container.setMaximumSize(new Dimension(254,40));
+		panel_plate_text_container.setMaximumSize(new Dimension(250,50));
 		
 		panel_plate_text_container.add(panel_plate_text);
 		panel_plate_text_container.add(panel_plate_image);
@@ -71,9 +72,10 @@ public class Interface extends JFrame {
 		panel_plate.add(panel_plate_image);
 		panel_plate.add(new JPanel());
 		
+		container_plate.add(panel_plate);
 		container_vid.add(panel_video);
 		container_plate.add(container_vid);
-		container_plate.add(panel_plate);
+		
 		
 		this.setContentPane(container_plate);
 		pack();
