@@ -9,4 +9,8 @@ Images/*
 Videos/*
 bin/ImageProcessing/
 bin/*
+<<<<<<< HEAD
 >>>>>>> 6120d8434c8e8a61165b7735adb1a1a8be3d4c17
+=======
+>>>>>>> FixingObjectDetection
+>>>>>>> Interface
