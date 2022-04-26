@@ -159,6 +159,8 @@ public class Utilities {
 		 * 			threshold for saturation colors (to remove the grays)
 		 * @return : matrix of the image after filtering the colors, in binary ( black & white)
 		 */
+		
+
 		public static Mat multipleThreshhold(Mat input, int RedOrange, int RedViolet,int Saturation, int luminance){
 				//creating matrix
 			Mat threshold_redviolet = new Mat();
@@ -213,7 +215,6 @@ public class Utilities {
 		    	Scalar color = new Scalar( rand.nextInt(255 - 0 + 1) , rand.nextInt(255 - 0 + 1),rand.nextInt(255 - 0 + 1) );
 				//Imgproc.drawContours(drawing, contours, i, color,3,5,hierarchy,0, new Point());
 		    }
-		    //imShow("contours", drawing);
 			
 			return contours;
 		
@@ -225,12 +226,9 @@ public class Utilities {
 		 * @return : List of point of a specific contour
 		 */
 		public static List<MatOfPoint> detectContours(Mat mat) {
-/*
-			Mat threshold_img=multipleThreshhold(mat, 6, 140, 80);
-			int thresh =40;
-			*/
+
+			
 			Mat threshold_img=multipleThreshhold(mat, 26, 150, 10, 10);
-			Utilities.imShow("threshold",threshold_img);
 			int thresh =50;
 
 			Mat canny_output=new Mat();
@@ -245,16 +243,9 @@ public class Utilities {
 				//Imgproc.drawContours(drawing, contours, i, color,3,5,hierarchy,0, new Point());
 		    }
 
-		    /* Modified by Maha: 
-		     * needed to comment the next line to prevent displaying each frame while running the video
-		     * */
-		    //imShow("contours", threshold_img); 
-		    //imShow("contours", drawing);
-
-			
 			return contours;
-		
 		}
+		
 		
 		/*
 		 * @brief : method that allows to detect and extract round contours
@@ -380,10 +371,8 @@ public class Utilities {
 			if(results[i]>max) {
 				max=results[i];
 				index=i;
+				}
 			}
-			}
-			
-			
 			imShow("pannel detected",panels.get(index));
 		}
 			
@@ -398,7 +387,7 @@ public class Utilities {
 			 int[] panels= {30,50,70,90,110};
 		     Vector<Mat> Signs=new Vector<Mat>();
 		     for(int i=0;i<panels.length;i++) {
-		    	  Mat image = Utilities.readImage("Images/ref"+Integer.toString(panels[i])+".jpg");
+		    	  Mat image = Utilities.readImage("Images/ref"+Integer.toString(panels[i])+".jpg");//"+Integer.toString(panels[i])+".
 		    	  Signs.add(image);
 		      }
 		     Mat image = Utilities.readImage("Images/refdouble.jpg");
@@ -455,7 +444,6 @@ public class Utilities {
 						similarity++;
 					}
 				}
-			
 				similarity=(float)similarity/totalNumberOfPixels;
 				return similarity;
 			}
@@ -469,7 +457,6 @@ public class Utilities {
 		
 		public static float MatchingWithRGB(Mat object, Mat sObject) {
 		
-
 			Mat img1=scale(sObject,object);
 			Mat img2=sObject;
 			// in order to well recognise the panel the brightness should be around 0.6-0.64
@@ -523,26 +510,7 @@ public class Utilities {
 			
 		}
 
-		
-		//used for video steaming
-		public static BufferedImage Mat2bufferedImage(Mat image) {
-			MatOfByte bytemat = new MatOfByte();
-			Imgcodecs.imencode(".jpg", image, bytemat);
-			byte[] bytes = bytemat.toArray();
-			InputStream in = new ByteArrayInputStream(bytes);
-			BufferedImage img = null;
-			try {
-				img = ImageIO.read(in);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			return img;
-		}
-		
 
-
-		
-		
 		/* @input: the title of the video ( or the path)
 		 * @return: a Jframe window containing the video stream
 		 * @brief : a function to run a video stream
@@ -578,6 +546,21 @@ public class Utilities {
 				vidpanel.setIcon(image);
 				vidpanel.repaint();
 			}
+		}
+		
+		//used for video steaming
+		public static BufferedImage Mat2bufferedImage(Mat image) {
+			MatOfByte bytemat = new MatOfByte();
+			Imgcodecs.imencode(".jpg", image, bytemat);
+			byte[] bytes = bytemat.toArray();
+			InputStream in = new ByteArrayInputStream(bytes);
+			BufferedImage img = null;
+			try {
+				img = ImageIO.read(in);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return img;
 		}
 
 	

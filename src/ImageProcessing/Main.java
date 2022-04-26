@@ -33,13 +33,7 @@ import ImageProcessing.Interface;
  */
 
 public class Main {
-
-    
-      
-     /* System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-
-      Vector<Mat> panels= Utilities.SignPanels();
-      */
+	public static void main( String[] args ) throws IOException {
 
       /*Mat img = Utilities.readImage("Images/ref90.jpg");
       Utilities.GreyMode(img);
@@ -59,23 +53,13 @@ public class Main {
 		  objetrond=Utilities.DetectForm(testFile,contour); if (objetrond!= null) {
 		  Utilities.imShow("contour rond", objetrond);
 		  Utilities.Match(objetrond,panels); }
-		  
-		  
 		  }*/
 	     // uncomment this if u are working on the images on drive ( we have some problems in seuillage )
 		  
       //Utilities.Match(testFile,panels);
       //HighGui.waitKey(0);
+
     
-      
-
-
-      
-      //Utilities.streamVideo("Videos/video1.mp4");
-      
-      
-	//INTERFACE RUNNING MAIN
-    public static void main( String[] args ) throws IOException {
     	/*System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 	    File imageFolder = new File("Images/data/detected_images/");
 	    File[] listOfImages = imageFolder.listFiles();
@@ -109,12 +93,16 @@ public class Main {
 	    	}
       }
       //Mat testFile = Utilities.readImage("Images/data/detected_images/00006.png");*/
-   
+    	
+    	//INTERFACE RUNNING MAIN
+    	System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
     		Interface window = new Interface();
+    		Vector<Mat> panels= Utilities.SignPanels();
+    		String file_path="Videos/video2.mp4";
     		while(true) {
     			
-    				VideoStream video_stream = new VideoStream(window);
-    				video_stream.VideoProcessing();
+    				VideoStream video_stream = new VideoStream(window,file_path);
+    				video_stream.VideoProcessing(panels);
     	
     		}
     	
