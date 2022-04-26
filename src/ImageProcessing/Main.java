@@ -26,6 +26,7 @@ public class Main {
     	
       
       System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+
       Vector<Mat> panels= Utilities.SignPanels();
       
 
@@ -35,7 +36,7 @@ public class Main {
       Mat mat = Mat.eye(3, 3, CvType.CV_8UC1);
       System.out.println("mat = " + mat.dump());
       */
-      Mat testFile = Utilities.readImage("Images/p17.png");
+      Mat testFile = Utilities.readImage("Images/p8.jpg");
       //Mat ref = Utilities.readImage("Images/ref70.jpg");
       Utilities.imShow("test file", testFile);
       Mat hsvimage=Utilities.RGB2HSV(testFile);
@@ -51,11 +52,16 @@ public class Main {
 		  
 		  }
 	     // uncomment this if u are working on the images on drive ( we have some problems in seuillage )
+		  
       //Utilities.Match(testFile,panels);
       //HighGui.waitKey(0);
     
       
 
+
+      
+      //Utilities.streamVideo("Videos/video1.mp4");
+      
       
       
    }

@@ -18,10 +18,12 @@ import org.opencv.core.MatOfPoint2f;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
+import org.opencv.videoio.VideoCapture;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Vector;
 
@@ -179,6 +181,7 @@ public class Utilities {
 		public static List<MatOfPoint> detectContours(Mat mat) {
 			Mat threshold_img=multipleThreshhold(mat, 6, 140, 80);
 			int thresh =40;
+			
 			Mat canny_output=new Mat();
 			List<MatOfPoint> contours = new ArrayList<MatOfPoint>();
 			MatOfInt4 hierarchy = new MatOfInt4();
@@ -248,6 +251,7 @@ public class Utilities {
 			Core.normalize(grayObject, grayObject,0,255,Core.NORM_MINMAX);
 			return(grayObject);
 		}
+
 	
 		
 		
@@ -454,6 +458,54 @@ public class Utilities {
 		
 		
 		
+
+		
+		//public static String 
+		
+		/*
+		 * @brief :
+		 */
+		
+		public static void streamVideo (String videoTitle) {
+			JFrame jframe = new JFrame("Detection de panneaux sur un flux vidéo");
+			jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			JLabel vidpanel = new JLabel();
+			jframe.setContentPane(vidpanel);
+			jframe.setSize(720, 480);
+			jframe.setVisible(true);
+
+			Mat frame = new Mat();
+			VideoCapture camera = new VideoCapture(videoTitle);
+			Mat PanneauAAnalyser = null;
+
+				while (camera.read(frame)) {
+				
+
+
+				ImageIcon image = new ImageIcon(Mat2bufferedImage(frame));
+				vidpanel.setIcon(image);
+				vidpanel.repaint();
+			}
+		}
+		
+		/*
+		 * @brief :
+		 */
+	
+		public static BufferedImage Mat2bufferedImage(Mat image) {
+			MatOfByte bytemat = new MatOfByte();
+			Imgcodecs.imencode(".jpg", image, bytemat);
+			byte[] bytes = bytemat.toArray();
+			InputStream in = new ByteArrayInputStream(bytes);
+			BufferedImage img = null;
+			try {
+				img = ImageIO.read(in);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return img;
+		}
 }
 		
 		
