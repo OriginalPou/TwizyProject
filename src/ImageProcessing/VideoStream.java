@@ -27,7 +27,7 @@ public class VideoStream {
 	//constructor
 	public VideoStream(Interface window) throws IOException {		
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-		this.camera = new VideoCapture("C:\\Users\\mahag\\Downloads\\GitHub_WorkSpace\\project_Twizzy\\TwizyProject\\Videos\\video1.mp4");
+		this.camera = new VideoCapture("C:\\Users\\mahag\\Downloads\\GitHub_WorkSpace\\project_Twizzy\\TwizyProject\\Videos\\video2.mp4");
 		this.window = window;
 		this.initImage();
 		
@@ -41,27 +41,34 @@ public class VideoStream {
 	//run the video processing algorithm
 	public void VideoProcessing() {
 		Mat frame = new Mat();
+		int speed=7;	// adjust this for faster stream
+		int frame_index=0;
 		while (camera.read(frame)) {
-			 
-			Mat HSV_image=Utilities.RGB2HSV(frame);
-			List<MatOfPoint> ListContours= Utilities.detectContoursImproved(HSV_image);
 			
-			Mat round_object = null;
+			
+			if (frame_index % speed == 0) {
+				Mat HSV_image=Utilities.RGB2HSV(frame);
+				List<MatOfPoint> ListContours= Utilities.detectContoursImproved(HSV_image);
+			
+				Mat round_object = null;
 		
-			for (MatOfPoint contour: ListContours  ){
-				round_object=Utilities.DetectForm(frame,contour);
-				if (round_object!=null){
-					Utilities.imShow("contour", round_object);
-					this.window.panel_plate_image.setImage(image_90);
+				for (MatOfPoint contour: ListContours  ){
+					round_object=Utilities.DetectForm(frame,contour);
+					if (round_object!=null){
+						//Utilities.imShow("contour", round_object);
+						this.window.panel_plate_image.setImage(image_90);
+					}
 				}
+				
 			}
 			
-			//this.window.panel_plate_image.setImage(image_90);
-			this.window.panel_plate_image.repaint();
-		
-			this.image = new ImageIcon(Utilities.Mat2bufferedImage(frame));
-			this.window.panel_video.setImage(getFrame());
-			this.window.panel_video.repaint();
+				this.window.panel_plate_image.repaint();
+				this.image = new ImageIcon(Utilities.Mat2bufferedImage(frame));
+				this.window.panel_video.setImage(getFrame());
+				this.window.panel_video.repaint();
+			
+				frame_index=frame_index+1;
+			
 		}	
 	}
 	
