@@ -44,14 +44,14 @@ public class VideoStream {
 	//run the video processing algorithm
 	public void VideoProcessing(Vector<Mat> panels) {
 		Mat frame = new Mat();
-		int speed=10;	// adjust this for faster stream
+		int speed=1;	// adjust this for faster stream
 		int frame_index=0;
 		
 		while (camera.read(frame)) {
 			
 			if (frame_index % speed == 0) {
 				Mat HSV_image=Utilities.RGB2HSV(frame);
-				List<MatOfPoint> ListContours= Utilities.detectContoursImproved(frame);
+				List<MatOfPoint> ListContours= Utilities.detectContours(HSV_image);
 				
 				Mat round_object = null;
 		
@@ -60,7 +60,7 @@ public class VideoStream {
 					
 					if (round_object!=null){
 						//Utilities.imShow("contour", round_object);
-						//Utilities.Match(round_object,panels);
+						Utilities.Match(round_object,panels);
 						this.window.panel_plate_image.setImage(image_90);
 					}
 				}	
