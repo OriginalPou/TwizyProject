@@ -34,6 +34,17 @@ import ImageProcessing.Interface;
 
 public class Main {
 	public static void main( String[] args ) throws IOException {
+		//INTERFACE RUNNING MAIN
+    	System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+    		Interface window = new Interface();
+    		Vector<Mat> panels= Utilities.SignPanels();
+    		//String file_path="Videos/video2.mp4";
+    		while(true) {
+    			
+    				VideoStream video_stream = new VideoStream(window);
+    				video_stream.VideoProcessing(panels);
+    	
+    		}
 
       /*Mat img = Utilities.readImage("Images/ref90.jpg");
       Utilities.GreyMode(img);
@@ -94,17 +105,7 @@ public class Main {
       }
       //Mat testFile = Utilities.readImage("Images/data/detected_images/00006.png");*/
     	
-    	//INTERFACE RUNNING MAIN
-    	System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-    		Interface window = new Interface();
-    		Vector<Mat> panels= Utilities.SignPanels();
-    		String file_path="Videos/video2.mp4";
-    		while(true) {
-    			
-    				VideoStream video_stream = new VideoStream(window,file_path);
-    				video_stream.VideoProcessing(panels);
     	
-    		}
     	
 
       

@@ -22,6 +22,8 @@ import ImageProcessing.Interface;
 public class VideoStream {
 	public Interface window;
 	public VideoCapture camera ;
+	public static String file_name="Videos/video1.mp4";
+	public static int stop=0;
 	//Mat PanneauAAnalyser = null;
 	ImageIcon image;
 	Image image_90;
@@ -29,14 +31,16 @@ public class VideoStream {
 	Image image_50;
 	Image image_30;
 	Image image_110;
+	Image image_double;
 	
 	
 	//constructor
-	public VideoStream(Interface window,String file_name) throws IOException {		
+	public VideoStream(Interface window) throws IOException {	
 		File f = new File(file_name);
 		this.camera = new VideoCapture(f.getAbsolutePath());
 		this.window = window;
 		this.initImage();
+		
 		
 	}
  
@@ -46,6 +50,7 @@ public class VideoStream {
 		this.image_50=ImageIO.read(new File("images/ref50.jpg"));
 		this.image_30=ImageIO.read(new File("images/ref30.jpg"));
 		this.image_110=ImageIO.read(new File("images/ref110.jpg"));
+		this.image_double=ImageIO.read(new File("images/ref110.jpg"));
 	}
 	
 	//run the video processing algorithm
@@ -55,6 +60,7 @@ public class VideoStream {
 		int frame_index=0;
 		
 		while (camera.read(frame)) {
+			System.out.println(file_name);
 			
 			if (frame_index % speed == 0) {
 				//Mat HSV_image=Utilities.RGB2HSV(frame);
@@ -71,13 +77,24 @@ public class VideoStream {
 					}
 				}	
 			}
-				this.window.panel_plate_image.repaint();
-				this.image = new ImageIcon(Utilities.Mat2bufferedImage(frame));
-				this.window.panel_video.setImage(getFrame());
-				this.window.panel_video.repaint();
+			this.window.panel_plate_image.repaint();
+			this.image = new ImageIcon(Utilities.Mat2bufferedImage(frame));
+			this.window.panel_video.setImage(getFrame());
+			this.window.panel_video.repaint();
 			
-				frame_index=frame_index+1;
-		}	
+			frame_index=frame_index+1;
+				
+			if (stop==1) {
+				setVideoFile();
+				stop=0;
+			}
+		}		
+	}
+	
+	//change the file name to run another video
+	public void setVideoFile() {
+		File f = new File(file_name);
+		this.camera = new VideoCapture(f.getAbsolutePath());
 	}
 	
 	public Image getFrame() {

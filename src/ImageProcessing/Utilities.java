@@ -459,7 +459,7 @@ public class Utilities {
 		
 			Mat img1=scale(sObject,object);
 			Mat img2=sObject;
-			// in order to well recognise the panel the brightness should be around 0.6-0.64
+			// in order to well recognize the panel the brightness should be around 0.6-0.64
 			float brightness=getBrightness(img1);
 			System.out.println("brightness="+brightness);
 			if(brightness<0.45)
