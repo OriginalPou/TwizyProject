@@ -2,6 +2,7 @@
 .mp4
 .avi
 .jpg
+.png
 Images/*
 Videos/*
 bin/ImageProcessing/
