@@ -2,6 +2,7 @@ package ImageProcessing;
 
 import java.io.File;
 
+
 import java.io.FileFilter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,8 +23,8 @@ import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.photo.Photo;
 
-import ImageProcessing.VideoStream;
-import ImageProcessing.Interface;
+import Interface.InterfaceVideo;
+import Interface.VideoStream;
 
 
 /*
@@ -36,9 +37,9 @@ public class Main {
 	public static void main( String[] args ) throws IOException {
 		//INTERFACE RUNNING MAIN
     	System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-    		Interface window = new Interface();
+    		InterfaceVideo window = new InterfaceVideo();
     		Vector<Mat> panels= Utilities.SignPanels();
-    		//String file_path="Videos/video2.mp4";
+    		
     		while(true) {
     			
     				VideoStream video_stream = new VideoStream(window);

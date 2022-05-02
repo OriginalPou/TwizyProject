@@ -1,4 +1,4 @@
-package ImageProcessing;
+package Panels;
 
 import java.awt.Graphics;
 

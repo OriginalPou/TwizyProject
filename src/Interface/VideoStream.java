@@ -1,6 +1,7 @@
-package ImageProcessing;
+package Interface;
 
 import java.awt.Image;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -17,13 +18,15 @@ import org.opencv.core.MatOfPoint;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.videoio.VideoCapture;
 
-import ImageProcessing.Interface;
+import ImageProcessing.Utilities;
 
 public class VideoStream {
-	public Interface window;
+	public InterfaceVideo window;
 	public VideoCapture camera ;
-	public static String file_name="Videos/video1.mp4";
-	public static int stop=0;
+	//public static String file_name="Videos/video1.mp4";
+	public static File file;
+	//public static int stop=0;
+	public static int filechanged=0;
 	//Mat PanneauAAnalyser = null;
 	ImageIcon image;
 	Image image_90;
@@ -35,9 +38,9 @@ public class VideoStream {
 	
 	
 	//constructor
-	public VideoStream(Interface window) throws IOException {	
-		File f = new File(file_name);
-		this.camera = new VideoCapture(f.getAbsolutePath());
+	public VideoStream(InterfaceVideo window) throws IOException {	
+		//File f = new File(file_name);
+		//this.camera = new VideoCapture(f.getAbsolutePath());
 		this.window = window;
 		this.initImage();
 		
@@ -55,12 +58,23 @@ public class VideoStream {
 	
 	//run the video processing algorithm
 	public void VideoProcessing(Vector<Mat> panels) {
+		
+		initVideo();
+		System.out.println(file);
 		Mat frame = new Mat();
 		int speed=10;	// adjust this for faster stream
 		int frame_index=0;
 		
 		while (camera.read(frame)) {
-			System.out.println(file_name);
+			
+			/*if (stop==1) {
+				setVideoFile();
+				stop=0;
+			}*/
+			if (filechanged==1) {
+				initVideo();
+				filechanged=0;
+			}
 			
 			if (frame_index % speed == 0) {
 				//Mat HSV_image=Utilities.RGB2HSV(frame);
@@ -84,17 +98,26 @@ public class VideoStream {
 			
 			frame_index=frame_index+1;
 				
-			if (stop==1) {
-				setVideoFile();
-				stop=0;
+			
+		}		
+	}
+	public void initVideo() {
+		
+		int done=0;
+		while(done==0) {
+			System.out.println(file);
+			if (file!=null) {
+				this.camera = new VideoCapture(file.getAbsolutePath());
+				done=1;
 			}
 		}		
 	}
 	
 	//change the file name to run another video
 	public void setVideoFile() {
-		File f = new File(file_name);
-		this.camera = new VideoCapture(f.getAbsolutePath());
+		//File f = new File(file_name);
+		//this.camera = new VideoCapture(f.getAbsolutePath());
+		this.camera = new VideoCapture(file.getAbsolutePath());
 	}
 	
 	public Image getFrame() {

@@ -1,4 +1,4 @@
-package ImageProcessing;
+package Panels;
 
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -9,7 +9,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-import ImageProcessing.VideoStream;
+import Interface.VideoStream;
 
 public class RunButton1 extends JButton implements MouseListener{
 Icon pressed, rolled;
@@ -18,11 +18,14 @@ Icon pressed, rolled;
 	public RunButton1 (String video)  {
 		this.setText(video);
 		this.addMouseListener(this);
+		//this.setBorderPainted(false);
+		this.setFocusPainted(false);
+		this.setContentAreaFilled(false);
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		VideoStream.file_name="Videos/video1.mp4";
-		VideoStream.stop=1;
+		//VideoStream.file_name="Videos/video1.mp4";
+		//VideoStream.stop=1;
 	}
 	
 	@Override
