@@ -322,7 +322,7 @@ public class Utilities {
 		 * @return : shows the panel that match
 		 */
 		
-		public static void Match(Mat object,List<Mat> panels) {
+		public static int Match(Mat object,List<Mat> panels) {
 			float[] results=new float[panels.size()];
 			float max=0;
 			int index=0;
@@ -335,7 +335,8 @@ public class Utilities {
 				index=i;
 				}
 			}
-			imShow("pannel detected",panels.get(index));
+			//imShow("pannel detected",panels.get(index));
+			return index;
 		}
 			
 		

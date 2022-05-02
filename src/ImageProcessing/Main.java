@@ -100,7 +100,7 @@ public class Main {
 		  System.loadLibrary(Core.NATIVE_LIBRARY_NAME); 
 		  Interface window = new Interface();
 		  Vector<Mat> panels= Utilities.SignPanels();
-		  String file_path="Videos/video2.mp4";
+		  String file_path="Videos/video1.mp4";
 		  while(true) {
 		  
 		  VideoStream video_stream = new VideoStream(window,file_path);

@@ -41,11 +41,27 @@ public class VideoStream {
 		this.image_90=ImageIO.read(new File("images/ref90.jpg"));
 	}
 	
+	public Vector<Image> CreatePanels() throws IOException{
+			
+			int[] panels= {30,50,70,90,110};
+		     Vector<Image> Signs=new Vector<Image>();
+		     for(int i=0;i<panels.length;i++) {
+		    	 Image panelimage=ImageIO.read(new File("Images/ref"+Integer.toString(panels[i])+".jpg"));
+		    	 Signs.addElement(panelimage);
+		      }
+	    	 Image panelimage=ImageIO.read(new File("Images/refdouble.jpg"));
+		     Signs.addElement(panelimage);
+		     return Signs;
+		}
+		
 	//run the video processing algorithm
-	public void VideoProcessing(Vector<Mat> panels) {
+	public void VideoProcessing(Vector<Mat> panels) throws IOException {
 		Mat frame = new Mat();
 		int speed=1;	// adjust this for faster stream
 		int frame_index=0;
+		Vector<Image> panelsImages;
+		int panelIndex;
+		panelsImages=CreatePanels();
 		
 		while (camera.read(frame)) {
 			
@@ -60,8 +76,8 @@ public class VideoStream {
 					
 					if (round_object!=null){
 						//Utilities.imShow("contour", round_object);
-						Utilities.Match(round_object,panels);
-						this.window.panel_plate_image.setImage(image_90);
+						panelIndex=Utilities.Match(round_object,panels);
+						this.window.panel_plate_image.setImage(panelsImages.get(panelIndex));
 					}
 				}	
 			}
