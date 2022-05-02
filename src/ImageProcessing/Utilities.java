@@ -62,6 +62,9 @@ import java.util.List;
 	
 public class Utilities {
 		
+		public static final String Matching_With_Difference   = "MatchingWithDifference";
+		public static final String Matching_With_PPSimilarity = "MatchingWithPPSimilarity";
+		public static final String Matching_With_RGB 		  = "Matching_With_RGB";
 	
 		/*
 		 * @brief : method that reads images
@@ -246,7 +249,7 @@ public class Utilities {
 			 * has more than 80% the area of a perfect circle 
 			 */
 			
-			if ((contourArea / (Math.PI*radius[0]*radius[0])) >=0.9) {
+			if ((contourArea / (Math.PI*radius[0]*radius[0])) >=0.86) {
 				//System.out.println("Cercle");
 				Imgproc.circle(img, center, (int)radius[0], new Scalar(255, 0, 0), 2);
 				Imgproc.rectangle(img, new Point(rect.x,rect.y), new Point(rect.x+rect.width,rect.y+rect.height), new Scalar (0, 255, 0), 5);
@@ -322,12 +325,23 @@ public class Utilities {
 		 * @return : shows the panel that match
 		 */
 		
-		public static int Match(Mat object,List<Mat> panels) {
+		public static int Match(Mat object,List<Mat> panels,String method) {
 			float[] results=new float[panels.size()];
 			float max=0;
 			int index=0;
 			for(int i=0;i<panels.size();i++) {
-				results[i]=MatchingWithRGB(object,panels.get(i));
+				switch (method) {
+				case Matching_With_Difference :
+					results[i]=MatchingWithDifference(object,panels.get(i));
+					break;
+				case Matching_With_PPSimilarity:
+					results[i]=MatchingWithPPSimilarity(object,panels.get(i));
+					break;
+				case Matching_With_RGB:
+					results[i]=MatchingWithRGB(object,panels.get(i));
+					break;
+				}
+				
 			}
 			for(int i=0;i<panels.size();i++) {
 			if(results[i]>max) {
@@ -335,7 +349,7 @@ public class Utilities {
 				index=i;
 				}
 			}
-			//imShow("pannel detected",panels.get(index));
+			imShow("pannel detected",panels.get(index));
 			return index;
 		}
 			
