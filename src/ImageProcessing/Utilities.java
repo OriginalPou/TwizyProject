@@ -161,27 +161,28 @@ public class Utilities {
 		 */
 		
 
-		public static Mat multipleThreshhold(Mat input, int RedOrange, int RedViolet,int Saturation, int luminance){
-				//creating matrix
-			Mat threshold_redviolet = new Mat();
-			Mat threshold_redorange = new Mat();
-			Mat threshold = new Mat();
-				
-				// check in range of redorange
-			Scalar lower_redorange = new Scalar(0,Saturation,luminance);
-			Scalar upper_redorange = new Scalar(RedOrange,255,255);
-			Core.inRange(input, lower_redorange, upper_redorange, threshold_redviolet);
-				
-				//check in range of redviolet
-			Scalar lower_redviolet= new Scalar (RedViolet,Saturation,luminance);
-			Scalar upper_redviolet = new Scalar (179,255,255);
-			Core.inRange(input, lower_redviolet, upper_redviolet, threshold_redorange);
-			    
-				//result
-			Core.bitwise_or(threshold_redviolet, threshold_redorange, threshold);			 
-			return(threshold);
+		public static Mat multipleThreshhold(Mat input, int RedOrange, int RedViolet,int Saturation){
+			//creating matrix
+		Mat threshold_redviolet = new Mat();
+		Mat threshold_redorange = new Mat();
+		Mat threshold = new Mat();
 			
-		}
+			// check in range of redorange
+		Scalar lower_redorange = new Scalar(0,Saturation,Saturation);
+		Scalar upper_redorange = new Scalar(RedOrange,255,255);
+		Core.inRange(input, lower_redorange, upper_redorange, threshold_redviolet);
+			
+			//check in range of redviolet
+		Scalar lower_redviolet= new Scalar (RedViolet,Saturation,Saturation);
+		Scalar upper_redviolet = new Scalar (179,255,255);
+		Core.inRange(input, lower_redviolet, upper_redviolet, threshold_redorange);
+		    
+			//result
+		Core.bitwise_or(threshold_redviolet, threshold_redorange, threshold);
+		 
+		return(threshold);
+		
+	}
 		
 		public static Mat rescale(Mat input) {
 			int scale_percent = 60; //percent of original size
@@ -198,27 +199,7 @@ public class Utilities {
 		 * @input : RGB image (Matrix) mxnx3
 		 * @return : List of point of a specific contour
 		 */
-		public static List<MatOfPoint> detectContoursImproved(Mat mat) {
-		    Mat hsvimage=Utilities.RGB2HSV(mat);
-		    Mat threshold_img=Utilities.multipleThreshhold(hsvimage, 10, 165, 40, 20);
-		    Photo.fastNlMeansDenoising(threshold_img, threshold_img, 100);
-			//Utilities.imShow("threshold",threshold_img);
-			int thresh =100;
-			Mat canny_output=new Mat();
-			List<MatOfPoint> contours = new ArrayList<MatOfPoint>();
-			MatOfInt4 hierarchy = new MatOfInt4();
-			Imgproc.Canny(threshold_img, canny_output, 50, thresh*2);
-			Imgproc.findContours(canny_output, contours, hierarchy, Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
-			//Mat drawing = Mat.zeros( canny_output.size(), CvType.CV_8UC3 );
-			Random rand = new Random();
-		    for(int i=0;i<contours.size();i++) {
-		    	Scalar color = new Scalar( rand.nextInt(255 - 0 + 1) , rand.nextInt(255 - 0 + 1),rand.nextInt(255 - 0 + 1) );
-				//Imgproc.drawContours(drawing, contours, i, color,3,5,hierarchy,0, new Point());
-		    }
-			
-			return contours;
 		
-		}
 
 		/*
 		 * @brief : method that detect all contours in a given hsv image
@@ -226,24 +207,20 @@ public class Utilities {
 		 * @return : List of point of a specific contour
 		 */
 		public static List<MatOfPoint> detectContours(Mat mat) {
-
-			
-			Mat threshold_img=multipleThreshhold(mat, 26, 150, 10, 10);
-			int thresh =50;
-
+			Mat threshold_img=multipleThreshhold(mat, 6, 150, 80);
+			int thresh =40;
 			Mat canny_output=new Mat();
 			List<MatOfPoint> contours = new ArrayList<MatOfPoint>();
 			MatOfInt4 hierarchy = new MatOfInt4();
 			Imgproc.Canny(threshold_img, canny_output, thresh, thresh*2);
 			Imgproc.findContours(canny_output, contours, hierarchy, Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
-			Mat drawing = Mat.zeros( canny_output.size(), CvType.CV_8UC3 );
-			Random rand = new Random();
 		    for(int i=0;i<contours.size();i++) {
-		    	Scalar color = new Scalar( rand.nextInt(255 - 0 + 1) , rand.nextInt(255 - 0 + 1),rand.nextInt(255 - 0 + 1) );
-				//Imgproc.drawContours(drawing, contours, i, color,3,5,hierarchy,0, new Point());
+		    	Scalar color = new Scalar(130,41,98);
+				Imgproc.drawContours(threshold_img, contours, i, color,3,5,hierarchy,0, new Point());
 		    }
-
+		    //imShow("contours", threshold_img);
 			return contours;
+		
 		}
 		
 		
@@ -252,7 +229,7 @@ public class Utilities {
 		 * @input : matrix of an image in RGB, MatOfPoint of the image contours
 		 * @return : a rectangular image containing the round contour 
 		 */
-		public static Mat DetectForm(Mat img, MatOfPoint contour) {
+		public static Mat DetectForm(Mat img,MatOfPoint contour) {
 			MatOfPoint2f matOfPoint2f = new MatOfPoint2f();
 			float[] radius = new float[1];
 			Point center = new Point();
@@ -261,7 +238,7 @@ public class Utilities {
 
 
 			matOfPoint2f.fromList(contour.toList());
-						// We look for the smallest round object
+			// We look for the smallest round object
 			Imgproc.minEnclosingCircle(matOfPoint2f, center, radius);
 			//System.out.println(contourArea+" "+Math.PI*radius[0]*radius[0]);
 			/*
@@ -269,33 +246,18 @@ public class Utilities {
 			 * has more than 80% the area of a perfect circle 
 			 */
 			
-			// we assume a circle is too small to be a sign if the area is smaller than 100
-			if (contourArea>250 &&(contourArea / (Math.PI*radius[0]*radius[0])) >=0.8) {
-				//System.out.println("Cercle"); 
-				//Imgproc.circle(img, center, (int)radius[0], new Scalar(255, 0, 0), 2);
-				//Imgproc.rectangle(img, new Point(rect.x,rect.y), new Point(rect.x+rect.width,rect.y+rect.height), new Scalar (0, 255, 0), 2);
-				/*
-				 * we add 20% to the size of the sign detected
-				 * why? trial and error
-				 * and it should help the template matching algorithm 
-				 */
-				double scaleUpPercent=0.1; // added size from each side of the rectangle
-				/*
-				 * sides of the rectangle
-				 */
-				int rowStart = rect.y-(int)(scaleUpPercent*rect.height);
-				int rowEnd 	 = rect.y+(int)(rect.height*(1+scaleUpPercent));
-				int colStart = rect.x-(int)(scaleUpPercent*rect.width);
-				int colEnd 	 = rect.x+(int)(rect.width*(1+scaleUpPercent));
-				Mat tmp = img.submat(rowStart,rowEnd,colStart,colEnd);
-				//Mat tmp = img.submat(rect.y,rect.y+rect.height,rect.x,rect.x+rect.width);
+			if ((contourArea / (Math.PI*radius[0]*radius[0])) >=0.9) {
+				//System.out.println("Cercle");
+				Imgproc.circle(img, center, (int)radius[0], new Scalar(255, 0, 0), 2);
+				Imgproc.rectangle(img, new Point(rect.x,rect.y), new Point(rect.x+rect.width,rect.y+rect.height), new Scalar (0, 255, 0), 5);
+				Mat tmp = img.submat(rect.y,rect.y+rect.height,rect.x,rect.x+rect.width);
 				Mat sign = Mat.zeros(tmp.size(),tmp.type());
 				tmp.copyTo(sign);
-				return sign;
+				if(sign.rows()>40 && sign.cols()>40)
+					return sign;
 			}
 			return null;
-		}		
-		
+		}
 		/*
 		 * @brief : function that makes similar the size of an object and the size of the template
 		 * @return : a resized matrix of the object extracted from an image
@@ -360,7 +322,7 @@ public class Utilities {
 		 * @return : shows the panel that match
 		 */
 		
-		public static void Match(Mat object,List<Mat> panels) {
+		public static int Match(Mat object,List<Mat> panels) {
 			float[] results=new float[panels.size()];
 			float max=0;
 			int index=0;
@@ -373,7 +335,8 @@ public class Utilities {
 				index=i;
 				}
 			}
-			imShow("pannel detected",panels.get(index));
+			//imShow("pannel detected",panels.get(index));
+			return index;
 		}
 			
 		
@@ -459,11 +422,11 @@ public class Utilities {
 		
 			Mat img1=scale(sObject,object);
 			Mat img2=sObject;
-			// in order to well recognise the panel the brightness should be around 0.6-0.64
+			// in order to well recognise the panel the brightness should be around 0.5 ~ 0.6
 			float brightness=getBrightness(img1);
 			System.out.println("brightness="+brightness);
 			if(brightness<0.45)
-				img1.convertTo(img1, -1, 1, 50);
+				img1.convertTo(img1, -1, 1, 55);
 			if(brightness>0.95)
 				img1.convertTo(img1, -1, 1, -85);
 			float brightnessAfter=getBrightness(img1);
@@ -531,7 +494,7 @@ public class Utilities {
 				while (camera.read(frame)) {
 					 
 					Mat HSV_image=Utilities.RGB2HSV(frame);
-					List<MatOfPoint> ListContours= Utilities.detectContoursImproved(HSV_image);
+					List<MatOfPoint> ListContours= Utilities.detectContours(HSV_image);
 					
 					Mat round_object = null;
 				
