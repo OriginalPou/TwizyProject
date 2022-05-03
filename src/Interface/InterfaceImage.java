@@ -1,7 +1,10 @@
 package Interface;
 
+import java.awt.Color;
+
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -15,6 +18,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 
 import Panels.imagePanel;
 import Panels.videoPanel;
@@ -63,13 +67,15 @@ private void DisplayWindow() {
 		// plate for image detected 1
 		panel_plate_image_1.setPreferredSize(new Dimension(250,250));
 		panel_plate_image_1.setMaximumSize(new Dimension(270,270));
-		panel_plate_image_1.setBorder(BorderFactory.createTitledBorder("panel 1:"));
+		panel_plate_image_1.setBorder( BorderFactory.createLineBorder(new Color(95,158,160), 1));
 		// plate for image detected 2
 		panel_plate_image_2.setPreferredSize(new Dimension(250,250));
 		panel_plate_image_2.setMaximumSize(new Dimension(250,250));
-		panel_plate_image_2.setBorder(BorderFactory.createTitledBorder("panel 2:"));
+		panel_plate_image_2.setBorder( BorderFactory.createLineBorder(new Color(95,158,160), 1));
 		
-		panel_plate_text.setText("Panel Detected: ");
+		panel_plate_text.setText("Panels Detected: ");
+		panel_plate_text.setFont(new Font(Font.SERIF, Font.BOLD, 20));
+		panel_plate_text.setForeground(new Color(95,158,160));
 		panel_plate_text_container.setMaximumSize(new Dimension(250,50));
 		
 		panel_plate_text_container.add(panel_plate_text);
@@ -84,7 +90,12 @@ private void DisplayWindow() {
 		
 		container_data.add(panel_data);
 		container_plate.add(container_data);
-
+		
+		//menu bar
+		menu.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 15));
+		menu.setForeground(Color.BLACK);
+		menu.setBorderPainted(true);
+		//UIManager.put("PopupMenu.border",BorderFactory.createLineBorder(new Color (0,206,209)));
 		menu.add(open_file);
 		menu_Bar.add(menu);
 		setJMenuBar(menu_Bar);

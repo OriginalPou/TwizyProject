@@ -250,7 +250,7 @@ public class Utilities {
 			 * has more than 80% the area of a perfect circle 
 			 */
 			
-			if ((contourArea / (Math.PI*radius[0]*radius[0])) >=0.86) {
+			if ((contourArea / (Math.PI*radius[0]*radius[0])) >=0.8) {
 				//System.out.println("Cercle");
 				Imgproc.circle(img, center, (int)radius[0], new Scalar(255, 0, 0), 2);
 				Imgproc.rectangle(img, new Point(rect.x,rect.y), new Point(rect.x+rect.width,rect.y+rect.height), new Scalar (0, 255, 0), 5);
@@ -442,13 +442,13 @@ public class Utilities {
 			// in order to well recognise the panel the brightness should be around 0.5 ~ 0.6
 
 			float brightness=getBrightness(img1);
-			System.out.println("brightness="+brightness);
+			//System.out.println("brightness="+brightness);
 			if(brightness<0.45)
 				img1.convertTo(img1, -1, 1, 55);
 			if(brightness>0.95)
 				img1.convertTo(img1, -1, 1, -85);
-			float brightnessAfter=getBrightness(img1);
-			System.out.println("brightness after="+brightnessAfter);
+			//float brightnessAfter=getBrightness(img1);
+			//System.out.println("brightness after="+brightnessAfter);
 			int height=img1.height();
 			int width =img1.width();
 			double diff = 0;

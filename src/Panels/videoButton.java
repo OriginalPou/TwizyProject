@@ -1,10 +1,12 @@
 package Panels;
 
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
+import javax.swing.border.LineBorder;
 
 import ImageProcessing.Main;
 import Interface.VideoStream;
@@ -18,6 +20,7 @@ Icon pressed, rolled;
 		this.addMouseListener(this);
 		this.setFocusPainted(false);
 		this.setContentAreaFilled(false);
+		this.setBorder(new LineBorder(Color.WHITE));
 		
 	}
 	@Override

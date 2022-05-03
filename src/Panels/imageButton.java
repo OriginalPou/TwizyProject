@@ -2,6 +2,7 @@ package Panels;
 
 import java.awt.Dimension;
 
+
 import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -10,6 +11,7 @@ import java.io.IOException;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.border.LineBorder;
 
 import org.opencv.core.Mat;
 
@@ -21,6 +23,7 @@ import Interface.InterfaceImage;
 import Interface.VideoStream;
 import java.util.List;
 import java.util.Vector;
+import java.awt.Color;
 
 public class imageButton extends JButton implements MouseListener{
 Icon pressed, rolled;
@@ -32,6 +35,7 @@ Icon pressed, rolled;
 		//this.setBorderPainted(false);
 		this.setFocusPainted(false);
 		this.setContentAreaFilled(false);
+		this.setBorder(new LineBorder(Color.WHITE));
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {

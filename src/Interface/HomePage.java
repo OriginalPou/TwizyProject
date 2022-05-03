@@ -4,6 +4,7 @@ import java.awt.Dimension;
 
 
 
+
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JFrame;
@@ -35,6 +36,7 @@ public class HomePage extends JFrame{
 		this.setSize(width,height);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
+	
 		
 	}
 	
@@ -46,33 +48,33 @@ public class HomePage extends JFrame{
 		
 		
 		// Home page text label
-		panel_text.setText("HOME PAGE ");
-		panel_text.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 90));
+		panel_text.setText("Road Sign Detection");
+		panel_text.setFont(new Font(Font.SERIF, Font.PLAIN, 85));
 		//panel_text.setForeground(new Color(255,255,255));
 		panel_text.setAlignmentX(Component.CENTER_ALIGNMENT);
 	
 		//buttons
-		button_image=new imageButton("Image Processing");
-		button_video=new videoButton("Video Processing");
+		button_image=new imageButton(" Image Processing ");
+		button_video=new videoButton(" Video Processing ");
 		
 		//add text
 		container_button.add(Box.createRigidArea(new Dimension(20, 20)));
 		container_button.add(panel_text);
 		
 		//add button 1
-		container_button.add(Box.createRigidArea(new Dimension(50, 50)));
+		container_button.add(Box.createRigidArea(new Dimension(80, 80)));
 		button_image.setFont(new Font(Font.SERIF, Font.BOLD , 40));
 		button_image.setForeground(new Color(255,255,255));
 		button_image.setAlignmentX(Component.CENTER_ALIGNMENT);
 		container_button.add(button_image);
 		
 		//add button 2
-		container_button.add(Box.createRigidArea(new Dimension(30, 30)));
+		container_button.add(Box.createRigidArea(new Dimension(50, 50)));
 		button_video.setFont(new Font(Font.SERIF, Font.BOLD, 40));
 		button_video.setForeground(new Color(255,255,255));
 		button_video.setAlignmentX(Component.CENTER_ALIGNMENT);
 		container_button.add(button_video);
-		container_button.setBackground (new Color(173,216,230)); //change bkg color RGB
+		container_button.setBackground (new Color(95,158,160)); //change bkg color RGB
 		
 		this.setContentPane(container_button);
 	
