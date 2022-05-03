@@ -60,7 +60,7 @@ public class algorithmTester {
 	}
 	
 		for(int j=0;j<labels.length;j++) {
-			System.out.println(result[j]);
+			//System.out.println(result[j]);
 			if(result[j]==labels[j])
 				accuracy++;
 		}

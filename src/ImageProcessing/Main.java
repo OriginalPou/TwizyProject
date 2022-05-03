@@ -99,8 +99,8 @@ public class Main {
     	
     	//INTERFACE RUNNING MAIN
 		List<Mat> dataSet=algorithmTester.createDataSet();
-		float accuracy = algorithmTester.test(dataSet,labels,Utilities.Matching_With_Difference);
-		System.out.println("accuracy="+accuracy);
+		float accuracy = algorithmTester.test(dataSet,labels,Utilities.Matching_With_RGB);
+		System.out.println("accuracy="+accuracy+"%");
 		/*
 		  System.loadLibrary(Core.NATIVE_LIBRARY_NAME); 
 		  Interface window = new Interface();
