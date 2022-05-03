@@ -3,6 +3,7 @@ package ImageProcessing;
 import java.io.File;
 
 
+
 import java.io.FileFilter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,6 +24,9 @@ import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.photo.Photo;
 
+import Interface.HomePage;
+import Interface.ImageStream;
+import Interface.InterfaceImage;
 import Interface.InterfaceVideo;
 import Interface.VideoStream;
 
@@ -34,18 +38,45 @@ import Interface.VideoStream;
  */
 
 public class Main {
+	public static int runImage=0;
+	public static int runVideo=0;
 	public static void main( String[] args ) throws IOException {
-		//INTERFACE RUNNING MAIN
+	
     	System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-    		InterfaceVideo window = new InterfaceVideo();
-    		Vector<Mat> panels= Utilities.SignPanels();
-    		
-    		while(true) {
-    			
-    				VideoStream video_stream = new VideoStream(window);
-    				video_stream.VideoProcessing(panels);
+    	HomePage window = new HomePage();
     	
+    	window.DisplayHomePage();
+    	
+    	while(true) {
+    		System.out.println(runImage);
+    		if (runImage==1) {
+    			System.out.println(runImage);
+	    	 Vector<Mat> panels= Utilities.SignPanels();
+	    		InterfaceImage windowProc= new InterfaceImage();
+	    		while (true) {
+	    			ImageStream video_stream = new ImageStream(windowProc);
+	    			video_stream.ImageProcessing(panels);
+	    		}
+	    	}
+    		else if (runVideo==1) {
+    			 Vector<Mat> panels= Utilities.SignPanels();
+ 	    		InterfaceVideo windowProc= new InterfaceVideo();
+ 	    		while (true) {
+	    			VideoStream video_stream = new VideoStream(windowProc);
+	    			video_stream.VideoProcessing(panels);
+	    		}
     		}
+    	}
+ 
+    	
+		
+    	
+    		/*while(true) {
+    			
+    				ImageStream video_stream = new ImageStream(window);
+    				video_stream.ImageProcessing(panels);
+    	
+    		}*/
 
       /*Mat img = Utilities.readImage("Images/ref90.jpg");
       Utilities.GreyMode(img);

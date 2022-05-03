@@ -6,13 +6,14 @@ import java.awt.event.MouseListener;
 import javax.swing.Icon;
 import javax.swing.JButton;
 
+import ImageProcessing.Main;
 import Interface.VideoStream;
 
-public class RunButton2 extends JButton implements MouseListener {
+public class videoButton extends JButton implements MouseListener {
 Icon pressed, rolled;
 
 	
-	public RunButton2(String video) {
+	public videoButton(String video) {
 		this.setText(video);
 		this.addMouseListener(this);
 		this.setFocusPainted(false);
@@ -21,8 +22,7 @@ Icon pressed, rolled;
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		//VideoStream.file_name="Videos/video2.mp4";
-		//VideoStream.stop=1;
+		Main.runVideo=1;
 	}
 	
 	@Override

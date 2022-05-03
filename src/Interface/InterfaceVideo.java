@@ -4,6 +4,7 @@ import java.awt.Color;
 
 
 
+
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -36,9 +37,6 @@ import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
 import org.opencv.highgui.HighGui;
 import org.opencv.videoio.VideoCapture;
-
-import Panels.RunButton1;
-import Panels.RunButton2;
 import Panels.imagePanel;
 import Panels.videoPanel;
 
@@ -70,10 +68,10 @@ public class InterfaceVideo extends JFrame  {
 	
 	private JPanel panel_plate_text_container = new JPanel(); //container of the text
 	
-	public JPanel panel_button = new JPanel();//panel for buttons
+	/*public JPanel panel_button = new JPanel();//panel for buttons
 	
 	public RunButton1 button_video1; //button to run video1 
-	public RunButton2 button_video2;//button to run video2 
+	public RunButton2 button_video2;//button to run video2*/ 
 	
 	private JMenuBar menu_Bar = new JMenuBar();
 	private JMenu menu= new JMenu("File");	

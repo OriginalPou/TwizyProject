@@ -111,9 +111,9 @@ private void DisplayWindow() {
 	}
 	//set file name
 	public void setFile(File file) {
-			/*VideoStream.file=file;	
+			ImageStream.file=file;	
 			System.out.println(file);
-			VideoStream.filechanged=1;
-			//System.out.println(file);*/
+			ImageStream.filechanged=1;
+			//System.out.println(file);
 	}
 }
