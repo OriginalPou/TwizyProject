@@ -86,7 +86,7 @@ public class VideoStream {
 					round_object=Utilities.DetectForm(frame,contour);
 					if (round_object!=null){
 						//Utilities.imShow("contour", round_object);
-						//Utilities.Match(round_object,panels);
+						Utilities.Match(round_object,panels);
 						this.window.panel_plate_image.setImage(image_90);
 					}
 				}	
