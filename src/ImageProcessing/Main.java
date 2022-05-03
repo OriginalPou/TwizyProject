@@ -41,6 +41,7 @@ public class Main {
 	public static int runImage=0;
 	public static int runVideo=0;
 	public static void main( String[] args ) throws IOException {
+
 	
     	System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
     	HomePage window = new HomePage();
@@ -78,13 +79,18 @@ public class Main {
     	
     		}*/
 
+
+		
+		//{30,50,70,90,110}
+		//Vector<Mat> panels= Utilities.SignPanels();
+
       /*Mat img = Utilities.readImage("Images/ref90.jpg");
       Utilities.GreyMode(img);
       Utilities.BGRMode(img);
       Mat mat = Mat.eye(3, 3, CvType.CV_8UC1);
-      System.out.println("mat = " + mat.dump());
-      */
-    /*  Mat testFile = Utilities.readImage("Images/p8.jpg");
+      System.out.println("mat = " + mat.dump());*/
+      
+     /* Mat testFile = Utilities.readImage("Images/p10.jpg");
       //Mat ref = Utilities.readImage("Images/ref70.jpg");
       Utilities.imShow("test file", testFile);
       Mat hsvimage=Utilities.RGB2HSV(testFile);
@@ -95,8 +101,8 @@ public class Main {
 		  for (MatOfPoint contour: listeContours ){
 		  objetrond=Utilities.DetectForm(testFile,contour); if (objetrond!= null) {
 		  Utilities.imShow("contour rond", objetrond);
-		  Utilities.Match(objetrond,panels); }
-		  }*/
+		  Utilities.Match(objetrond,panels); }*/
+		  //}
 	     // uncomment this if u are working on the images on drive ( we have some problems in seuillage )
 		  
       //Utilities.Match(testFile,panels);
@@ -137,8 +143,48 @@ public class Main {
       }
       //Mat testFile = Utilities.readImage("Images/data/detected_images/00006.png");*/
     	
-    	
-    	
+
+		/*
+		  System.loadLibrary(Core.NATIVE_LIBRARY_NAME); 
+		  Interface window = new Interface();
+		  Vector<Mat> panels= Utilities.SignPanels();
+		  String file_path="Videos/video2.mp4";
+		  while(true) {
+		  
+		  VideoStream video_stream = new VideoStream(window,file_path);
+		  video_stream.VideoProcessing(panels);
+		  
+		  }*/
+		 
+		
+//		Vector<Mat> panels= Utilities.SignPanels();
+//		Mat testFile = Utilities.readImage("Images/p10.jpg");
+//	      //Mat ref = Utilities.readImage("Images/ref70.jpg");
+//	      Utilities.imShow("test file", testFile);
+//	      Mat hsvimage=Utilities.RGB2HSV(testFile);
+//	      //HighGui.imshow("hsv 110km/h", hsvimage);
+//	     List<MatOfPoint> listeContours = Utilities.detectContours(hsvimage);
+//	     Mat objetrond = null;
+//			  
+//			  for (MatOfPoint contour: listeContours ){
+//			  objetrond=Utilities.DetectForm(testFile,contour);
+//			  if (objetrond!= null) {
+//			  Utilities.imShow("contour rond", objetrond);
+//			  Utilities.Match(objetrond,panels); }
+//			  
+//			  
+//			  }
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
       
    }

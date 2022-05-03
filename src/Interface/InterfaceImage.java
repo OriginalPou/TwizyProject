@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -25,7 +26,8 @@ public class InterfaceImage extends JFrame{
 	public imagePanel panel_data = new imagePanel(); // panel containing the data stream
 	
 	public JPanel panel_plate = new videoPanel(); // panel to display the detected plate and info
-	public imagePanel panel_plate_image = new imagePanel(); // panel to display the image of the detected plate inside the plate panel
+	public imagePanel panel_plate_image_1 = new imagePanel(); // panel to display the image of the detected plate inside the plate panel
+	public imagePanel panel_plate_image_2 = new imagePanel(); // panel to display the image2 of the detected plate inside the plate panel
 	private JLabel panel_plate_text = new JLabel();//panel to display a text in the detected plate panel
 	
 	private JPanel panel_plate_text_container = new JPanel(); //container of the text
@@ -58,16 +60,24 @@ private void DisplayWindow() {
 		panel_plate.setLayout(new BoxLayout(panel_plate, BoxLayout.Y_AXIS));
 		//panel_plate.setBorder(BorderFactory.createTitledBorder("Panel Detected:"));
 		
-		panel_plate_image.setPreferredSize(new Dimension(250,250));
-		panel_plate_image.setMaximumSize(new Dimension(250,250));
+		// plate for image detected 1
+		panel_plate_image_1.setPreferredSize(new Dimension(250,250));
+		panel_plate_image_1.setMaximumSize(new Dimension(270,270));
+		panel_plate_image_1.setBorder(BorderFactory.createTitledBorder("panel 1:"));
+		// plate for image detected 2
+		panel_plate_image_2.setPreferredSize(new Dimension(250,250));
+		panel_plate_image_2.setMaximumSize(new Dimension(250,250));
+		panel_plate_image_2.setBorder(BorderFactory.createTitledBorder("panel 2:"));
 		
 		panel_plate_text.setText("Panel Detected: ");
 		panel_plate_text_container.setMaximumSize(new Dimension(250,50));
 		
 		panel_plate_text_container.add(panel_plate_text);
-		panel_plate_text_container.add(panel_plate_image);
+		panel_plate_text_container.add(panel_plate_image_1);
+		panel_plate_text_container.add(panel_plate_image_2);
 		panel_plate.add(panel_plate_text_container);
-		panel_plate.add(panel_plate_image);
+		panel_plate.add(panel_plate_image_1);
+		panel_plate.add(panel_plate_image_2);
 		panel_plate.add(new JPanel());
 		//container_plate.add(panel_button);
 		container_plate.add(panel_plate);

@@ -21,5 +21,6 @@ public class videoPanel extends JPanel {
 	public void paintComponent(Graphics g) {
 		g.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), null);
 	}
-
+	
+	
 }

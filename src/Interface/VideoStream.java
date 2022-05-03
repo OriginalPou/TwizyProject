@@ -29,12 +29,7 @@ public class VideoStream {
 	public static int filechanged=0;
 	//Mat PanneauAAnalyser = null;
 	ImageIcon image;
-	Image image_90;
-	Image image_70;
-	Image image_50;
-	Image image_30;
-	Image image_110;
-	Image image_double;
+	Image empty;
 	
 	
 	//constructor
@@ -48,23 +43,26 @@ public class VideoStream {
 	}
  
 	public void initImage() throws IOException {
-		this.image_90=ImageIO.read(new File("images/ref90.jpg"));
-		this.image_70=ImageIO.read(new File("images/ref70.jpg"));
-		this.image_50=ImageIO.read(new File("images/ref50.jpg"));
-		this.image_30=ImageIO.read(new File("images/ref30.jpg"));
-		this.image_110=ImageIO.read(new File("images/ref110.jpg"));
-		this.image_double=ImageIO.read(new File("images/ref110.jpg"));
+		this.empty=ImageIO.read(new File("Interface_Images/white.png"));
 	}
 	
+	
+	
 	//run the video processing algorithm
-	public void VideoProcessing(Vector<Mat> panels) {
+	public void VideoProcessing(Vector<Mat> panels) throws IOException {
 		
 		initVideo();
 		System.out.println(file);
 		Mat frame = new Mat();
-		int speed=10;	// adjust this for faster stream
+		int speed=20;	// adjust this for faster stream
 		int frame_index=0;
+		Vector<Image> panelsImages;
+		int panelIndex;
+		panelsImages=Utilities.CreatePanels();
+		this.window.panel_plate_image_1.setImage(empty);
+		this.window.panel_plate_image_2.setImage(empty);
 		
+		int i=0;
 		while (camera.read(frame)) {
 			
 			/*if (stop==1) {
@@ -77,21 +75,42 @@ public class VideoStream {
 			}
 			
 			if (frame_index % speed == 0) {
-				//Mat HSV_image=Utilities.RGB2HSV(frame);
-				List<MatOfPoint> ListContours= Utilities.detectContoursImproved(frame);
+				Mat HSV_image=Utilities.RGB2HSV(frame);
+				List<MatOfPoint> ListContours= Utilities.detectContours(HSV_image);
+				
 				
 				Mat round_object = null;
-		
+				Vector<Image> panelsImagesToShow = new Vector<Image>();
 				for (MatOfPoint contour: ListContours  ){
 					round_object=Utilities.DetectForm(frame,contour);
 					if (round_object!=null){
-						//Utilities.imShow("contour", round_object);
-						Utilities.Match(round_object,panels);
-						this.window.panel_plate_image.setImage(image_90);
+						///Utilities.imShow("contour", round_object);
+						panelIndex=Utilities.Match(round_object,panels,Utilities.Matching_With_RGB);
+						panelsImagesToShow.insertElementAt(panelsImages.get(panelIndex), i);
+						//this.window.panel_plate_image_1.setImage(panelsImages.get(indexes[i])); // you have an array of index 
+						
+						i++;
 					}
-				}	
+					//Arrays.fill(indexes,0);
+				}
+				if(panelsImagesToShow!=null)
+				{
+				
+					
+				if(panelsImagesToShow.size()==1) 
+					this.window.panel_plate_image_1.setImage(panelsImagesToShow.get(0));
+				
+				else if(panelsImagesToShow.size()==2) {
+					this.window.panel_plate_image_1.setImage(panelsImagesToShow.get(0));
+					this.window.panel_plate_image_2.setImage(panelsImagesToShow.get(1));
+				
+						}
+					}
+				i=0;
+				// here call the setImage function for each index in the array indexes4
 			}
-			this.window.panel_plate_image.repaint();
+			this.window.panel_plate_image_1.repaint();
+			this.window.panel_plate_image_2.repaint();
 			this.image = new ImageIcon(Utilities.Mat2bufferedImage(frame));
 			this.window.panel_video.setImage(getFrame());
 			this.window.panel_video.repaint();
