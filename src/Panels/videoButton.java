@@ -12,15 +12,13 @@ import ImageProcessing.Main;
 import Interface.VideoStream;
 
 public class videoButton extends JButton implements MouseListener {
-Icon pressed, rolled;
-
 	
 	public videoButton(String video) {
 		this.setText(video);
 		this.addMouseListener(this);
 		this.setFocusPainted(false);
 		this.setContentAreaFilled(false);
-		this.setBorder(new LineBorder(Color.WHITE));
+		this.setBorder(new LineBorder(new Color (220,20,60)));
 		
 	}
 	@Override

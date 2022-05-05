@@ -18,15 +18,15 @@ import org.opencv.core.MatOfPoint;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.videoio.VideoCapture;
 
+import ImageProcessing.Main;
 import ImageProcessing.Utilities;
 
 public class VideoStream {
 	public InterfaceVideo window;
 	public VideoCapture camera ;
-	//public static String file_name="Videos/video1.mp4";
 	public static File file;
-	//public static int stop=0;
 	public static int filechanged=0;
+	public static  int stop=0;
 	//Mat PanneauAAnalyser = null;
 	ImageIcon image;
 	Image empty;
@@ -34,57 +34,52 @@ public class VideoStream {
 	
 	//constructor
 	public VideoStream(InterfaceVideo window) throws IOException {	
-		//File f = new File(file_name);
-		//this.camera = new VideoCapture(f.getAbsolutePath());
 		this.window = window;
-		this.initImage();
-		
-		
+		this.initImage();	
 	}
  
 	public void initImage() throws IOException {
 		this.empty=ImageIO.read(new File("Interface_Images/white.png"));
+		this.window.panel_plate_image_1.setImage(empty);
+		this.window.panel_plate_image_2.setImage(empty);
 	}
-	
-	
-	
+
 	//run the video processing algorithm
 	public void VideoProcessing(Vector<Mat> panels) throws IOException {
 		
 		initVideo();
+		initImage();
 		System.out.println(file);
+		
 		Mat frame = new Mat();
 		int speed=20;	// adjust this for faster stream
 		int frame_index=0;
+		
 		Vector<Image> panelsImages;
 		int panelIndex;
 		panelsImages=Utilities.CreatePanels();
-		this.window.panel_plate_image_1.setImage(empty);
-		this.window.panel_plate_image_2.setImage(empty);
 		
 		int i=0;
-		while (camera.read(frame)) {
-			
-			/*if (stop==1) {
-				setVideoFile();
-				stop=0;
-			}*/
+		
+		while (camera.read(frame)&&(stop==0)) {
+		
 			if (filechanged==1) {
 				initVideo();
+				initImage();
 				filechanged=0;
 			}
 			
 			if (frame_index % speed == 0) {
+				
 				Mat HSV_image=Utilities.RGB2HSV(frame);
 				List<MatOfPoint> ListContours= Utilities.detectContours(HSV_image);
-				
 				
 				Mat round_object = null;
 				Vector<Image> panelsImagesToShow = new Vector<Image>();
 				for (MatOfPoint contour: ListContours  ){
 					round_object=Utilities.DetectForm(frame,contour);
 					if (round_object!=null){
-						///Utilities.imShow("contour", round_object);
+
 						panelIndex=Utilities.Match(round_object,panels,Utilities.Matching_With_RGB);
 						panelsImagesToShow.insertElementAt(panelsImages.get(panelIndex), i);
 						//this.window.panel_plate_image_1.setImage(panelsImages.get(indexes[i])); // you have an array of index 
@@ -93,19 +88,16 @@ public class VideoStream {
 					}
 					//Arrays.fill(indexes,0);
 				}
-				if(panelsImagesToShow!=null)
-				{
+				if(panelsImagesToShow!=null){
 				
+					if(panelsImagesToShow.size()==1) 
+						this.window.panel_plate_image_1.setImage(panelsImagesToShow.get(0));
 					
-				if(panelsImagesToShow.size()==1) 
-					this.window.panel_plate_image_1.setImage(panelsImagesToShow.get(0));
-				
-				else if(panelsImagesToShow.size()==2) {
-					this.window.panel_plate_image_1.setImage(panelsImagesToShow.get(0));
-					this.window.panel_plate_image_2.setImage(panelsImagesToShow.get(1));
-				
+					else if(panelsImagesToShow.size()==2) {
+						this.window.panel_plate_image_1.setImage(panelsImagesToShow.get(0));
+						this.window.panel_plate_image_2.setImage(panelsImagesToShow.get(1));
 						}
-					}
+				}
 				i=0;
 				// here call the setImage function for each index in the array indexes4
 			}
@@ -116,12 +108,11 @@ public class VideoStream {
 			this.window.panel_video.repaint();
 			
 			frame_index=frame_index+1;
-				
-			
 		}		
 	}
+	
+	//load a video with its filename
 	public void initVideo() {
-		
 		int done=0;
 		while(done==0) {
 			System.out.println(file);
@@ -134,15 +125,11 @@ public class VideoStream {
 	
 	//change the file name to run another video
 	public void setVideoFile() {
-		//File f = new File(file_name);
-		//this.camera = new VideoCapture(f.getAbsolutePath());
 		this.camera = new VideoCapture(file.getAbsolutePath());
 	}
 	
 	public Image getFrame() {
 		return this.image.getImage();
 	}
-
-
 
 }

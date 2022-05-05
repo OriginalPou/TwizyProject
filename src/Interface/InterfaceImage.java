@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 
 import javax.swing.BorderFactory;
@@ -20,6 +22,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
+import ImageProcessing.Main;
 import Panels.imagePanel;
 import Panels.videoPanel;
 
@@ -44,13 +47,17 @@ public class InterfaceImage extends JFrame{
 	public int height=600;
 	public File File;
 
-
 	public InterfaceImage(){
 		this.setTitle("Interface Twizzy: Image processing");
 		this.setSize(width,height);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 		this.DisplayWindow();
+		this.addWindowListener( new WindowAdapter() {
+		      @Override
+		      public void windowClosing(WindowEvent we) {
+		        Main.runImage=0;
+		      }
+		});
 		
 	}
 	
@@ -60,6 +67,7 @@ private void DisplayWindow() {
 		container_data.setLayout(new BoxLayout(container_data, BoxLayout.X_AXIS));
 	
 		panel_data.setPreferredSize(new Dimension(this.getWidth()-250,this.getHeight()-20));
+		panel_data.setMaximumSize(new Dimension(this.getWidth()-250,this.getHeight()-20));
 		
 		panel_plate.setLayout(new BoxLayout(panel_plate, BoxLayout.Y_AXIS));
 		//panel_plate.setBorder(BorderFactory.createTitledBorder("Panel Detected:"));
@@ -67,15 +75,15 @@ private void DisplayWindow() {
 		// plate for image detected 1
 		panel_plate_image_1.setPreferredSize(new Dimension(250,250));
 		panel_plate_image_1.setMaximumSize(new Dimension(270,270));
-		panel_plate_image_1.setBorder( BorderFactory.createLineBorder(new Color(95,158,160), 1));
+		panel_plate_image_1.setBorder( BorderFactory.createLineBorder(new Color (220,20,60), 1));
 		// plate for image detected 2
 		panel_plate_image_2.setPreferredSize(new Dimension(250,250));
 		panel_plate_image_2.setMaximumSize(new Dimension(250,250));
-		panel_plate_image_2.setBorder( BorderFactory.createLineBorder(new Color(95,158,160), 1));
+		panel_plate_image_2.setBorder( BorderFactory.createLineBorder(new Color (220,20,60), 1));
 		
 		panel_plate_text.setText("Panels Detected: ");
 		panel_plate_text.setFont(new Font(Font.SERIF, Font.BOLD, 20));
-		panel_plate_text.setForeground(new Color(95,158,160));
+		panel_plate_text.setForeground(Color.BLACK);
 		panel_plate_text_container.setMaximumSize(new Dimension(250,50));
 		
 		panel_plate_text_container.add(panel_plate_text);
@@ -85,7 +93,6 @@ private void DisplayWindow() {
 		panel_plate.add(panel_plate_image_1);
 		panel_plate.add(panel_plate_image_2);
 		panel_plate.add(new JPanel());
-		//container_plate.add(panel_button);
 		container_plate.add(panel_plate);
 		
 		container_data.add(panel_data);
@@ -95,30 +102,24 @@ private void DisplayWindow() {
 		menu.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 15));
 		menu.setForeground(Color.BLACK);
 		menu.setBorderPainted(true);
-		//UIManager.put("PopupMenu.border",BorderFactory.createLineBorder(new Color (0,206,209)));
 		menu.add(open_file);
 		menu_Bar.add(menu);
 		setJMenuBar(menu_Bar);
 		menu.addSeparator();
 		
 		open_file.addActionListener(
-
 	            new ActionListener() {
 	                private Component frame;
-
 	                @Override
 	                public void actionPerformed(ActionEvent enterPress) {
 	                    JFileChooser chooser = new JFileChooser();
 	                    File file;
-	                    
 	                    chooser.setCurrentDirectory(new java.io.File("."));
 	                    chooser.setSelectedFile(new File(""));
 	                    chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 	                    if (chooser.showOpenDialog(frame) == JFileChooser.OPEN_DIALOG) {
 	                        file = chooser.getSelectedFile();
 	                        setFile(file);
-	                        
-	                        
 	                    }
 	                    else {
 	                    	System.out.println("error");
@@ -126,6 +127,7 @@ private void DisplayWindow() {
 	                }
 	                
 	            });
+		
 		this.setContentPane(container_plate);
 		pack();
 		
@@ -135,6 +137,5 @@ private void DisplayWindow() {
 			ImageStream.file=file;	
 			System.out.println(file);
 			ImageStream.filechanged=1;
-			//System.out.println(file);
 	}
 }

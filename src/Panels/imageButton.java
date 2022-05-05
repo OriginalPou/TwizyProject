@@ -26,20 +26,18 @@ import java.util.Vector;
 import java.awt.Color;
 
 public class imageButton extends JButton implements MouseListener{
-Icon pressed, rolled;
 
-	
 	public imageButton (String name)  {
 		this.setText(name);
 		this.addMouseListener(this);
 		//this.setBorderPainted(false);
 		this.setFocusPainted(false);
 		this.setContentAreaFilled(false);
-		this.setBorder(new LineBorder(Color.WHITE));
+		this.setBorder(new LineBorder(new Color (220,20,60)));
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		Main.runImage=1;
+		Main.runImage=1;	
 	}
 	
 	@Override

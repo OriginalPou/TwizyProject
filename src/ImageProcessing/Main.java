@@ -40,6 +40,7 @@ import Interface.VideoStream;
 public class Main {
 	public static int runImage=0;
 	public static int runVideo=0;
+	
 	public static void main( String[] args ) throws IOException {
 
 	
@@ -52,21 +53,25 @@ public class Main {
     		System.out.println(runImage);
     		if (runImage==1) {
     			System.out.println(runImage);
-	    	 Vector<Mat> panels= Utilities.SignPanels();
+    			Vector<Mat> panels= Utilities.SignPanels();
 	    		InterfaceImage windowProc= new InterfaceImage();
-	    		while (true) {
+	    		while (runImage==1) {
 	    			ImageStream video_stream = new ImageStream(windowProc);
 	    			video_stream.ImageProcessing(panels);
 	    		}
 	    	}
     		else if (runVideo==1) {
-    			 Vector<Mat> panels= Utilities.SignPanels();
+    			Vector<Mat> panels= Utilities.SignPanels();
  	    		InterfaceVideo windowProc= new InterfaceVideo();
- 	    		while (true) {
+ 	    		while (runVideo==1) {
 	    			VideoStream video_stream = new VideoStream(windowProc);
 	    			video_stream.VideoProcessing(panels);
+	    			video_stream.stop=0;
 	    		}
+ 	    		
+ 	    		
     		}
+    		
     	}
  
     	

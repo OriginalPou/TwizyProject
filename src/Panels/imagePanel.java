@@ -13,7 +13,6 @@ public class imagePanel extends JPanel {
 	Image image;
 	public imagePanel() {
 		try {
-			//must change the image to an empty one
 			image = ImageIO.read(new File("Interface_Images/white.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

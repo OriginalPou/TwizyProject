@@ -25,8 +25,6 @@ public class HomePage extends JFrame{
 	public videoButton button_video;//button to run video processing
 	private JPanel container_button = new JPanel(); //container for the buttons
 	private JLabel panel_text = new JLabel();//panel to display a text in the detected plate panel
-	private JPanel panel_text_container = new JPanel(); //container of the text
-	
 	
 	public int width=800;
 	public int height=600;
@@ -36,8 +34,6 @@ public class HomePage extends JFrame{
 		this.setSize(width,height);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
-	
-		
 	}
 	
 	public void DisplayHomePage() {
@@ -64,17 +60,17 @@ public class HomePage extends JFrame{
 		//add button 1
 		container_button.add(Box.createRigidArea(new Dimension(80, 80)));
 		button_image.setFont(new Font(Font.SERIF, Font.BOLD , 40));
-		button_image.setForeground(new Color(255,255,255));
+		//button_image.setForeground(new Color(255,255,255));
 		button_image.setAlignmentX(Component.CENTER_ALIGNMENT);
 		container_button.add(button_image);
 		
 		//add button 2
 		container_button.add(Box.createRigidArea(new Dimension(50, 50)));
 		button_video.setFont(new Font(Font.SERIF, Font.BOLD, 40));
-		button_video.setForeground(new Color(255,255,255));
+		//button_video.setForeground(new Color(255,255,255));
 		button_video.setAlignmentX(Component.CENTER_ALIGNMENT);
 		container_button.add(button_video);
-		container_button.setBackground (new Color(95,158,160)); //change bkg color RGB
+		container_button.setBackground (new Color(255,255,255)); //change bkg color RGB
 		
 		this.setContentPane(container_button);
 	
