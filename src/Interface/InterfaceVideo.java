@@ -58,7 +58,9 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
+import javax.swing.event.MenuKeyEvent;
+import javax.swing.event.MenuKeyListener;
+import java.awt.event.KeyEvent;
 
 
 public class InterfaceVideo extends JFrame  {
@@ -76,7 +78,7 @@ public class InterfaceVideo extends JFrame  {
 	
 	private JMenuBar menu_Bar = new JMenuBar();
 	private JMenu menu= new JMenu("File");	
-	private JMenuItem open_file = new JMenuItem("Open File ...");
+	private JMenuItem open_file = new JMenuItem("Open File         ");
 	
 	public int width=1300;
 	public int height=600;
@@ -138,7 +140,7 @@ public class InterfaceVideo extends JFrame  {
 		container_vid.add(panel_video);
 		container_plate.add(container_vid);
 		
-
+		
 		menu.add(open_file);
 		menu_Bar.add(menu);
 		setJMenuBar(menu_Bar);

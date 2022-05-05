@@ -13,6 +13,7 @@ import java.io.File;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,6 +24,8 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 import ImageProcessing.Main;
+import Panels.LeftButton;
+import Panels.RightButton;
 import Panels.imagePanel;
 import Panels.videoPanel;
 
@@ -41,7 +44,10 @@ public class InterfaceImage extends JFrame{
 	
 	private JMenuBar menu_Bar = new JMenuBar();
 	private JMenu menu= new JMenu("File");	
-	private JMenuItem open_file = new JMenuItem("Open File ...");
+	private JMenuItem open_file = new JMenuItem("Open File         ");
+	
+	LeftButton Left = new LeftButton("<");
+	RightButton Right = new RightButton(">");
 	
 	public int width=1300;
 	public int height=600;
@@ -92,10 +98,14 @@ private void DisplayWindow() {
 		panel_plate.add(panel_plate_text_container);
 		panel_plate.add(panel_plate_image_1);
 		panel_plate.add(panel_plate_image_2);
-		panel_plate.add(new JPanel());
-		container_plate.add(panel_plate);
 		
+		panel_plate.add(new JPanel());
+		panel_plate.add(Left);
+		
+		container_plate.add(panel_plate);
+		container_data.add(Left);
 		container_data.add(panel_data);
+		container_data.add(Right);
 		container_plate.add(container_data);
 		
 		//menu bar
@@ -133,7 +143,7 @@ private void DisplayWindow() {
 		
 	}
 	//set file name
-	public void setFile(File file) {
+	public static void setFile(File file) {
 			ImageStream.file=file;	
 			System.out.println(file);
 			ImageStream.filechanged=1;

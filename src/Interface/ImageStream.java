@@ -99,5 +99,27 @@ public class ImageStream {
 	public Image getimg() {
 		return this.image.getImage();
 	}
+	
+	// this only works for the .jpg pictures: 
+	// TODO : change it when we have the new data pics
+	public static String setIndex(int i) {
+		String file_name="Images/p";
+		String number=Integer.toString(i);
+		file_name=file_name+number+".jpg";
+		return file_name;
+	}
+	
+	public static int getIndex(String file_name) {
+		int i=0;
+		String number="";
+		
+		for(int c=0; c<file_name.length(); c++){ 
+			if (Character.isDigit(file_name.charAt(c))) {
+				number=number+file_name.charAt(c);
+			}
+		}
+		i=Integer.parseInt(number);
+		return i;
+	}
 
 }
