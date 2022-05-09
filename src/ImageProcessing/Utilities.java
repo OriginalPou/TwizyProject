@@ -327,8 +327,8 @@ public class Utilities {
 			int index=0;
 			for(int i=0;i<panels.size();i++) {
 				switch (method) {
-				case Matching_With_Difference :
-					results[i]=MatchingWithDifference(object,panels.get(i));
+				case Matching_With_Thresh :
+					results[i]=MatchingWithThresh(object,panels.get(i));
 					break;
 				case Matching_With_PPSimilarity:
 					results[i]=MatchingWithPPSimilarity(object,panels.get(i));

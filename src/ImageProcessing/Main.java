@@ -37,6 +37,7 @@ public class Main {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		int[] labels={2,2,4,0,4,0,1,1,3,0,0,5};
 		//{30,50,70,90,110}
+		//names: ['110km-h', '30km-h', '50km-h', '70km-h', '90km-h', 'noEntry', 'noOvertaking']
 		//Vector<Mat> panels= Utilities.SignPanels();
       /*Mat img = Utilities.readImage("Images/ref90.jpg");
       Utilities.GreyMode(img);
