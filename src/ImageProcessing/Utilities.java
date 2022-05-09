@@ -1,46 +1,42 @@
 package ImageProcessing;
 
-import org.opencv.core.Core;
-
-import org.opencv.core.CvType;
-import org.opencv.core.Mat;
-import org.opencv.core.MatOfByte;
-import org.opencv.core.MatOfDMatch;
-import org.opencv.core.Scalar;
-import org.opencv.core.Size;
-
-import org.opencv.features2d.DescriptorMatcher;
-import org.opencv.features2d.Features2d;
-
-import org.opencv.highgui.HighGui;
-import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.core.MatOfInt4;
-import org.opencv.core.MatOfKeyPoint;
-import org.opencv.core.MatOfPoint;
-import org.opencv.core.MatOfPoint2f;
-import org.opencv.core.Point;
-import org.opencv.core.Rect;
-import org.opencv.imgproc.Imgproc;
-import org.opencv.photo.Photo;
-import org.opencv.videoio.VideoCapture;
-
-import static org.opencv.imgproc.Imgproc.*;
-import static org.opencv.imgcodecs.Imgcodecs.imread;
+import static org.opencv.imgproc.Imgproc.INTER_AREA;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import java.util.ArrayList;
-import java.util.List;
+
+import org.opencv.core.Core;
+import org.opencv.core.CvType;
+import org.opencv.core.Mat;
+import org.opencv.core.MatOfByte;
+import org.opencv.core.MatOfDMatch;
+import org.opencv.core.MatOfInt4;
+import org.opencv.core.MatOfKeyPoint;
+import org.opencv.core.MatOfPoint;
+import org.opencv.core.MatOfPoint2f;
+import org.opencv.core.Point;
+import org.opencv.core.Rect;
+import org.opencv.core.Scalar;
+import org.opencv.core.Size;
+//import org.opencv.features2d.DescriptorExtractor;
+import org.opencv.features2d.DescriptorMatcher;
+import org.opencv.features2d.FastFeatureDetector;
+//import org.opencv.features2d.FeatureDetector;
+import org.opencv.features2d.Features2d;
+import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
+import org.opencv.videoio.VideoCapture;
 
 
 /*
@@ -62,10 +58,10 @@ import java.util.List;
 	
 public class Utilities {
 		
-		public static final String Matching_With_Difference   = "MatchingWithDifference";
+		public static final String Matching_With_Thresh   = "MatchingWithThresh";
 		public static final String Matching_With_PPSimilarity = "MatchingWithPPSimilarity";
 		public static final String Matching_With_RGB 		  = "Matching_With_RGB";
-	
+		public static final String Matching_With_Descreptors  ="MatchingWithDescreptors";
 		/*
 		 * @brief : method that reads images
 		 * @input : string name of file
@@ -290,7 +286,7 @@ public class Utilities {
 		 * @input  : 2 matrix : panel and panel extracted from the image
 		 * @return : similarity ratio
 		 */
-		public static float MatchingWithDifference(Mat object, Mat sObject) {
+		public static float MatchingWithThresh(Mat object, Mat sObject) {
 			float similarity=0;
 			int numberOfZeros=0;
 			// gray scale
@@ -395,6 +391,9 @@ public class Utilities {
 			return(binaryObject);
 		}
 		
+		
+		
+		
 		/*
 		 * @brief  : turn the 2 images into binary and compare each pixel one by one ( choose the best threshold to convert2binary the image)
 		 * @input  : 2 matrix : panel and panel extracted from the image
@@ -408,7 +407,6 @@ public class Utilities {
 			grayObject=scale(graySign,grayObject);
 			Mat binarySign=turnBinary(graySign);
 			Mat binaryObject=turnBinary(grayObject);
-
 			// total number of pixels
 			int totalNumberOfPixels=graySign.width()*graySign.height();//=graySign.height()*graySign.height();
 			for(int i=0;i<graySign.width();i++) {
@@ -424,6 +422,43 @@ public class Utilities {
 				similarity=(float)similarity/totalNumberOfPixels;
 				return similarity;
 			}
+		
+		public static float MatchingWithDescreptors(Mat sroadSign, Mat object) {
+			float diff=0;
+			//float diffmatch=MatchingWithDifference(object,sroadSign);
+			Mat sObject = new Mat();
+			Imgproc.resize(object, sObject, sroadSign.size());
+			Mat grayObject = new Mat(sObject.rows(),sObject.cols(),sObject.type());
+			Imgproc.cvtColor(sObject, grayObject, Imgproc.COLOR_BGRA2GRAY);
+			Core.normalize(grayObject, grayObject,0,255,Core.NORM_MINMAX);
+			Mat graySign = new Mat(sroadSign.rows(),sroadSign.cols(),sroadSign.type());
+			Imgproc.cvtColor(sroadSign, graySign, Imgproc.COLOR_BGRA2GRAY);
+			Core.normalize(graySign, graySign,0,255,Core.NORM_MINMAX);
+			// extarct features
+			FastFeatureDetector featureDetector = FastFeatureDetector.create();
+			MatOfKeyPoint objectKeypoints=new MatOfKeyPoint();
+			featureDetector.detect(grayObject, objectKeypoints);
+			MatOfKeyPoint signKeypoints=new MatOfKeyPoint();
+			featureDetector.detect(graySign, signKeypoints);
+		    Features2d.drawKeypoints(object, objectKeypoints, object, new Scalar(0, 0, 255));
+		    imShow("Feature Detection", object);
+		    Features2d.drawKeypoints(sroadSign, signKeypoints, sroadSign, new Scalar(0, 0, 255));
+		    imShow("Feature Detection", sroadSign);
+		     int minsize=Math.min(objectKeypoints.height(),signKeypoints.height());
+	    	 System.out.println("size="+minsize);
+		     for(int i=0;i<minsize;i++) {
+		    	 double[] dataObject=objectKeypoints.get(i, 0);
+		    	 double[] dataSign  =signKeypoints.get(i, 0);
+		    	 System.out.println("O="+dataObject);
+		    	 diff=(float) (diff+Math.abs(dataObject[0]-dataSign[0]));
+		     }
+		     return (float) (0.4*(100-(diff/minsize))+0.6*diffmatch);
+		     
+
+		}
+		
+		
+		
 		
 		
 		/*

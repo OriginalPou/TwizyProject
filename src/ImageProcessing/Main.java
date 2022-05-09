@@ -44,19 +44,21 @@ public class Main {
       Mat mat = Mat.eye(3, 3, CvType.CV_8UC1);
       System.out.println("mat = " + mat.dump());*/
       
-     /* Mat testFile = Utilities.readImage("Images/p10.jpg");
-      //Mat ref = Utilities.readImage("Images/ref70.jpg");
-      Utilities.imShow("test file", testFile);
-      Mat hsvimage=Utilities.RGB2HSV(testFile);
-      //HighGui.imshow("hsv 110km/h", hsvimage);
-     List<MatOfPoint> listeContours = Utilities.detectContours(hsvimage);
-     Mat objetrond = null;
-		
-		  for (MatOfPoint contour: listeContours ){
-		  objetrond=Utilities.DetectForm(testFile,contour); if (objetrond!= null) {
-		  Utilities.imShow("contour rond", objetrond);
-		  Utilities.Match(objetrond,panels); }*/
-		  //}
+//      Mat testFile = Utilities.readImage("Images/p1.jpg");
+//      Mat ref = Utilities.readImage("Images/ref70.jpg");
+//      Utilities.imShow("test file", testFile);
+//      Mat hsvimage=Utilities.RGB2HSV(testFile);
+//      //HighGui.imshow("hsv 110km/h", hsvimage);
+//     List<MatOfPoint> listeContours = Utilities.detectContours(hsvimage);
+//     Mat objetrond = null;
+//		
+//		  for (MatOfPoint contour: listeContours ){
+//		  objetrond=Utilities.DetectForm(testFile,contour); if (objetrond!= null) {
+//		  Utilities.imShow("contour rond", objetrond);
+//		  //Utilities.Match(objetrond,panels);
+//		  Utilities.MatchingWithDescreptors(ref, objetrond);
+//		  }
+//		  }
 	     // uncomment this if u are working on the images on drive ( we have some problems in seuillage )
 		  
       //Utilities.Match(testFile,panels);
@@ -99,7 +101,7 @@ public class Main {
     	
     	//INTERFACE RUNNING MAIN
 		List<Mat> dataSet=algorithmTester.createDataSet();
-		float accuracy = algorithmTester.test(dataSet,labels,Utilities.Matching_With_RGB);
+		float accuracy = algorithmTester.test(dataSet,labels,Utilities.Matching_With_Descreptors);
 		System.out.println("accuracy="+accuracy+"%");
 		/*
 		  System.loadLibrary(Core.NATIVE_LIBRARY_NAME); 
