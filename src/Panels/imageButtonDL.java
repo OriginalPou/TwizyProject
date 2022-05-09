@@ -1,5 +1,7 @@
 package Panels;
 
+import java.awt.Color;
+import java.awt.event.MouseEvent;
 import java.awt.Dimension;
 
 
@@ -26,19 +28,25 @@ import java.util.List;
 import java.util.Vector;
 import java.awt.Color;
 
-public class imageButton extends JButton implements MouseListener{
+import javax.swing.border.LineBorder;
 
-	public imageButton (String name)  {
+import ImageProcessing.Main;
+
+public class imageButtonDL extends JButton implements MouseListener{
+	
+	public imageButtonDL (String name)  {
 		this.setText(name);
 		this.addMouseListener(this);
 		//this.setBorderPainted(false);
 		this.setFocusPainted(false);
-		this.setContentAreaFilled(false);
+		//this.setContentAreaFilled(false);
 		this.setBorder(new LineBorder(new Color (220,20,60)));
+		this.setBackground(new Color (211,211,211));
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		Main.runImage=1;	
+		//TO DO : run deepL model for images
+		//Main.runImage=1;	
 	}
 	
 	@Override

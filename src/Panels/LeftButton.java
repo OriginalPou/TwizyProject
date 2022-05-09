@@ -14,6 +14,7 @@ import Interface.InterfaceImage;
 
 
 public class LeftButton extends JButton implements MouseListener{
+	
 	public LeftButton (String name)  {
 		this.setText("  "+name+"  ");
 		this.addMouseListener(this);
@@ -24,6 +25,7 @@ public class LeftButton extends JButton implements MouseListener{
 		this.setBackground(Color.WHITE);
 	    this.setForeground(Color.BLACK);
 	}
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		String file_name=ImageStream.file.toString();
@@ -33,9 +35,7 @@ public class LeftButton extends JButton implements MouseListener{
 			i=10;
 		}
 		file_name= ImageStream.setIndex(i);
-		//file_name="Images/p10.jpg";
 		InterfaceImage.setFile( new File(file_name));
-		
 	}
 	
 	@Override

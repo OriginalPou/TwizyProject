@@ -50,16 +50,17 @@ public class Main {
     	window.DisplayHomePage();
     	
     	while(true) {
-    		System.out.println(runImage);
+    		//run Image Processing
     		if (runImage==1) {
     			System.out.println(runImage);
     			Vector<Mat> panels= Utilities.SignPanels();
 	    		InterfaceImage windowProc= new InterfaceImage();
 	    		while (runImage==1) {
-	    			ImageStream video_stream = new ImageStream(windowProc);
-	    			video_stream.ImageProcessing(panels);
+	    			ImageStream image_stream = new ImageStream(windowProc);
+	    			image_stream.ImageProcessing(panels);
 	    		}
 	    	}
+    		//run Video Processing
     		else if (runVideo==1) {
     			Vector<Mat> panels= Utilities.SignPanels();
  	    		InterfaceVideo windowProc= new InterfaceVideo();
@@ -67,10 +68,9 @@ public class Main {
 	    			VideoStream video_stream = new VideoStream(windowProc);
 	    			video_stream.VideoProcessing(panels);
 	    			video_stream.stop=0;
-	    		}
- 	    		
- 	    		
+	    		}	
     		}
+    		// TODO : else if (buttonDeeplearning pressed) do deeplearning stuff
     		
     	}
  
