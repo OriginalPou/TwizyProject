@@ -28,6 +28,7 @@ public class LeftButton extends JButton implements MouseListener{
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		// if we changed the dataset, we must change the path for these functions
 		String file_name=ImageStream.file.toString();
 		int i= ImageStream.getIndex(file_name);
 		i--;

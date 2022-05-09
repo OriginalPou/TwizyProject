@@ -10,6 +10,8 @@ import javax.swing.Box;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSplitPane;
+
 import java.awt.Component;
 import Panels.imageButton;
 import Panels.imageButtonDL;
@@ -33,8 +35,9 @@ public class HomePage extends JFrame{
 	private JPanel container_button_DL = new JPanel(); //container for the DeepLearning buttons 
 	private JLabel panel_text = new JLabel();//panel to display a text in the detected plate panel
 	private JLabel panel_text_DL = new JLabel();
+	public JSplitPane splitPane = new JSplitPane();
 	
-	public int width=800;
+	public int width=1500;
 	public int height=800;
 	
 	public HomePage(){
@@ -46,21 +49,21 @@ public class HomePage extends JFrame{
 	
 	public void DisplayHomePage() {
 		container_button.setLayout(new BoxLayout(container_button, BoxLayout.Y_AXIS));
-		container_button_DL.setLayout(new BoxLayout(container_button, BoxLayout.Y_AXIS));
+		container_button_DL.setLayout(new BoxLayout(container_button_DL, BoxLayout.Y_AXIS));
 		
 		panel_button.setPreferredSize(new Dimension(100,this.getHeight()));
 		panel_button.setMaximumSize(new Dimension(100,this.getHeight()));
 		
 		
 		// Home page text label
-		panel_text.setText("Road Sign Detection");
-		panel_text.setFont(new Font(Font.SERIF, Font.PLAIN, 85));
+		panel_text.setText("Road Sign Detection :");
+		panel_text.setFont(new Font(Font.SERIF, Font.PLAIN, 40));
 		//panel_text.setForeground(new Color(255,255,255));
 		panel_text.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		// DeepLearning text label
-		panel_text_DL.setText("With DeepLearning: ");
-		panel_text_DL.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 40));
+		panel_text_DL.setText(" Road Sign Detection With DeepLearning: ");
+		panel_text_DL.setFont(new Font(Font.SERIF, Font.PLAIN, 40));
 		//panel_text.setForeground(new Color(255,255,255));
 		panel_text_DL.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
@@ -76,7 +79,7 @@ public class HomePage extends JFrame{
 		
 		
 		//add text
-		container_button.add(Box.createRigidArea(new Dimension(20, 20)));
+		container_button.add(Box.createRigidArea(new Dimension(80, 80)));
 		container_button.add(panel_text);
 		
 		//add button 1
@@ -92,33 +95,35 @@ public class HomePage extends JFrame{
 		//button_video.setForeground(new Color(255,255,255));
 		button_video.setAlignmentX(Component.CENTER_ALIGNMENT);
 		container_button.add(button_video);
-		
-		
 		container_button.setBackground (new Color(255,255,255)); //change bkg color RGB
 		
 		
 		// add DL text
-		//container_button.add(new JPanel());
-		container_button.add(Box.createRigidArea(new Dimension(80, 80)));
-		container_button.add(panel_text_DL);
-		// add DL buttons
+		container_button_DL.add(Box.createRigidArea(new Dimension(80, 80)));
+		container_button_DL.add(panel_text_DL);
 		
 		//add DL button 1
-		container_button.add(Box.createRigidArea(new Dimension(20, 20)));
+		container_button_DL.add(Box.createRigidArea(new Dimension(80, 80)));
 		button_image_DL.setFont(new Font(Font.SERIF, Font.BOLD , 40));
-		//button_image.setForeground(new Color(255,255,255));
 		button_image_DL.setAlignmentX(Component.CENTER_ALIGNMENT);
-		container_button.add(button_image_DL);
+		container_button_DL.add(button_image_DL);
 				
 		//add button 2
-		container_button.add(Box.createRigidArea(new Dimension(50, 50)));
+		container_button_DL.add(Box.createRigidArea(new Dimension(50, 50)));
 		button_video_DL.setFont(new Font(Font.SERIF, Font.BOLD, 40));
-		//button_video.setForeground(new Color(255,255,255));
 		button_video_DL.setAlignmentX(Component.CENTER_ALIGNMENT);
-		container_button.add(button_video_DL);
-		container_button.setBackground (new Color(255,255,255)); //change bkg color RGB*/
+		container_button_DL.add(button_video_DL);
+		container_button.setBackground (new Color(255,255,255)); //change bkg color RGB
+
+		//split the frame
+        splitPane.setSize(width, height);
+        splitPane.setDividerSize(0);
+        splitPane.setDividerLocation(width/2);
+        splitPane.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
+        splitPane.setLeftComponent(container_button);
+        splitPane.setRightComponent(container_button_DL);
 		
-		this.setContentPane(container_button);
+        this.add(splitPane);
 	
 	}
 	
