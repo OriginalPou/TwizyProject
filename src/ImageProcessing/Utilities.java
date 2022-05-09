@@ -257,8 +257,8 @@ public class Utilities {
 				Mat tmp = img.submat(rect.y,rect.y+rect.height,rect.x,rect.x+rect.width);
 				Mat sign = Mat.zeros(tmp.size(),tmp.type());
 				tmp.copyTo(sign);
-				if(sign.rows()>40 && sign.cols()>40)
-					return sign;
+				//if(sign.rows()>40 && sign.cols()>40)
+				return sign;
 			}
 			return null;
 		}

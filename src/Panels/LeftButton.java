@@ -29,6 +29,9 @@ public class LeftButton extends JButton implements MouseListener{
 		String file_name=ImageStream.file.toString();
 		int i= ImageStream.getIndex(file_name);
 		i--;
+		if (i==0) { //go to last image
+			i=10;
+		}
 		file_name= ImageStream.setIndex(i);
 		//file_name="Images/p10.jpg";
 		InterfaceImage.setFile( new File(file_name));

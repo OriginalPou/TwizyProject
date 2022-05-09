@@ -30,6 +30,9 @@ public class RightButton extends JButton implements MouseListener{
 		String file_name=ImageStream.file.toString();
 		int i= ImageStream.getIndex(file_name);
 		i++;
+		if (i==11) { // return to first image
+			i=1;
+		}
 		file_name= ImageStream.setIndex(i);
 		//file_name="Images/p10.jpg";
 		InterfaceImage.setFile( new File(file_name));

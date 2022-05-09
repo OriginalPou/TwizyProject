@@ -102,6 +102,7 @@ public class ImageStream {
 	
 	// this only works for the .jpg pictures: 
 	// TODO : change it when we have the new data pics
+	// TODO : add:  left , from 1 goes to 9/ right, from 9 goes to 1
 	public static String setIndex(int i) {
 		String file_name="Images/p";
 		String number=Integer.toString(i);
@@ -114,7 +115,7 @@ public class ImageStream {
 		String number="";
 		
 		for(int c=0; c<file_name.length(); c++){ 
-			if (Character.isDigit(file_name.charAt(c))) {
+			if (Character.isDigit(file_name.charAt(c))) {	
 				number=number+file_name.charAt(c);
 			}
 		}
