@@ -37,7 +37,7 @@ public class imageButton extends JButton implements MouseListener{
 		this.setBorder(new LineBorder(new Color (220,20,60)));
 	}
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void mouseClicked(MouseEvent e) {	
 		Main.runImage=1;	
 	}
 	

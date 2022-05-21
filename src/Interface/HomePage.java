@@ -28,7 +28,6 @@ public class HomePage extends JFrame{
 	public JPanel panel_button = new JPanel();
 	public imageButton button_image; //button to run image processing
 	public videoButton button_video;//button to run video processing
-	//TODO: change buttons DL type to another button class that runs the deep learning
 	public imageButtonDL button_image_DL; //button to run image processing
 	public videoButtonDL button_video_DL;//button to run video processing
 	private JPanel container_button = new JPanel(); //container for the buttons
@@ -38,7 +37,7 @@ public class HomePage extends JFrame{
 	public JSplitPane splitPane = new JSplitPane();
 	
 	public int width=1500;
-	public int height=800;
+	public int height=600;
 	
 	public HomePage(){
 		this.setTitle("Interface Twizzy: Home Page");

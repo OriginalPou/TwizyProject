@@ -58,10 +58,13 @@ public class InterfaceImage extends JFrame{
 		this.setSize(width,height);
 		this.setVisible(true);
 		this.DisplayWindow();
+		this.setFocusable(true);
+		this.requestFocus();
 		this.addWindowListener( new WindowAdapter() {
 		      @Override
 		      public void windowClosing(WindowEvent we) {
-		        Main.runImage=0;
+		        if (Main.runImage==1) Main.runImage=0;
+		        if (Main.runImageDL==1) Main.runImageDL=0;
 		      }
 		});
 		
@@ -100,6 +103,7 @@ private void DisplayWindow() {
 		panel_plate.add(panel_plate_image_2);
 		
 		panel_plate.add(new JPanel());
+		
 		panel_plate.add(Left);
 		
 		container_plate.add(panel_plate);
@@ -107,6 +111,8 @@ private void DisplayWindow() {
 		container_data.add(panel_data);
 		container_data.add(Right);
 		container_plate.add(container_data);
+		
+        
 		
 		//menu bar
 		menu.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 15));
@@ -144,8 +150,17 @@ private void DisplayWindow() {
 	}
 	//set file name
 	public static void setFile(File file) {
+		
+		if (Main.runImage==1) {
 			ImageStream.file=file;	
 			System.out.println(file);
 			ImageStream.filechanged=1;
+		}
+		if (Main.runImageDL==1) {
+			ImageStreamDL.file=file;	
+			System.out.println(file);
+			ImageStreamDL.filechanged=1;
+			
+		}
 	}
 }

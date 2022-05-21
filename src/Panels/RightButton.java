@@ -11,6 +11,7 @@ import javax.swing.border.LineBorder;
 
 import ImageProcessing.Main;
 import Interface.ImageStream;
+import Interface.ImageStreamDL;
 import Interface.InterfaceImage;
 
 
@@ -27,6 +28,7 @@ public class RightButton extends JButton implements MouseListener{
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		if (Main.runImage==1) {
 		String file_name=ImageStream.file.toString();
 		int i= ImageStream.getIndex(file_name);
 		i++;
@@ -36,7 +38,20 @@ public class RightButton extends JButton implements MouseListener{
 		file_name= ImageStream.setIndex(i);
 		//file_name="Images/p10.jpg";
 		InterfaceImage.setFile( new File(file_name));
-		
+		}
+		//Deeplearning dataset
+		if (Main.runImageDL==1) {
+			String file_name=ImageStreamDL.file.toString();
+			int i= ImageStreamDL.getIndex(file_name);
+			i++;
+			if (i==52) { // return to first image
+				i=1;
+			}
+			file_name= ImageStreamDL.setIndex(i);
+			//file_name="Images/p10.jpg";
+			InterfaceImage.setFile( new File(file_name));
+			
+		}
 	}
 	
 	@Override

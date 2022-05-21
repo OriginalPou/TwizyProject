@@ -26,6 +26,7 @@ import org.opencv.photo.Photo;
 
 import Interface.HomePage;
 import Interface.ImageStream;
+import Interface.ImageStreamDL;
 import Interface.InterfaceImage;
 import Interface.InterfaceVideo;
 import Interface.VideoStream;
@@ -40,6 +41,7 @@ import Interface.VideoStream;
 public class Main {
 	public static int runImage=0;
 	public static int runVideo=0;
+	public static int runImageDL=0;
 	
 	public static void main( String[] args ) throws IOException {
 
@@ -51,8 +53,9 @@ public class Main {
     	
     	while(true) {
     		//run Image Processing
+    		System.out.println(runImage);
+    		System.out.println(runVideo);
     		if (runImage==1) {
-    			System.out.println(runImage);
     			Vector<Mat> panels= Utilities.SignPanels();
 	    		InterfaceImage windowProc= new InterfaceImage();
 	    		while (runImage==1) {
@@ -71,7 +74,14 @@ public class Main {
 	    		}	
     		}
     		// TODO : else if (buttonDeeplearning pressed) do deeplearning stuff
-    		
+    		else if (runImageDL==1) {
+    			Vector<Mat> panels= Utilities.SignPanels();
+	    		InterfaceImage windowProc= new InterfaceImage();
+	    		while (runImageDL==1) {
+	    			ImageStreamDL image_stream = new ImageStreamDL(windowProc);
+	    			image_stream.ImageProcessing(panels);
+	    		}
+	    	}
     	}
  
     	

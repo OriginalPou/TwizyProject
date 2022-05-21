@@ -12,19 +12,24 @@ import javax.swing.ImageIcon;
 
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
-import org.opencv.videoio.VideoCapture;
+
 
 import ImageProcessing.Utilities;
 
-public class ImageStream {
+
+/*
+ * this is the class for procesing the new data base images with deeplearning
+ * TODO: mahdi make changes necessary for detection 
+ */
+public class ImageStreamDL {
 	public InterfaceImage window;
 	public static File file;
 	public static int filechanged=0;
 	ImageIcon image;
 	Image empty;
+	public static  int CloseImageProc=0;
 	
-	
-	public ImageStream(InterfaceImage window) throws IOException {	
+	public ImageStreamDL(InterfaceImage window) throws IOException {	
 		this.window = window;
 		this.initImage();
 	}
@@ -92,6 +97,7 @@ public class ImageStream {
 				if (file!=null) {
 					this.file=file;
 					done=1;
+					System.out.println(done);
 				}		
 		}
 	}
@@ -104,9 +110,12 @@ public class ImageStream {
 	// TODO : change it when we have the new data pics
 	// TODO : add:  left , from 1 goes to 9/ right, from 9 goes to 1
 	public static String setIndex(int i) {
-		String file_name="Images/Dataset/p";
+		String file_name="Images/DL_Dataset/";
 		String number=Integer.toString(i);
-		file_name=file_name+number+".jpg";
+		while(number.length()<5) {
+			number="0"+number;
+		}
+		file_name=file_name+number+".png";
 		return file_name;
 	}
 	
@@ -122,5 +131,7 @@ public class ImageStream {
 		i=Integer.parseInt(number);
 		return i;
 	}
+	
+	
 
 }

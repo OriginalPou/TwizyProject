@@ -39,7 +39,7 @@ public class VideoStream {
 	}
  
 	public void initImage() throws IOException {
-		this.empty=ImageIO.read(new File("Interface_Images/white.png"));
+		this.empty=ImageIO.read(new File("Images/Interface_Images/white.png"));
 		this.window.panel_plate_image_1.setImage(empty);
 		this.window.panel_plate_image_2.setImage(empty);
 	}

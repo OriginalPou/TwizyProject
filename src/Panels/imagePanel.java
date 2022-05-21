@@ -13,7 +13,7 @@ public class imagePanel extends JPanel {
 	Image image;
 	public imagePanel() {
 		try {
-			image = ImageIO.read(new File("Interface_Images/white.png"));
+			image = ImageIO.read(new File("Images/Interface_Images/white.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

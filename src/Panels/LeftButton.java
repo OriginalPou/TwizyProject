@@ -1,23 +1,31 @@
 package Panels;
 
 import java.awt.Color;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
+import ImageProcessing.Main;
 import Interface.ImageStream;
+import Interface.ImageStreamDL;
 import Interface.InterfaceImage;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 
-public class LeftButton extends JButton implements MouseListener{
+public class LeftButton extends JButton implements  MouseListener{
 	
 	public LeftButton (String name)  {
-		this.setText("  "+name+"  ");
+		
 		this.addMouseListener(this);
+		
+		this.setText("  "+name+"  ");
 		//this.setBorderPainted(false);
 		this.setFocusPainted(false);
 		//this.setContentAreaFilled(false);
@@ -28,7 +36,9 @@ public class LeftButton extends JButton implements MouseListener{
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// if we changed the dataset, we must change the path for these functions
+		
+		// if working on arch dataset
+		if (Main.runImage==1) {
 		String file_name=ImageStream.file.toString();
 		int i= ImageStream.getIndex(file_name);
 		i--;
@@ -37,6 +47,21 @@ public class LeftButton extends JButton implements MouseListener{
 		}
 		file_name= ImageStream.setIndex(i);
 		InterfaceImage.setFile( new File(file_name));
+		}
+		//if working on DL dataset
+		if (Main.runImageDL==1) {
+			String file_name=ImageStreamDL.file.toString();
+			int i= ImageStreamDL.getIndex(file_name);
+			i--;
+			if (i==0) { //go to last image
+				i=51;
+			}
+			file_name= ImageStreamDL.setIndex(i);
+			InterfaceImage.setFile( new File(file_name));
+		
+			
+		}
+		
 	}
 	
 	@Override
@@ -60,6 +85,7 @@ public class LeftButton extends JButton implements MouseListener{
 		
 	}
 
+	
 
 
 }
