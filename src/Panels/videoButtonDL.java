@@ -7,6 +7,8 @@ import java.awt.event.MouseListener;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 
+import ImageProcessing.Main;
+
 public class videoButtonDL extends JButton implements MouseListener{
 	
 	public videoButtonDL (String name)  {
@@ -20,7 +22,8 @@ public class videoButtonDL extends JButton implements MouseListener{
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		//TO DO : run deepL model for images	
+		
+		Main.runVideoDL=1;
 	}
 	
 	@Override

@@ -40,7 +40,7 @@ public class HomePage extends JFrame{
 	public int height=600;
 	
 	public HomePage(){
-		this.setTitle("Interface Twizzy: Home Page");
+		this.setTitle("Interface Twizzy: Page d'acceuil");
 		this.setSize(width,height);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
@@ -55,25 +55,25 @@ public class HomePage extends JFrame{
 		
 		
 		// Home page text label
-		panel_text.setText("Road Sign Detection :");
+		panel_text.setText("Detection des panneaux:");
 		panel_text.setFont(new Font(Font.SERIF, Font.PLAIN, 40));
 		//panel_text.setForeground(new Color(255,255,255));
 		panel_text.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		// DeepLearning text label
-		panel_text_DL.setText(" Road Sign Detection With DeepLearning: ");
+		panel_text_DL.setText(" Detection des panneaux avec DeepLearning: ");
 		panel_text_DL.setFont(new Font(Font.SERIF, Font.PLAIN, 40));
 		//panel_text.setForeground(new Color(255,255,255));
 		panel_text_DL.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 	
 		//buttons
-		button_image=new imageButton(" Image Processing ");
-		button_video=new videoButton(" Video Processing ");
+		button_image=new imageButton(" Traitement des images ");
+		button_video=new videoButton(" Traitement des videos ");
 	
 		//buttons DL
-		button_image_DL=new imageButtonDL(" Image Processing ");
-		button_video_DL=new videoButtonDL(" Video Processing ");
+		button_image_DL=new imageButtonDL(" Traitement des images ");
+		button_video_DL=new videoButtonDL(" Traitement des videos ");
 		
 		
 		

@@ -30,6 +30,7 @@ import Interface.ImageStreamDL;
 import Interface.InterfaceImage;
 import Interface.InterfaceVideo;
 import Interface.VideoStream;
+import Interface.VideoStreamDL;
 
 
 /*
@@ -42,6 +43,7 @@ public class Main {
 	public static int runImage=0;
 	public static int runVideo=0;
 	public static int runImageDL=0;
+	public static int runVideoDL=0;
 	
 	public static void main( String[] args ) throws IOException {
 
@@ -73,7 +75,7 @@ public class Main {
 	    			video_stream.stop=0;
 	    		}	
     		}
-    		// TODO : else if (buttonDeeplearning pressed) do deeplearning stuff
+    		//  deeplearning stuff
     		else if (runImageDL==1) {
     			Vector<Mat> panels= Utilities.SignPanels();
 	    		InterfaceImage windowProc= new InterfaceImage();
@@ -82,6 +84,15 @@ public class Main {
 	    			image_stream.ImageProcessing(panels);
 	    		}
 	    	}
+    		else if (runVideoDL==1) {
+    			Vector<Mat> panels= Utilities.SignPanels();
+ 	    		InterfaceVideo windowProc= new InterfaceVideo();
+ 	    		while (runVideoDL==1) {
+	    			VideoStreamDL video_stream = new VideoStreamDL(windowProc);
+	    			video_stream.VideoProcessing(panels);
+	    			video_stream.stop=0;
+	    		}	
+    		}
     	}
  
     	

@@ -85,15 +85,24 @@ public class InterfaceVideo extends JFrame  {
 	public File File;
 
 	public InterfaceVideo(){
-		this.setTitle("Interface Twizzy: Video Processing");
+		if (Main.runVideo==1)
+			this.setTitle("Interface Twizzy: Traitement des videos");
+		else if (Main.runVideoDL==1)
+			this.setTitle("Interface Twizzy: Traitement des video - DeepLearning");
 		this.setSize(width,height);
 		this.setVisible(true);
 		this.DisplayWindow();
 		this.addWindowListener( new WindowAdapter() {
 		      @Override
 		      public void windowClosing(WindowEvent we) {
-		        VideoStream.stop=1;
-		        Main.runVideo=0;
+		    	  if (Main.runVideo==1) {
+		    		  VideoStream.stop=1;
+		    		  Main.runVideo=0;
+		    	  }
+		    	  if (Main.runVideoDL==1) {
+		    		  VideoStreamDL.stop=1;
+		    		  Main.runVideoDL=0;
+		    	  }
 		      }
 		});
 	}
@@ -122,7 +131,7 @@ public class InterfaceVideo extends JFrame  {
 		panel_plate_image_2.setMaximumSize(new Dimension(250,250));
 		panel_plate_image_2.setBorder( BorderFactory.createLineBorder(new Color (220,20,60), 1));	
 		
-		panel_plate_text.setText("Panels Detected: ");
+		panel_plate_text.setText("Panneaux detectés: ");
 		panel_plate_text.setFont(new Font(Font.SERIF, Font.BOLD, 20));
 		panel_plate_text.setForeground(Color.BLACK);
 		panel_plate_text_container.setMaximumSize(new Dimension(250,50));
@@ -173,9 +182,16 @@ public class InterfaceVideo extends JFrame  {
 	
 	//set file name
 	public void setFile(File file) {
+		if (Main.runVideo==1) {
 			VideoStream.file=file;	
 			System.out.println(file);
 			VideoStream.filechanged=1;
+		}
+		if (Main.runVideoDL==1) {
+			VideoStreamDL.file=file;	
+			System.out.println(file);
+			VideoStreamDL.filechanged=1;
+		} 
 	}
 
 }

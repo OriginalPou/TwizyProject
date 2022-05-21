@@ -54,7 +54,10 @@ public class InterfaceImage extends JFrame{
 	public File File;
 
 	public InterfaceImage(){
-		this.setTitle("Interface Twizzy: Image processing");
+		if (Main.runImage==1)
+			this.setTitle("Interface Twizzy: Traitement des images");
+		else if(Main.runImageDL==1) 
+			this.setTitle("Interface Twizzy: Traitement des images - DeepLearning");
 		this.setSize(width,height);
 		this.setVisible(true);
 		this.DisplayWindow();
@@ -90,7 +93,7 @@ private void DisplayWindow() {
 		panel_plate_image_2.setMaximumSize(new Dimension(250,250));
 		panel_plate_image_2.setBorder( BorderFactory.createLineBorder(new Color (220,20,60), 1));
 		
-		panel_plate_text.setText("Panels Detected: ");
+		panel_plate_text.setText("Panneaux detectés: ");
 		panel_plate_text.setFont(new Font(Font.SERIF, Font.BOLD, 20));
 		panel_plate_text.setForeground(Color.BLACK);
 		panel_plate_text_container.setMaximumSize(new Dimension(250,50));
