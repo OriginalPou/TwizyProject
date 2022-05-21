@@ -106,9 +106,7 @@ public class ImageStreamDL {
 		return this.image.getImage();
 	}
 	
-	// this only works for the .jpg pictures: 
-	// TODO : change it when we have the new data pics
-	// TODO : add:  left , from 1 goes to 9/ right, from 9 goes to 1
+	//left and right
 	public static String setIndex(int i,String file_name) {
 		if (file_name.contains(".jpg")) {
 			System.out.println("ppp"+file_name);

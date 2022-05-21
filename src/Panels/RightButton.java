@@ -41,7 +41,7 @@ public class RightButton extends JButton implements MouseListener{
 		file_name= ImageStream.setIndex(i,file_name);
 		InterfaceImage.setFile( new File(file_name));
 		}
-		//Deeplearning dataset
+		//Deeplearning 
 		if (Main.runImageDL==1) {
 			String file_name=ImageStreamDL.file.toString();
 			int i= ImageStreamDL.getIndex(file_name);

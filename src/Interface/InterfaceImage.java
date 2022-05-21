@@ -35,7 +35,7 @@ public class InterfaceImage extends JFrame{
 	
 	public imagePanel panel_data = new imagePanel(); // panel containing the data stream
 	
-	public JPanel panel_plate = new videoPanel(); // panel to display the detected plate and info
+	public JPanel panel_plate = new JPanel(); // panel to display the detected plate and info
 	public imagePanel panel_plate_image_1 = new imagePanel(); // panel to display the image of the detected plate inside the plate panel
 	public imagePanel panel_plate_image_2 = new imagePanel(); // panel to display the image2 of the detected plate inside the plate panel
 	private JLabel panel_plate_text = new JLabel();//panel to display a text in the detected plate panel
@@ -46,8 +46,8 @@ public class InterfaceImage extends JFrame{
 	private JMenu menu= new JMenu("File");	
 	private JMenuItem open_file = new JMenuItem("Open File         ");
 	
-	LeftButton Left = new LeftButton("<");
-	RightButton Right = new RightButton(">");
+	private LeftButton Left = new LeftButton("<");
+	private RightButton Right = new RightButton(">");
 	
 	public int width=1300;
 	public int height=600;
@@ -84,38 +84,35 @@ private void DisplayWindow() {
 		panel_plate.setLayout(new BoxLayout(panel_plate, BoxLayout.Y_AXIS));
 		//panel_plate.setBorder(BorderFactory.createTitledBorder("Panel Detected:"));
 		
+		panel_plate_text_container.setMaximumSize(new Dimension(250,50));
+		
 		// plate for image detected 1
 		panel_plate_image_1.setPreferredSize(new Dimension(250,250));
-		panel_plate_image_1.setMaximumSize(new Dimension(270,270));
+		panel_plate_image_1.setMaximumSize(new Dimension(250,250));
 		panel_plate_image_1.setBorder( BorderFactory.createLineBorder(new Color (220,20,60), 1));
 		// plate for image detected 2
 		panel_plate_image_2.setPreferredSize(new Dimension(250,250));
 		panel_plate_image_2.setMaximumSize(new Dimension(250,250));
 		panel_plate_image_2.setBorder( BorderFactory.createLineBorder(new Color (220,20,60), 1));
 		
+		//plate for text
 		panel_plate_text.setText("Panneaux detectés: ");
 		panel_plate_text.setFont(new Font(Font.SERIF, Font.BOLD, 20));
 		panel_plate_text.setForeground(Color.BLACK);
-		panel_plate_text_container.setMaximumSize(new Dimension(250,50));
 		
+		//add
 		panel_plate_text_container.add(panel_plate_text);
-		panel_plate_text_container.add(panel_plate_image_1);
-		panel_plate_text_container.add(panel_plate_image_2);
 		panel_plate.add(panel_plate_text_container);
 		panel_plate.add(panel_plate_image_1);
 		panel_plate.add(panel_plate_image_2);
 		
-		panel_plate.add(new JPanel());
-		
-		panel_plate.add(Left);
-		
 		container_plate.add(panel_plate);
+		
 		container_data.add(Left);
 		container_data.add(panel_data);
 		container_data.add(Right);
-		container_plate.add(container_data);
 		
-        
+		container_plate.add(container_data);
 		
 		//menu bar
 		menu.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 15));
