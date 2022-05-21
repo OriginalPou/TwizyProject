@@ -378,7 +378,7 @@ public class Utilities {
 				index=i;
 				}
 			}
-			imShow("pannel detected",panels.get(index));
+			//imShow("pannel detected",panels.get(index));
 			return index;
 		}
 			

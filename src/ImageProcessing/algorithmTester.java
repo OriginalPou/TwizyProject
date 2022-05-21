@@ -105,7 +105,6 @@ public class algorithmTester {
 		for(int i=0; i<dataSet.size();i++) {
 			Mat image=dataSet.get(i);
 			Mat hsvimage=Utilities.RGB2HSV(image);
-			//HighGui.imshow("image", hsvimage);
 		    List<MatOfPoint> listeContours = Utilities.detectContours(hsvimage);
 		    Mat objetrond = null;
 				  for (MatOfPoint contour: listeContours ){
@@ -121,13 +120,12 @@ public class algorithmTester {
 	}
 	
 		for(int j=0;j<labels.length;j++) {
-			//System.out.println(result[j]);
 			if(result[j]==labels[j])
 				accuracy++;
 		}
 	return 100*((accuracy/labels.length));
-	//return accuracy;
 	}
+	
 public static void displayResult(Mat img) {
 		int i=0;
 		String[] panels_name= {"110km-h", "30km-h", "50km-h", "70km-h", "90km-h", "noEntry", "noOvertaking"};
@@ -181,27 +179,25 @@ public static boolean TestDetection(Mat image,String image_ref, int ratio) {
 	
 
 	public static void main( String[] args ) {
+		
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+		
 		float accuracy=0;
 		//"110km-h", "30km-h", "50km-h", "70km-h", "90km-h", "noEntry", "noOvertaking"};
+		// label des images données sur arche
 		int[] labels={3,3,0,1,0,1,2,2,4,1,1,6};
 		List<Mat> dataSet=createDataSet();
-		accuracy = test(dataSet,labels,Utilities.Matching_With_PPSimilarity);
+		accuracy = test(dataSet,labels,Utilities.Matching_With_RGB);
+		System.out.println("méthode Matching_With_RGB:");
 		System.out.println("accuracy="+accuracy+"%");
+		List<Mat> dataSet1=createDataSet();
+		accuracy = test(dataSet1,labels,Utilities.Matching_With_PPSimilarity);
+		System.out.println("méthode Matching_With_PPSimilarity:");
+		System.out.println("accuracy="+accuracy+"%");
+		
+	
 
-
-		//String path="Images/test";
-		/*List<Mat> dataSet=loadDataSet(path);
-		for(int i=0;i<dataSet.size();i++) {
-			displayResult(dataSet.get(i));
-			
-		}*/
-		/*List<Mat> dataSet=loadDataSet(path);
-		List<String> Labels=loadLabels(path);
-		for(int i=0;i<Labels.size();i++) {
-			System.out.println(Labels.get(i));
-			
-		}*/
+		
 	}
 	
 	
