@@ -21,6 +21,11 @@ import org.opencv.videoio.VideoCapture;
 import ImageProcessing.Main;
 import ImageProcessing.Utilities;
 
+
+/*
+* this is the class for videos with deeplearning
+* TODO: mahdi make changes necessary for detection 
+*/
 public class VideoStreamDL {
 	public InterfaceVideo window;
 	public VideoCapture camera ;
