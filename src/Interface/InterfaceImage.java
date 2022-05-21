@@ -155,6 +155,7 @@ private void DisplayWindow() {
 	public static void setFile(File file) {
 		
 		if (Main.runImage==1) {
+			System.out.println("hey");
 			ImageStream.file=file;	
 			System.out.println(file);
 			ImageStream.filechanged=1;

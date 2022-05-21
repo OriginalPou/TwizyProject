@@ -32,11 +32,13 @@ public class RightButton extends JButton implements MouseListener{
 		String file_name=ImageStream.file.toString();
 		int i= ImageStream.getIndex(file_name);
 		i++;
-		if (i==11) { // return to first image
+		if ((i==11)&&(file_name.contains(".jpg"))) { // return to first image
 			i=1;
 		}
-		file_name= ImageStream.setIndex(i);
-		//file_name="Images/p10.jpg";
+		if ((i==52)&&(file_name.contains(".png"))) { // return to first image
+			i=1;
+		}
+		file_name= ImageStream.setIndex(i,file_name);
 		InterfaceImage.setFile( new File(file_name));
 		}
 		//Deeplearning dataset
@@ -44,10 +46,13 @@ public class RightButton extends JButton implements MouseListener{
 			String file_name=ImageStreamDL.file.toString();
 			int i= ImageStreamDL.getIndex(file_name);
 			i++;
-			if (i==52) { // return to first image
+			if ((i==11)&&(file_name.contains(".jpg"))) { // return to first image
 				i=1;
 			}
-			file_name= ImageStreamDL.setIndex(i);
+			if ((i==52)&&(file_name.contains(".png"))) { // return to first image
+				i=1;
+			}
+			file_name= ImageStreamDL.setIndex(i,file_name);
 			//file_name="Images/p10.jpg";
 			InterfaceImage.setFile( new File(file_name));
 			
