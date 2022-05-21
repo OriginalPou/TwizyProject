@@ -35,31 +35,33 @@ import ImageProcessing.Interface;
 public class Main {
 	public static void main( String[] args ) throws IOException {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-		int[] labels={2,2,4,0,4,0,1,1,3,0,0,5};
+		//int[] labels={2,2,4,0,4,0,1,1,3,0,0,5};
 		//{30,50,70,90,110}
 		//names: ['110km-h', '30km-h', '50km-h', '70km-h', '90km-h', 'noEntry', 'noOvertaking']
-		//Vector<Mat> panels= Utilities.SignPanels();
-      /*Mat img = Utilities.readImage("Images/ref90.jpg");
+		//int[] labels={3,3,0,1,0,1,2,2,4,1,1,6};
+	 Vector<Mat> panels= Utilities.SignPanels();
+     /* Mat img = Utilities.readImage("Images/ref90.jpg");
       Utilities.GreyMode(img);
       Utilities.BGRMode(img);
       Mat mat = Mat.eye(3, 3, CvType.CV_8UC1);
       System.out.println("mat = " + mat.dump());*/
-      
-//      Mat testFile = Utilities.readImage("Images/p1.jpg");
-//      Mat ref = Utilities.readImage("Images/ref70.jpg");
-//      Utilities.imShow("test file", testFile);
-//      Mat hsvimage=Utilities.RGB2HSV(testFile);
-//      //HighGui.imshow("hsv 110km/h", hsvimage);
-//     List<MatOfPoint> listeContours = Utilities.detectContours(hsvimage);
-//     Mat objetrond = null;
-//		
-//		  for (MatOfPoint contour: listeContours ){
-//		  objetrond=Utilities.DetectForm(testFile,contour); if (objetrond!= null) {
-//		  Utilities.imShow("contour rond", objetrond);
-//		  //Utilities.Match(objetrond,panels);
-//		  Utilities.MatchingWithDescreptors(ref, objetrond);
-//		  }
-//		  }
+	 /*
+     Mat testFile = Utilities.readImage("Images/p1.png");
+     // Mat ref = Utilities.readImage("Images/test/01086.jpg");
+    //  Utilities.imShow("test file", testFile);
+      Mat hsvimage=Utilities.RGB2HSV(testFile);
+      //Utilities.imShow("hsv 110km/h", hsvimage);
+     List<MatOfPoint> listeContours = Utilities.detectContours(hsvimage);
+     Mat objetrond = null;
+		
+		  for (MatOfPoint contour: listeContours ){
+		  objetrond=Utilities.DetectForm(testFile,contour); if (objetrond!= null) {
+		System.out.println(contour.toList());
+		  Utilities.imShow("contour rond", objetrond);
+		  Utilities.Match(objetrond,panels,Utilities.Matching_With_RGB);
+		  
+		  }
+		  }*/
 	     // uncomment this if u are working on the images on drive ( we have some problems in seuillage )
 		  
       //Utilities.Match(testFile,panels);
@@ -100,10 +102,7 @@ public class Main {
       }
       //Mat testFile = Utilities.readImage("Images/data/detected_images/00006.png");*/
     	
-    	//INTERFACE RUNNING MAIN
-		List<Mat> dataSet=algorithmTester.createDataSet();
-		float accuracy = algorithmTester.test(dataSet,labels,Utilities.Matching_With_Descreptors);
-		System.out.println("accuracy="+accuracy+"%");
+    	
 		/*
 		  System.loadLibrary(Core.NATIVE_LIBRARY_NAME); 
 		  Interface window = new Interface();
@@ -117,26 +116,32 @@ public class Main {
 		  }*/
 		 
 		
-//		Vector<Mat> panels= Utilities.SignPanels();
-//		Mat testFile = Utilities.readImage("Images/p10.jpg");
-//	      //Mat ref = Utilities.readImage("Images/ref70.jpg");
-//	      Utilities.imShow("test file", testFile);
-//	      Mat hsvimage=Utilities.RGB2HSV(testFile);
-//	      //HighGui.imshow("hsv 110km/h", hsvimage);
-//	     List<MatOfPoint> listeContours = Utilities.detectContours(hsvimage);
-//	     Mat objetrond = null;
-//			  
-//			  for (MatOfPoint contour: listeContours ){
-//			  objetrond=Utilities.DetectForm(testFile,contour);
-//			  if (objetrond!= null) {
-//			  Utilities.imShow("contour rond", objetrond);
-//			  Utilities.Match(objetrond,panels); }
-//			  
-//			  
-//			  }
+		//Vector<Mat> panels= Utilities.SignPanels();
+		Mat testFile = Utilities.readImage("Images/p4.jpg");
+	      //Mat ref = Utilities.readImage("Images/ref70.jpg");
+	      Utilities.imShow("test file", testFile);
+	      Mat hsvimage=Utilities.RGB2HSV(testFile);
+	      //HighGui.imshow("hsv 110km/h", hsvimage);
+	     List<MatOfPoint> listeContours = Utilities.detectContours(hsvimage);
+	     Mat objetrond = null;
+			  
+			  for (MatOfPoint contour: listeContours ){
+			  objetrond=Utilities.DetectForm(testFile,contour);
+			  if (objetrond!= null) {
+			  Utilities.imShow("contour rond", objetrond);
+			  Utilities.Match(objetrond,panels,Utilities.Matching_With_RGB); }
+			  
+			  
+			  }
 		
 		
-		
+		/*String path="Images/test";
+		List<Mat> dataSet=algorithmTester.loadDataSet(path);
+		for(int i=0;i<dataSet.size();i++) {
+			algorithmTester.displayResult(dataSet.get(i));
+			
+		}*/
+				
 		
 		
 		

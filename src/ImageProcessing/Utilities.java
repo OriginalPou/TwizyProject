@@ -245,18 +245,51 @@ public class Utilities {
 			 * has more than 80% the area of a perfect circle 
 			 */
 			
-			if ((contourArea / (Math.PI*radius[0]*radius[0])) >=0.86) {
+			if ((contourArea / (Math.PI*radius[0]*radius[0])) >=0.8) {
 				//System.out.println("Cercle");
 				Imgproc.circle(img, center, (int)radius[0], new Scalar(255, 0, 0), 2);
 				Imgproc.rectangle(img, new Point(rect.x,rect.y), new Point(rect.x+rect.width,rect.y+rect.height), new Scalar (0, 255, 0), 5);
 				Mat tmp = img.submat(rect.y,rect.y+rect.height,rect.x,rect.x+rect.width);
 				Mat sign = Mat.zeros(tmp.size(),tmp.type());
 				tmp.copyTo(sign);
-				if(sign.rows()>40 && sign.cols()>40)
-					return sign;
+				//if(sign.rows()>40 && sign.cols()>40)
+				return sign;
 			}
 			return null;
 		}
+		
+		public static int[] ContourCoordinates(MatOfPoint contour) {
+			int coordinates[]= {0,0,0,0};
+			MatOfPoint2f matOfPoint2f = new MatOfPoint2f();
+			float[] radius = new float[1];
+			Point center = new Point();
+			Rect rect = Imgproc.boundingRect(contour);
+			double contourArea = Imgproc.contourArea(contour);
+			matOfPoint2f.fromList(contour.toList());
+			Imgproc.minEnclosingCircle(matOfPoint2f, center, radius);
+			if ((contourArea / (Math.PI*radius[0]*radius[0])) >=0.8) {
+				coordinates[0]=rect.x;
+				coordinates[1]=rect.y;
+				coordinates[2]=rect.x+rect.width;
+				coordinates[3]=rect.y+rect.height;
+				return coordinates;
+			}
+			return null;
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		/*
 		 * @brief : function that makes similar the size of an object and the size of the template
 		 * @return : a resized matrix of the object extracted from an image
@@ -356,15 +389,18 @@ public class Utilities {
 		 */
 			
 			public static Vector<Mat> SignPanels(){
-				
-			 int[] panels= {30,50,70,90,110};
+			//names: ['110km-h', '30km-h', '50km-h', '70km-h', '90km-h', 'noEntry', 'noOvertaking']
+			 //int[] panels= {30,50,70,90,110};
+			 int[] panels= {110,30,50,70,90};
 		     Vector<Mat> Signs=new Vector<Mat>();
 		     for(int i=0;i<panels.length;i++) {
 		    	  Mat image = Utilities.readImage("Images/ref"+Integer.toString(panels[i])+".jpg");//"+Integer.toString(panels[i])+".
 		    	  Signs.add(image);
 		      }
-		     Mat image = Utilities.readImage("Images/refdouble.jpg");
-		     Signs.add(image);
+		     Mat image1 = Utilities.readImage("Images/noEntry.jpg");
+		     Signs.add(image1);
+		     Mat image2 = Utilities.readImage("Images/refdouble.jpg");
+		     Signs.add(image2);
 		      return Signs;
 			}
 			
@@ -380,10 +416,10 @@ public class Utilities {
 			for(int i=0;i<image.width();i++) {
 				for(int j=0;j<image.height();j++) {
 					double[] pixel=image.get(i, j);
-					if((int)pixel[0]>=200)
-						binaryObject.put(i, j, 0);
-					else
+					if((int)pixel[0]>=100)
 						binaryObject.put(i, j, 1);
+					else
+						binaryObject.put(i, j, 0);
 					
 				}
 			}
@@ -408,7 +444,7 @@ public class Utilities {
 			Mat binarySign=turnBinary(graySign);
 			Mat binaryObject=turnBinary(grayObject);
 			// total number of pixels
-			int totalNumberOfPixels=graySign.width()*graySign.height();//=graySign.height()*graySign.height();
+			int totalNumberOfPixels=graySign.width()*graySign.height();
 			for(int i=0;i<graySign.width();i++) {
 				for(int j=0;j<graySign.height();j++) {
 					double[] xySign   = binarySign.get(i,j);
@@ -423,9 +459,9 @@ public class Utilities {
 				return similarity;
 			}
 		
-		public static float MatchingWithDescreptors(Mat sroadSign, Mat object) {
+		/*public static float MatchingWithDescreptors(Mat sroadSign, Mat object) {
 			float diff=0;
-			//float diffmatch=MatchingWithDifference(object,sroadSign);
+			float diffmatch=MatchingWithDifference(object,sroadSign);
 			Mat sObject = new Mat();
 			Imgproc.resize(object, sObject, sroadSign.size());
 			Mat grayObject = new Mat(sObject.rows(),sObject.cols(),sObject.type());
@@ -456,7 +492,7 @@ public class Utilities {
 		     
 
 		}
-		
+		*/
 		
 		
 		
@@ -473,13 +509,13 @@ public class Utilities {
 			Mat img2=sObject;
 			// in order to well recognise the panel the brightness should be around 0.5 ~ 0.6
 			float brightness=getBrightness(img1);
-			System.out.println("brightness="+brightness);
+			//System.out.println("brightness="+brightness);
 			if(brightness<0.45)
 				img1.convertTo(img1, -1, 1, 55);
 			if(brightness>0.95)
 				img1.convertTo(img1, -1, 1, -85);
 			float brightnessAfter=getBrightness(img1);
-			System.out.println("brightness after="+brightnessAfter);
+			//System.out.println("brightness after="+brightnessAfter);
 			int height=img1.height();
 			int width =img1.width();
 			double diff = 0;
