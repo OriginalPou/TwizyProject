@@ -42,10 +42,13 @@ public class LeftButton extends JButton implements  MouseListener{
 		String file_name=ImageStream.file.toString();
 		int i= ImageStream.getIndex(file_name);
 		i--;
-		if (i==0) { //go to last image
+		if ((i==0)&&(file_name.contains(".jpg"))) { //go to last image
 			i=10;
 		}
-		file_name= ImageStream.setIndex(i);
+		if((i==0)&&(file_name.contains(".png"))) { //go to last image
+			i=51;
+		}
+		file_name= ImageStream.setIndex(i,file_name);
 		InterfaceImage.setFile( new File(file_name));
 		}
 		//if working on DL dataset
@@ -53,10 +56,13 @@ public class LeftButton extends JButton implements  MouseListener{
 			String file_name=ImageStreamDL.file.toString();
 			int i= ImageStreamDL.getIndex(file_name);
 			i--;
-			if (i==0) { //go to last image
+			if((i==0)&&(file_name.contains(".jpg"))) { //go to last image
+				i=10;
+			}
+			if((i==0)&&(file_name.contains(".png"))) { //go to last image
 				i=51;
 			}
-			file_name= ImageStreamDL.setIndex(i);
+			file_name= ImageStreamDL.setIndex(i,file_name);
 			InterfaceImage.setFile( new File(file_name));
 		
 			

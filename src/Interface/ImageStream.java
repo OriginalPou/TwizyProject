@@ -100,14 +100,24 @@ public class ImageStream {
 		return this.image.getImage();
 	}
 	
-	// this only works for the .jpg pictures: 
-	// TODO : change it when we have the new data pics
-	// TODO : add:  left , from 1 goes to 9/ right, from 9 goes to 1
-	public static String setIndex(int i) {
-		String file_name="Images/Dataset/p";
-		String number=Integer.toString(i);
-		file_name=file_name+number+".jpg";
+
+	public static String setIndex(int i, String file_name) {
+		if (file_name.contains(".jpg")) {
+			System.out.println("ppp"+file_name);
+			file_name="Images/Dataset/p";
+			String number=Integer.toString(i);
+			file_name=file_name+number+".jpg";
+		}
+		else if(file_name.contains(".png")) {
+			file_name="Images/DL_Dataset/";
+			String number=Integer.toString(i);
+			while(number.length()<5) {
+				number="0"+number;
+			}
+			file_name=file_name+number+".png";
+		}
 		return file_name;
+		
 	}
 	
 	public static int getIndex(String file_name) {
