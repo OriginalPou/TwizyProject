@@ -39,6 +39,7 @@ public class RightButton extends JButton implements MouseListener{
 			i=1;
 		}
 		file_name= ImageStream.setIndex(i,file_name);
+		//System.out.println(file_name);
 		InterfaceImage.setFile( new File(file_name));
 		}
 		//Deeplearning 

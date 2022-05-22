@@ -102,15 +102,22 @@ public class ImageStream {
 	
 
 	public static String setIndex(int i, String file_name) {
+		System.out.println(i);
 		if (file_name.contains(".jpg")) {
-			System.out.println("ppp"+file_name);
+			//System.out.println("ppp"+file_name);
 			file_name="Images/Dataset/p";
 			String number=Integer.toString(i);
 			file_name=file_name+number+".jpg";
+			
+			//System.out.println("HIIII"+file_name);
 		}
 		else if(file_name.contains(".png")) {
-			file_name="Images/DL_Dataset/";
+			//file_name="Images/DL_Dataset/";
+			file_name=file_name.substring(0, file_name.length()-9);
+			System.out.println(file_name);
+			
 			String number=Integer.toString(i);
+			
 			while(number.length()<5) {
 				number="0"+number;
 			}
@@ -124,12 +131,14 @@ public class ImageStream {
 		int i=0;
 		String number="";
 		
-		for(int c=0; c<file_name.length(); c++){ 
+		for(int c=file_name.length()-12; c<file_name.length(); c++){ 
 			if (Character.isDigit(file_name.charAt(c))) {	
 				number=number+file_name.charAt(c);
 			}
 		}
+		//System.out.println("number: "+number);
 		i=Integer.parseInt(number);
+		//System.out.println("iii: "+i);
 		return i;
 	}
 

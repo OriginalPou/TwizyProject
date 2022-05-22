@@ -111,7 +111,7 @@ public class HomePage extends JFrame{
 		//split the frame
         splitPane.setSize(width, height);
         splitPane.setDividerSize(0);
-        splitPane.setDividerLocation(width/2);
+        splitPane.setDividerLocation(width);
         splitPane.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
         splitPane.setLeftComponent(container_button);
         splitPane.setRightComponent(container_button_DL);

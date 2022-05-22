@@ -18,6 +18,7 @@ import org.opencv.core.MatOfPoint;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.videoio.VideoCapture;
 
+import DeepLearning.Client;
 import ImageProcessing.Main;
 import ImageProcessing.Utilities;
 
@@ -30,10 +31,11 @@ public class VideoStream {
 	//Mat PanneauAAnalyser = null;
 	ImageIcon image;
 	Image empty;
+	Client yoloClient;
 	
 	
 	//constructor
-	public VideoStream(InterfaceVideo window) throws IOException {	
+	public VideoStream(InterfaceVideo window) throws IOException {
 		this.window = window;
 		this.initImage();	
 	}
@@ -52,7 +54,7 @@ public class VideoStream {
 		System.out.println(file);
 		
 		Mat frame = new Mat();
-		int speed=20;	// adjust this for faster stream
+		int speed=4;	// adjust this for faster stream
 		int frame_index=0;
 		
 		Vector<Image> panelsImages;

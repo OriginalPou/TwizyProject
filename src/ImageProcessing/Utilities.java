@@ -556,6 +556,21 @@ public class Utilities {
 		     Signs.addElement(panelimage);
 		     return Signs;
 		}
+		
+		public static Vector<Image> createPanelsForDL() throws IOException{
+			
+			int[] panels= {110,30,50,70,90};
+		     Vector<Image> Signs=new Vector<Image>();
+		     for(int i=0;i<panels.length;i++) {
+		    	 Image panelimage=ImageIO.read(new File("Images/ref"+Integer.toString(panels[i])+".jpg"));
+		    	 Signs.addElement(panelimage);
+		      }
+	    	 Image panelimage=ImageIO.read(new File("Images/refinterdit.jpg"));
+		     Signs.addElement(panelimage);
+		     panelimage=ImageIO.read(new File("Images/refdouble.jpg"));
+		     Signs.addElement(panelimage);
+		     return Signs;
+		}
 
 	
 }

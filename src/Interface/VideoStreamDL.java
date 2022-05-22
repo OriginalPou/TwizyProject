@@ -15,9 +15,14 @@ import javax.swing.JLabel;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
+import org.opencv.core.Point;
+import org.opencv.core.Scalar;
 import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
 import org.opencv.videoio.VideoCapture;
 
+import DeepLearning.Client;
+import DeepLearning.RoadSign;
 import ImageProcessing.Main;
 import ImageProcessing.Utilities;
 
@@ -35,10 +40,13 @@ public class VideoStreamDL {
 	//Mat PanneauAAnalyser = null;
 	ImageIcon image;
 	Image empty;
+	Client yoloClient;
+	
+	private String[] signNames = {"110km-h", "30km-h", "50km-h", "70km-h", "90km-h", "noEntry", "noOvertake"};
 	
 	
 	//constructor
-	public VideoStreamDL(InterfaceVideo window) throws IOException {	
+	public VideoStreamDL(InterfaceVideo window) throws IOException {
 		this.window = window;
 		this.initImage();	
 	}
@@ -52,21 +60,28 @@ public class VideoStreamDL {
 	//run the video processing algorithm
 	public void VideoProcessing(Vector<Mat> panels) throws IOException {
 		
+		this.yoloClient = new Client();
+		yoloClient.startConnection("localhost", 9999);
 		initVideo();
 		initImage();
 		System.out.println(file);
 		
 		Mat frame = new Mat();
-		int speed=20;	// adjust this for faster stream
+		int speed=15;	// adjust this for faster stream
 		int frame_index=0;
 		
 		Vector<Image> panelsImages;
 		int panelIndex;
-		panelsImages=Utilities.CreatePanels();
+		panelsImages=Utilities.createPanelsForDL();
 		
-		int i=0;
+		
+		
+		int font = Imgproc.FONT_HERSHEY_SIMPLEX;
+	    int scale = 1;
+	    int thickness = 5;
 		
 		while (camera.read(frame)&&(stop==0)) {
+			int i=0;
 		
 			if (filechanged==1) {
 				initVideo();
@@ -76,23 +91,25 @@ public class VideoStreamDL {
 			
 			if (frame_index % speed == 0) {
 				
-				Mat HSV_image=Utilities.RGB2HSV(frame);
-				List<MatOfPoint> ListContours= Utilities.detectContours(HSV_image);
-				
-				Mat round_object = null;
-				Vector<Image> panelsImagesToShow = new Vector<Image>();
-				for (MatOfPoint contour: ListContours  ){
-					round_object=Utilities.DetectForm(frame,contour);
-					if (round_object!=null){
+				String filename = "Images/temporaryFolder/"+Integer.toString(frame_index)+".jpg"; 
 
-						panelIndex=Utilities.Match(round_object,panels,Utilities.Matching_With_RGB);
-						panelsImagesToShow.insertElementAt(panelsImages.get(panelIndex), i);
-						//this.window.panel_plate_image_1.setImage(panelsImages.get(indexes[i])); // you have an array of index 
-						
+			      //Writing the image 
+				Imgcodecs.imwrite(filename, frame); 
+				Vector<Image> panelsImagesToShow = new Vector<Image>();
+				
+				String result=yoloClient.sendMessage("../"+filename);
+				if(result.length()>2) {	
+					String[] signs =result.split(";");
+					//System.out.println(signs.length);
+					for (int j=0; j<signs.length;j++) {
+						RoadSign sign = new RoadSign(signs[i]);
+						panelsImagesToShow.insertElementAt(panelsImages.get(sign.getSignClass()), i);
+						Imgproc.rectangle(frame, new Point(sign.getXmin(),sign.getYmin()), new Point(sign.getXmax(),sign.getYmax()), new Scalar (0, 255, 0), 5);
+						Imgproc.putText(frame, this.signNames[sign.getSignClass()],new Point(sign.getXmin(), sign.getYmin()) , font, scale,new Scalar (255, 0, 0),thickness );
 						i++;
 					}
-					//Arrays.fill(indexes,0);
 				}
+				
 				if(panelsImagesToShow!=null){
 				
 					if(panelsImagesToShow.size()==1) 
@@ -135,6 +152,12 @@ public class VideoStreamDL {
 	
 	public Image getFrame() {
 		return this.image.getImage();
+	}
+	
+	public void closeConnection() throws IOException {
+		this.yoloClient.sendMessage("q"); // closes connection from server side
+		this.yoloClient.stopConnection();
+		Main.runVideoDL=0;
 	}
 
 }
