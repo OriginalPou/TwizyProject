@@ -52,7 +52,41 @@ public class ImageStream {
 		//Processing
 		Mat img = Utilities.readImage(file.getAbsolutePath());
 		Mat HSV_image=Utilities.RGB2HSV(img);
+		Mat threshold_img=Utilities.multipleThreshhold(HSV_image, 6, 150, 80);
 		List<MatOfPoint> ListContours= Utilities.detectContours(HSV_image);
+		
+		
+		//image display
+				this.image = new ImageIcon(Utilities.Mat2bufferedImage(img));
+				this.window.panel_data.setImage(getimg());
+				this.window.panel_data.repaint();
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				//HSV display
+				this.image = new ImageIcon(Utilities.Mat2bufferedImage(HSV_image));
+				this.window.panel_data.setImage(getimg());
+				this.window.panel_data.repaint();
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				//threshold display
+				this.image = new ImageIcon(Utilities.Mat2bufferedImage(threshold_img));
+				this.window.panel_data.setImage(getimg());
+				this.window.panel_data.repaint();
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}		
 		
 		Mat round_object = null;
 		Vector<Image> panelsImagesToShow = new Vector<Image>();
@@ -83,6 +117,12 @@ public class ImageStream {
 		this.image = new ImageIcon(Utilities.Mat2bufferedImage(img));
 		this.window.panel_data.setImage(getimg());
 		this.window.panel_data.repaint();
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
 	}
 	
 	public void initData() {
