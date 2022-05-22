@@ -22,4 +22,29 @@ public class RoadSign {
 	public String toString() {
 		return("xmin = "+xmin+" ymin = "+ymin+" xmax = "+xmax+" ymax = "+ymax+" class = "+signClass+ " conf = "+confidence);
 	}
+
+	public int getXmin() {
+		return xmin;
+	}
+
+	public int getYmin() {
+		return ymin;
+	}
+
+	public int getXmax() {
+		return xmax;
+	}
+
+	public int getYmax() {
+		return ymax;
+	}
+
+	public int getSignClass() {
+		return signClass;
+	}
+
+	public float getConfidence() {
+		return confidence;
+	}
+	
 }

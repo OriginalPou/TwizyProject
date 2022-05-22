@@ -24,7 +24,7 @@ public class Client {
         out.println(msg);
         out.flush();
         String resp = in.readLine();
-        System.out.println(resp);
+        //System.out.println(resp);
         //out.println("okay");
         return resp;
     }
