@@ -37,11 +37,7 @@ class recognition_Test_Matching_With_RGB {
 	void tearDown() throws Exception {
 	}
 	
-	@Test
-	void testReadImage() {
-		Mat image = Utilities.readImage("Images/p1.jpg");
-		assertNotNull(image);
-	}
+	
 	
 	@Test
 	void testRecognitionP1() {

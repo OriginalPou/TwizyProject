@@ -258,6 +258,11 @@ public class Utilities {
 			return null;
 		}
 		
+		/*
+		 * @brief : entrer :contours
+		 * @return : retourne les coordonnées de rectangle de contour  
+		 */
+		
 		public static int[] ContourCoordinates(MatOfPoint contour) {
 			int coordinates[]= {0,0,0,0};
 			MatOfPoint2f matOfPoint2f = new MatOfPoint2f();
@@ -276,16 +281,6 @@ public class Utilities {
 			}
 			return null;
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		
 		
@@ -458,43 +453,6 @@ public class Utilities {
 				similarity=(float)similarity/totalNumberOfPixels;
 				return similarity;
 			}
-		
-		/*public static float MatchingWithDescreptors(Mat sroadSign, Mat object) {
-			float diff=0;
-			float diffmatch=MatchingWithDifference(object,sroadSign);
-			Mat sObject = new Mat();
-			Imgproc.resize(object, sObject, sroadSign.size());
-			Mat grayObject = new Mat(sObject.rows(),sObject.cols(),sObject.type());
-			Imgproc.cvtColor(sObject, grayObject, Imgproc.COLOR_BGRA2GRAY);
-			Core.normalize(grayObject, grayObject,0,255,Core.NORM_MINMAX);
-			Mat graySign = new Mat(sroadSign.rows(),sroadSign.cols(),sroadSign.type());
-			Imgproc.cvtColor(sroadSign, graySign, Imgproc.COLOR_BGRA2GRAY);
-			Core.normalize(graySign, graySign,0,255,Core.NORM_MINMAX);
-			// extarct features
-			FastFeatureDetector featureDetector = FastFeatureDetector.create();
-			MatOfKeyPoint objectKeypoints=new MatOfKeyPoint();
-			featureDetector.detect(grayObject, objectKeypoints);
-			MatOfKeyPoint signKeypoints=new MatOfKeyPoint();
-			featureDetector.detect(graySign, signKeypoints);
-		    Features2d.drawKeypoints(object, objectKeypoints, object, new Scalar(0, 0, 255));
-		    imShow("Feature Detection", object);
-		    Features2d.drawKeypoints(sroadSign, signKeypoints, sroadSign, new Scalar(0, 0, 255));
-		    imShow("Feature Detection", sroadSign);
-		     int minsize=Math.min(objectKeypoints.height(),signKeypoints.height());
-	    	 System.out.println("size="+minsize);
-		     for(int i=0;i<minsize;i++) {
-		    	 double[] dataObject=objectKeypoints.get(i, 0);
-		    	 double[] dataSign  =signKeypoints.get(i, 0);
-		    	 System.out.println("O="+dataObject);
-		    	 diff=(float) (diff+Math.abs(dataObject[0]-dataSign[0]));
-		     }
-		     return (float) (0.4*(100-(diff/minsize))+0.6*diffmatch);
-		     
-
-		}
-		*/
-		
-		
 		
 		
 		/*
