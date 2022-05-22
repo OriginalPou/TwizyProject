@@ -37,23 +37,27 @@ def server():
 	s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 	s.bind((host, port))
 
-	print ("SERVER READY")  
-	s.listen(1)
-	c, addr = s.accept()
-	s.settimeout(0.00001)
-	print("Connection from: " + str(addr))
+	print ("SERVER READY")
 	while True:
-		image_path = c.recv(1024).decode('utf-8')
-		if not image_path:
-			continue
-		print('image file to run inference on: ' + image_path)
-		results = runInference(model,str(image_path[:-1]))
-		result  = prepareData(results)
-		if result=="\n":
-			print ("no sign found")
-		else:
-			print(results)
-		c.send(bytes(result,'UTF-8'))
+		print("Waiting for connection")  
+		s.listen(1)
+		c, addr = s.accept()
+		print("Connection from: " + str(addr))
+		while True:
+			image_path = c.recv(1024).decode('utf-8')
+			if not image_path:
+				continue
+			if image_path=="q\n":
+				c.send(bytes('\n','UTF-8'))
+				break
+			print('image file to run inference on: ' + image_path)
+			results = runInference(model,str(image_path[:-1]))
+			result  = prepareData(results)
+			if result=="\n":
+				print ("no sign found")
+			else:
+				print(results)
+			c.send(bytes(result,'UTF-8'))
 	s.close()
 
 if __name__ == '__main__':
