@@ -58,7 +58,7 @@ Our algorithms detect signs of the type :
 If you encounter a problem, want to ask for help, or want to suggest a feature, feel free to [open an issue](https://github.com/OriginalPou/TwizyProject/issues).
 
 ## Authors
-This project was created by [Maha Gaied](https://github.com/mahagaied), [Oumnia Anouk](https://github.com/WishAnk), [Moad Benslimane](https://github.com/MoadBens), [Mahdi Chaari](https://github.com/OriginalPou) and [Ali Chouchene](https://github.com/ALICHOUCHENE) 
+This project was created by [Maha Gaied](https://github.com/mahagaied), [Oumnia Anouk](https://github.com/WishAnk), [Moad Benslimane](https://github.com/MoadBens), [Salma Maghraoui](https://github.com/Salmamagh01),  [Mahdi Chaari](https://github.com/OriginalPou) and [Ali Chouchene](https://github.com/ALICHOUCHENE) 
 
 # License
 Twizy Project is licensed under the [MIT license](LICENSE).
