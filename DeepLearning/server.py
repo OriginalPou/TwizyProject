@@ -18,12 +18,13 @@ def prepareData(results):
 	df=results #results is a pandas dataframe
 	result=""
 	for index in df.index:
-		if index>0:
-			#split between different signs detected
-			result=result+";" 
-		for col in ["xmin","ymin","xmax","ymax","class"]:
-			result=result+ str(int(df.loc[index,col]))+" "
-		result=result+ str(float("{:.2f}".format(df.loc[index,"confidence"])))
+		if df.loc[index,"confidence"]>0.5:
+			if index>0:
+				#split between different signs detected
+				result=result+";" 
+			for col in ["xmin","ymin","xmax","ymax","class"]:
+				result=result+ str(int(df.loc[index,col]))+" "
+			result=result+ str(float("{:.2f}".format(df.loc[index,"confidence"])))
 	return (result+"\n")
 
 def server():

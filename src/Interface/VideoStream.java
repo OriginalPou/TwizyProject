@@ -92,8 +92,10 @@ public class VideoStream {
 				}
 				if(panelsImagesToShow!=null){
 				
-					if(panelsImagesToShow.size()==1) 
+					if(panelsImagesToShow.size()==1) {
 						this.window.panel_plate_image_1.setImage(panelsImagesToShow.get(0));
+						this.window.panel_plate_image_2.setImage(empty);						
+					}
 					
 					else if(panelsImagesToShow.size()==2) {
 						this.window.panel_plate_image_1.setImage(panelsImagesToShow.get(0));

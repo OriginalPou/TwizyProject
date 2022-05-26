@@ -80,8 +80,8 @@ public class InterfaceVideo extends JFrame  {
 	private JMenu menu= new JMenu("File");	
 	private JMenuItem open_file = new JMenuItem("Open File         ");
 	
-	public int width=1300;
-	public int height=600;
+	public int width=1920;
+	public int height=1080;
 	public File File;
 
 	public InterfaceVideo(){
@@ -131,7 +131,7 @@ public class InterfaceVideo extends JFrame  {
 		panel_plate_image_2.setBorder( BorderFactory.createLineBorder(new Color (220,20,60), 1));	
 		
 		//text
-		panel_plate_text.setText("Panneaux detectés: ");
+		panel_plate_text.setText("Panneaux detectï¿½s: ");
 		panel_plate_text.setFont(new Font(Font.SERIF, Font.BOLD, 20));
 		panel_plate_text.setForeground(Color.BLACK);
 		

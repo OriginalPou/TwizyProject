@@ -35,8 +35,8 @@ public class HomePage extends JFrame{
 	private JLabel panel_text_DL = new JLabel();
 	public JSplitPane splitPane = new JSplitPane();
 	
-	public int width=1500;
-	public int height=600;
+	public int width=1920;
+	public int height=1080;
 	
 	public HomePage(){
 		this.setTitle("Interface Twizzy: Page d'acceuil");
@@ -50,24 +50,24 @@ public class HomePage extends JFrame{
 		container_button_DL.setLayout(new BoxLayout(container_button_DL, BoxLayout.Y_AXIS));
 		
 		// Home page text label
-		panel_text.setText("Detection des panneaux:");
+		panel_text.setText("Traffic Signs Detection with OpenCv");
 		panel_text.setFont(new Font(Font.SERIF, Font.PLAIN, 40));
 		//panel_text.setForeground(new Color(255,255,255));
 		panel_text.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		// DeepLearning text label
-		panel_text_DL.setText(" Detection des panneaux avec DeepLearning: ");
+		panel_text_DL.setText("Traffic Signs Detection with yoloV5 ");
 		panel_text_DL.setFont(new Font(Font.SERIF, Font.PLAIN, 40));
 		//panel_text.setForeground(new Color(255,255,255));
 		panel_text_DL.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		//buttons
-		button_image=new imageButton(" Traitement des images ");
-		button_video=new videoButton(" Traitement des videos ");
+		button_image=new imageButton(" Detection on images ");
+		button_video=new videoButton(" Detection on videos ");
 	
 		//buttons DL
-		button_image_DL=new imageButtonDL(" Traitement des images ");
-		button_video_DL=new videoButtonDL(" Traitement des videos ");
+		button_image_DL=new imageButtonDL(" Detection on images ");
+		button_video_DL=new videoButtonDL(" Detection on videos ");
 		
 		//add text
 		container_button.add(Box.createRigidArea(new Dimension(80, 80)));

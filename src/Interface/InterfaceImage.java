@@ -49,15 +49,15 @@ public class InterfaceImage extends JFrame{
 	private LeftButton Left = new LeftButton("<");
 	private RightButton Right = new RightButton(">");
 	
-	public int width=1300;
-	public int height=600;
+	public int width=1920;
+	public int height=1080;
 	public File File;
 
 	public InterfaceImage(){
 		if (Main.runImage==1)
-			this.setTitle("Interface Twizzy: Traitement des images");
+			this.setTitle("Interface Twizzy: OpenCv");
 		else if(Main.runImageDL==1) 
-			this.setTitle("Interface Twizzy: Traitement des images - DeepLearning");
+			this.setTitle("Interface Twizzy: Yolov5");
 		this.setSize(width,height);
 		this.setVisible(true);
 		this.DisplayWindow();
@@ -96,7 +96,7 @@ private void DisplayWindow() {
 		panel_plate_image_2.setBorder( BorderFactory.createLineBorder(new Color (220,20,60), 1));
 		
 		//plate for text
-		panel_plate_text.setText("Panneaux detectés: ");
+		panel_plate_text.setText("Signs Detected: ");
 		panel_plate_text.setFont(new Font(Font.SERIF, Font.BOLD, 20));
 		panel_plate_text.setForeground(Color.BLACK);
 		

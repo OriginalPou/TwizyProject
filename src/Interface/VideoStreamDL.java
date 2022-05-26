@@ -67,7 +67,7 @@ public class VideoStreamDL {
 		System.out.println(file);
 		
 		Mat frame = new Mat();
-		int speed=15;	// adjust this for faster stream
+		int speed=10;	// adjust this for faster stream
 		int frame_index=0;
 		
 		Vector<Image> panelsImages;
@@ -112,10 +112,13 @@ public class VideoStreamDL {
 				
 				if(panelsImagesToShow!=null){
 				
-					if(panelsImagesToShow.size()==1) 
+					if(panelsImagesToShow.size()==1) {
 						this.window.panel_plate_image_1.setImage(panelsImagesToShow.get(0));
+						this.window.panel_plate_image_2.setImage(empty);	
+					}
+
 					
-					else if(panelsImagesToShow.size()==2) {
+					else if(panelsImagesToShow.size()>1) {
 						this.window.panel_plate_image_1.setImage(panelsImagesToShow.get(0));
 						this.window.panel_plate_image_2.setImage(panelsImagesToShow.get(1));
 						}
