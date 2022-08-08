@@ -46,8 +46,8 @@ public class Main {
 		//yoloClient.sendMessage("../Images/p10.jpg");
 		//yoloClient.stopConnection();
 
-	
-    	System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+		nu.pattern.OpenCV.loadShared();
+    	//System.load(Core.NATIVE_LIBRARY_NAME);
     	HomePage window = new HomePage();
     	
     	window.DisplayHomePage();
@@ -104,4 +104,36 @@ public class Main {
     	
 
    }
+
+	public static int getRunImage() {
+		return runImage;
+	}
+
+	public static void setRunImage(int runImage) {
+		Main.runImage = runImage;
+	}
+
+	public static int getRunVideo() {
+		return runVideo;
+	}
+
+	public static void setRunVideo(int runVideo) {
+		Main.runVideo = runVideo;
+	}
+
+	public static int getRunImageDL() {
+		return runImageDL;
+	}
+
+	public static void setRunImageDL(int runImageDL) {
+		Main.runImageDL = runImageDL;
+	}
+
+	public static int getRunVideoDL() {
+		return runVideoDL;
+	}
+
+	public static void setRunVideoDL(int runVideoDL) {
+		Main.runVideoDL = runVideoDL;
+	}
 }
