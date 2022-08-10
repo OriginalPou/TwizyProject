@@ -184,12 +184,12 @@ public class InterfaceVideo extends JFrame  {
 	public void setFile(File file) {
 		if (Main.runVideo==1) {
 			VideoStream.file=file;	
-			System.out.println(file);
+			//System.out.println(file);
 			VideoStream.filechanged=1;
 		}
 		if (Main.runVideoDL==1) {
 			VideoStreamDL.file=file;	
-			System.out.println(file);
+			//System.out.println(file);
 			VideoStreamDL.filechanged=1;
 		} 
 	}

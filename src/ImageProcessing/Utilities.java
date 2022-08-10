@@ -1,5 +1,6 @@
 package ImageProcessing;
 
+
 import org.opencv.core.Core;
 
 import org.opencv.core.CvType;
@@ -24,8 +25,7 @@ import org.opencv.imgproc.Imgproc;
 import org.opencv.photo.Photo;
 import org.opencv.videoio.VideoCapture;
 
-import static org.opencv.imgproc.Imgproc.*;
-import static org.opencv.imgcodecs.Imgcodecs.imread;
+
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -33,6 +33,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.Buffer;
 import java.util.Random;
 import java.util.Vector;
 
@@ -194,7 +195,7 @@ public class Utilities {
 			int height = (int)input.size(0) * scale_percent / 100;
 			Size newsize = new Size(width, height);
 			Mat resized_image = new Mat();
-			Imgproc.resize(input,resized_image,newsize,0, 0, INTER_AREA);
+			Imgproc.resize(input,resized_image,newsize,0, 0);
 			return(resized_image);
 		}
 		
@@ -506,7 +507,7 @@ public class Utilities {
 			jframe.setVisible(true);
 
 			Mat frame = new Mat();
-			VideoCapture camera = new VideoCapture(videoTitle);
+			VideoCapture camera = new VideoCapture();
 			Mat PanneauAAnalyser = null;
 
 				while (camera.read(frame)) {

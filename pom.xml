@@ -25,17 +25,71 @@
 			</archive>
 		    </configuration>
 		</plugin>
+		<plugin>
+		        <groupId>org.apache.maven.plugins</groupId>
+		        <artifactId>maven-surefire-plugin</artifactId>
+		        <configuration>
+		            <argLine>-Djava.library.path=/home/opencv_build/opencv/build/lib</argLine>
+		        </configuration>
+		</plugin>
   	</plugins>
+  	
   </build>  
   <dependencies>
 	  <!-- https://mvnrepository.com/artifact/org.bytedeco/opencv -->
-	<dependency>
+	<!--dependency>
 		<groupId>org.openpnp</groupId>
 	      	<artifactId>opencv</artifactId>
 	      	<version>[4.3.0,)</version>
-	      	<!--groupId>io.github.dmitributorchin</groupId>
+	      	<groupId>io.github.dmitributorchin</groupId>
 		<artifactId>opencv</artifactId>
-		<version>4.5.5</version-->
+		<version>4.5.5</version>
+	</dependency-->
+	<!-- https://mvnrepository.com/artifact/org.openpnp/opencv -->
+	<!--dependency>
+	    <groupId>org.openpnp</groupId>
+	    <artifactId>opencv</artifactId>
+	    <version>4.5.1-2</version>
+	</dependency-->
+	<!--dependency>
+	    <groupId>org.openpnp</groupId>
+	    <artifactId>openpnp-capture-java</artifactId>
+	    <version>0.0.22</version>
+	</dependency-->
+	<!--dependency>
+		<groupId>org.openpnp</groupId>
+		<artifactId>opencv</artifactId>
+		<version>4.3.0-2</version>
+	</dependency-->
+	<!--dependency>
+	    <groupId>org.openpnp</groupId>
+	    <artifactId>opencv</artifactId>
+	    <version>3.4.2-1</version>
+	</dependency-->
+	<!--dependency>
+	    <groupId>org.bytedeco</groupId>
+	    <artifactId>javacv-platform</artifactId>
+	    <version>1.5.7</version>
+	    <exclusions>
+	    	<exclusion>
+	    		<groupId>org.bytedeco</groupId>
+	    		<artifactId>opencv</artifactId>
+	    	</exclusion>
+	    </exclusions>
+	</dependency-->
+
+	<!--dependency>
+            <groupId>org.opencv</groupId>
+            <artifactId>opencv</artifactId>
+            <version>4.5.5</version>
+        </dependency-->
+        <dependency>
+		<groupId>io.github.dmitributorchin</groupId>
+		<artifactId>opencv</artifactId>
+		<version>4.5.5</version>
 	</dependency>
+
+
+
   </dependencies>
 </project>

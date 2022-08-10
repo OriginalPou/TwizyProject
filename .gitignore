@@ -8,3 +8,4 @@ Images/*
 Videos/*
 bin/ImageProcessing/
 /bin/
+/target/

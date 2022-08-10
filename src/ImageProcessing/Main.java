@@ -1,7 +1,10 @@
 package ImageProcessing;
 
 import java.io.File;
+import java.net.URL;
 
+
+import java.io.File;
 
 
 import java.io.FileFilter;
@@ -28,6 +31,7 @@ import Interface.VideoStreamDL;
 import DeepLearning.*;
 
 
+
 /*
  * Main class
  * We can use it to make sure opencv is installed correctly
@@ -40,24 +44,30 @@ public class Main {
 	public static int runImageDL=0;
 	public static int runVideoDL=0;
 	
+	
 	public static void main( String[] args ) throws IOException {
 		
-		
+		loadLibrary();
 		//yoloClient.sendMessage("../Images/p10.jpg");
 		//yoloClient.stopConnection();
-
-		nu.pattern.OpenCV.loadShared();
-    	//System.load(Core.NATIVE_LIBRARY_NAME);
-    	HomePage window = new HomePage();
+		
+		//nu.pattern.OpenCV.loadShared();
+		//System.loadLibrary("opencv_ffmpeg300_64");
+    	//System.loadLibrary("/home/mahdi/opencv_build/opencv/build/java_test/bin");
+    	
+		
+		
+		HomePage window = new HomePage();
+    	
     	
     	window.DisplayHomePage();
     	
     	while(true) {
     		//run Image Processing
-    		System.out.println(runImage);
+    		/*System.out.println(runImage);
     		System.out.println(runVideo);
     		System.out.println(runVideoDL);
-    		System.out.println(runImageDL);
+    		System.out.println(runImageDL);*/
     		if (runImage==1) {
     			Vector<Mat> panels= Utilities.SignPanels();
 	    		InterfaceImage windowProc= new InterfaceImage();
@@ -135,5 +145,14 @@ public class Main {
 
 	public static void setRunVideoDL(int runVideoDL) {
 		Main.runVideoDL = runVideoDL;
+	}
+	
+	public static void loadLibrary() {
+		File f = new File("Images/Interface_Images/white.png");
+		String filePath = f.getAbsolutePath();
+		String githubRepoPath=filePath.substring(0, filePath.indexOf("Images/Interface_Images/white.png"));
+		String libraryPath= githubRepoPath +"/Resources/libopencv_java455.so";
+	
+		System.load(libraryPath);
 	}
 }

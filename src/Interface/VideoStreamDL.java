@@ -142,7 +142,7 @@ public class VideoStreamDL {
 		while(done==0) {
 			System.out.println(file);
 			if (file!=null) {
-				this.camera = new VideoCapture(file.getAbsolutePath());
+				//this.camera = new VideoCapture(file.getAbsolutePath());
 				done=1;
 			}
 		}		
@@ -150,7 +150,7 @@ public class VideoStreamDL {
 	
 	//change the file name to run another video
 	public void setVideoFile() {
-		this.camera = new VideoCapture(file.getAbsolutePath());
+		//this.camera = new VideoCapture(file.getAbsolutePath());
 	}
 	
 	public Image getFrame() {
