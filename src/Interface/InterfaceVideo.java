@@ -51,9 +51,9 @@ public class InterfaceVideo extends JFrame  {
 
 	public InterfaceVideo(){
 		if (Main.getRunVideo()==1)
-			this.setTitle("Interface Twizzy: Traitement des videos");
+			this.setTitle("Interface Twizzy: Videos OpenCV");
 		else if (Main.getRunVideoDL()==1)
-			this.setTitle("Interface Twizzy: Traitement des video - DeepLearning");
+			this.setTitle("Interface Twizzy: Videos YoloV5");
 		this.setSize(width,height);
 		this.setVisible(true);
 		this.DisplayWindow();
