@@ -20,6 +20,8 @@ import Interface.VideoStreamDL;
  * 2- traffic sign detection on videos using machine learning
  * 3- traffic sign detection on images using a yolov5 model
  * 4- traffic sign detection on videos using a yolov5 model
+ * 
+ * PS : Do not forget to run the deep learning model separately using DeepLearning/server.py
  */
 
 public class Main {
@@ -37,8 +39,8 @@ public class Main {
 		 * Load the libraries needed
 		 */
 		
-		nu.pattern.OpenCV.loadShared();
-    	//System.loadLibrary("/home/mahdi/opencv_build/opencv/build/lib/libopencv_java455.so");
+		//nu.pattern.OpenCV.loadShared();
+    	System.load("/home/mahdi/opencv_build/opencv/build/lib/libopencv_java455.so");
     	
 		
 		HomePage window = new HomePage();
@@ -55,45 +57,32 @@ public class Main {
 	    			
 	    		
 	    	}
+    		
     		//run Video Processing with ML
     		else if (runVideo==1) {
     			Vector<Mat> panels= Utilities.SignPanels();
  	    		InterfaceVideo windowProc= new InterfaceVideo();
- 	    		while (runVideo==1) {
-	    			VideoStream video_stream = new VideoStream(windowProc);
-	    			video_stream.VideoProcessing(panels);
-	    			VideoStream.setStop(0);
-	    		}	
+	    		VideoStream video_stream = new VideoStream(windowProc);
+	    		video_stream.VideoProcessing(panels);
     		}
+    		
     		//run Image Processing with DL
     		else if (runImageDL==1) {
     			Vector<Mat> panels= Utilities.SignPanels();
 	    		InterfaceImage windowProc= new InterfaceImage();
 	    		ImageStreamDL image_stream = new ImageStreamDL(windowProc);
 	    		image_stream.serverHandshake();
-	    		while (runImageDL==1) {
-	    			image_stream.ImageProcessing(panels);
-	    		}
-	    		
+	    		image_stream.ImageProcessing(panels);    		
 	    	}
+    		
     		//run Video Processing with DL
     		else if (runVideoDL==1) {
     			Vector<Mat> panels= Utilities.SignPanels();
  	    		InterfaceVideo windowProc= new InterfaceVideo();
- 	    		while (runVideoDL==1) {
-	    			VideoStreamDL video_stream = new VideoStreamDL(windowProc);
-	    			video_stream.VideoProcessing(panels);
-	    			video_stream.closeConnection();
-	    			VideoStreamDL.setStop(0);
-	    		}	
-    		}
+ 	    		VideoStreamDL video_stream = new VideoStreamDL(windowProc);
+	    		video_stream.VideoProcessing(panels);
+    		}	
     	}
-    	
- 
-    	
-		
-    	
-
    }
 	
 	

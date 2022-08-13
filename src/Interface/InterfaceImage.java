@@ -13,7 +13,6 @@ import java.io.File;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,13 +20,15 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
 
 import ImageProcessing.Main;
 import Panels.LeftButton;
 import Panels.RightButton;
 import Panels.imagePanel;
-import Panels.videoPanel;
+
+/*
+ * This class is used to create and initialize the user interface for Image prcessing 
+ */
 
 public class InterfaceImage extends JFrame{
 	public JPanel container_data = new JPanel(); // container of the panel of the image to process 
@@ -152,20 +153,5 @@ private void DisplayWindow() {
 		pack();
 		
 	}
-	//set file name
-	/*public static void setFile(File file) {
-		
-		if (Main.getRunImage()==1) {
-			System.out.println("hey");
-			ImageStream.setFile(file);	
-			System.out.println(file);
-			ImageStream.filechanged=1;
-		}
-		if (Main.getRunImageDL()==1) {
-			ImageStreamDL.file=file;	
-			System.out.println(file);
-			ImageStreamDL.filechanged=1;
-			
-		}
-	}*/
+
 }

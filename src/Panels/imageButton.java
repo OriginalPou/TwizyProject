@@ -4,27 +4,18 @@ import java.awt.Dimension;
 
 
 
-import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.IOException;
-
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
-
-import org.opencv.core.Mat;
+import java.awt.Color;
 
 import ImageProcessing.Main;
-import ImageProcessing.Utilities;
-import Interface.HomePage;
-import Interface.ImageStream;
-import Interface.InterfaceImage;
-import Interface.VideoStream;
-import java.util.List;
-import java.util.Vector;
-import java.awt.Color;
+
+/*
+ * This class implements a mouse listener that starts the image interface
+ * which uses opencv to detect and recognize traffic panels
+ */
 
 public class imageButton extends JButton implements MouseListener{
 

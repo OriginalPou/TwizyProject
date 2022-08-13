@@ -6,23 +6,18 @@ import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
-import org.opencv.core.MatOfDMatch;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 
-import org.opencv.features2d.DescriptorMatcher;
-import org.opencv.features2d.Features2d;
 
-import org.opencv.highgui.HighGui;
+
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.core.MatOfInt4;
-import org.opencv.core.MatOfKeyPoint;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.MatOfPoint2f;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
-import org.opencv.photo.Photo;
 import org.opencv.videoio.VideoCapture;
 
 
@@ -33,8 +28,6 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.Buffer;
-import java.util.Random;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
@@ -45,10 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/*
- * TO DO: add the different methods needed for 
- * the project
- */
+
 
 /*
  * each method start with @brief followed by a small explanation 
@@ -508,7 +498,6 @@ public class Utilities {
 
 			Mat frame = new Mat();
 			VideoCapture camera = new VideoCapture();
-			Mat PanneauAAnalyser = null;
 
 				while (camera.read(frame)) {
 					 

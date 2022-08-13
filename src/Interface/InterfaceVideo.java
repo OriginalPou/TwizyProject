@@ -1,11 +1,6 @@
 package Interface;
 
 import java.awt.Color;
-
-
-
-
-
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -28,7 +23,9 @@ import ImageProcessing.Main;
 import Panels.imagePanel;
 import Panels.videoPanel;
 
-
+/*
+ * This class is used to create and initialize the user interface for video prcessing 
+ */
 
 
 public class InterfaceVideo extends JFrame  {
@@ -63,9 +60,7 @@ public class InterfaceVideo extends JFrame  {
 		this.addWindowListener( new WindowAdapter() {
 		      @Override
 		      public void windowClosing(WindowEvent we) {
-		    		  VideoStream.setStop(1);
 		    		  Main.setRunVideo(0);
-		    		  VideoStreamDL.setStop(1);
 		    		  Main.setRunVideoDL(0);
 		      }
 		});
@@ -95,7 +90,7 @@ public class InterfaceVideo extends JFrame  {
 		panel_plate_image_2.setBorder( BorderFactory.createLineBorder(new Color (220,20,60), 1));	
 		
 		//text
-		panel_plate_text.setText("Panneaux detect�s: ");
+		panel_plate_text.setText("Signs Detected: ");
 		panel_plate_text.setFont(new Font(Font.SERIF, Font.BOLD, 20));
 		panel_plate_text.setForeground(Color.BLACK);
 		
@@ -132,7 +127,11 @@ public class InterfaceVideo extends JFrame  {
 	                    chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 	                    if (chooser.showOpenDialog(frame) == JFileChooser.OPEN_DIALOG) {
 	                        file = chooser.getSelectedFile();
-	                        setFile(file);  
+	                        try {
+								Filename.initiateFilename(file);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}  
 	                    }
 	                    else {
 	                    	System.out.println("error");
@@ -143,20 +142,6 @@ public class InterfaceVideo extends JFrame  {
 		this.setContentPane(container_plate);
 		pack();
 	 }
-	
-	//set file name
-	public void setFile(File file) {
-		if (Main.getRunVideo()==1) {
-			VideoStream.file=file;	
-			//System.out.println(file);
-			VideoStream.filechanged=1;
-		}
-		if (Main.getRunVideoDL()==1) {
-			VideoStreamDL.file=file;	
-			//System.out.println(file);
-			VideoStreamDL.filechanged=1;
-		} 
-	}
 
 }
 

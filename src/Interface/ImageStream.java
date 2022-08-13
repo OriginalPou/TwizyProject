@@ -16,8 +16,12 @@ import org.opencv.core.MatOfPoint;
 import ImageProcessing.Main;
 import ImageProcessing.Utilities;
 
+/*
+* ImageStream is used to detect traffic panels using machine learning coded with opencv
+*/
+
 public class ImageStream {
-	public InterfaceImage window;
+	private InterfaceImage window;
 	private static File file;
 	private ImageIcon image;
 	private Image empty;
@@ -65,7 +69,6 @@ public class ImageStream {
 						try {
 							Thread.sleep(1000);
 						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 						
@@ -76,7 +79,6 @@ public class ImageStream {
 						try {
 							Thread.sleep(1000);
 						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}		
 				*/
@@ -135,48 +137,6 @@ public class ImageStream {
 	public Image getimg() {
 		return this.image.getImage();
 	}
-	
-	/*
-	public static String setIndex(int i, String file_name) {
-		System.out.println(i);
-		if (file_name.contains(".jpg")) {
-			//System.out.println("ppp"+file_name);
-			file_name="Images/Dataset/p";
-			String number=Integer.toString(i);
-			file_name=file_name+number+".jpg";
-			
-			//System.out.println("HIIII"+file_name);
-		}
-		else if(file_name.contains(".png")) {
-			//file_name="Images/DL_Dataset/";
-			file_name=file_name.substring(0, file_name.length()-9);
-			System.out.println(file_name);
-			
-			String number=Integer.toString(i);
-			
-			while(number.length()<5) {
-				number="0"+number;
-			}
-			file_name=file_name+number+".png";
-		}
-		return file_name;
-		
-	}
-	
-	public static int getIndex(String file_name) {
-		int i=0;
-		String number="";
-		
-		for(int c=file_name.length()-12; c<file_name.length(); c++){ 
-			if (Character.isDigit(file_name.charAt(c))) {	
-				number=number+file_name.charAt(c);
-			}
-		}
-		//System.out.println("number: "+number);
-		i=Integer.parseInt(number);
-		//System.out.println("iii: "+i);
-		return i;
-	}*/
 	
 	public File getFile() {
 		return file;

@@ -9,6 +9,11 @@ import javax.swing.border.LineBorder;
 
 import ImageProcessing.Main;
 
+/*
+ * This class implements a mouse listener that starts the video interface
+ * which uses the yolov5 model to detect and recognize traffic panels
+ */
+
 public class videoButtonDL extends JButton implements MouseListener{
 	
 	public videoButtonDL (String name)  {

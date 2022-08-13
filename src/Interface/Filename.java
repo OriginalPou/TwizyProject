@@ -13,18 +13,22 @@ import java.util.Collections;
 
 public class Filename {
 	private static File imageFile;
+	private static File videoFile;
 	private static File folder;
 	private static ArrayList<File> images;
 	private static int imageIndex;
 	private static int filechange = 0;
 	
-	public static void initiateFilename(File imageFile) throws Exception {
-		Filename.imageFile=imageFile;
-		getFolderPath();
-		getImageFiles();
-		getImageIndex();
+	public static void initiateFilename(File File) throws Exception {
+		Filename.imageFile=File;
+		Filename.videoFile=File;
+		// navigating through files is only implemented for image files
+		if(isImage(File.getAbsolutePath())) {
+			getFolderPath();
+			getImageFiles();
+			getImageIndex();
+		}
 		filechange=1; // indicating to the other classes that the image files have changed
-		System.out.println("boom");
 	}
 	
 	/*
@@ -112,6 +116,15 @@ public class Filename {
 
 	public static int getFilechange() {
 		return filechange;
+	}
+
+	public static File getVideoFile() {
+		filechange=0; // once another class reads the file it is no longer new
+		return videoFile;
+	}
+
+	public static void setVideoFile(File videoFile) {
+		Filename.videoFile = videoFile;
 	}
 	
 	
