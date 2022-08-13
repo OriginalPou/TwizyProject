@@ -1,24 +1,7 @@
 package ImageProcessing;
 
-import java.io.File;
-import java.net.URL;
-
-
-import java.io.File;
-
-
-import java.io.FileFilter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Vector;
-
-import org.opencv.core.Core;
-import org.opencv.core.CvType;
 import org.opencv.core.Mat;
-
-
 
 import Interface.HomePage;
 import Interface.ImageStream;
@@ -28,65 +11,61 @@ import Interface.InterfaceVideo;
 import Interface.VideoStream;
 import Interface.VideoStreamDL;
 
-import DeepLearning.*;
-
-
 
 /*
  * Main class
- * We can use it to make sure opencv is installed correctly
- * for the time being
+ * initiates the main GUI
+ * and runs one of the following choices
+ * 1- traffic sign detection on images using machine learning
+ * 2- traffic sign detection on videos using machine learning
+ * 3- traffic sign detection on images using a yolov5 model
+ * 4- traffic sign detection on videos using a yolov5 model
  */
 
 public class Main {
-	public static int runImage=0;
-	public static int runVideo=0;
-	public static int runImageDL=0;
-	public static int runVideoDL=0;
+	
+	//keep track of the user's choice
+	private static int runImage=0;
+	private static int runVideo=0;
+	private static int runImageDL=0;
+	private static int runVideoDL=0;
 	
 	
-	public static void main( String[] args ) throws IOException {
+	public static void main( String[] args ) throws Exception {
 		
-		loadLibrary();
-		//yoloClient.sendMessage("../Images/p10.jpg");
-		//yoloClient.stopConnection();
+		/*
+		 * Load the libraries needed
+		 */
 		
-		//nu.pattern.OpenCV.loadShared();
-		//System.loadLibrary("opencv_ffmpeg300_64");
-    	//System.loadLibrary("/home/mahdi/opencv_build/opencv/build/java_test/bin");
+		nu.pattern.OpenCV.loadShared();
+    	//System.loadLibrary("/home/mahdi/opencv_build/opencv/build/lib/libopencv_java455.so");
     	
-		
 		
 		HomePage window = new HomePage();
-    	
-    	
     	window.DisplayHomePage();
     	
     	while(true) {
-    		//run Image Processing
-    		/*System.out.println(runImage);
-    		System.out.println(runVideo);
-    		System.out.println(runVideoDL);
-    		System.out.println(runImageDL);*/
+    		printChoice();
+    		// run image processing with ML
     		if (runImage==1) {
     			Vector<Mat> panels= Utilities.SignPanels();
 	    		InterfaceImage windowProc= new InterfaceImage();
-	    		while (runImage==1) {
-	    			ImageStream image_stream = new ImageStream(windowProc);
-	    			image_stream.ImageProcessing(panels);
-	    		}
+	    		ImageStream image_stream = new ImageStream(windowProc);
+	    		image_stream.ImageProcessing(panels);
+	    			
+	    		
 	    	}
-    		//run Video Processing
+    		//run Video Processing with ML
     		else if (runVideo==1) {
     			Vector<Mat> panels= Utilities.SignPanels();
  	    		InterfaceVideo windowProc= new InterfaceVideo();
  	    		while (runVideo==1) {
 	    			VideoStream video_stream = new VideoStream(windowProc);
 	    			video_stream.VideoProcessing(panels);
-	    			video_stream.stop=0;
+	    			VideoStream.setStop(0);
 	    		}	
     		}
-    		//  deeplearning stuff
+    		//run Image Processing with DL
     		else if (runImageDL==1) {
     			Vector<Mat> panels= Utilities.SignPanels();
 	    		InterfaceImage windowProc= new InterfaceImage();
@@ -97,6 +76,7 @@ public class Main {
 	    		}
 	    		
 	    	}
+    		//run Video Processing with DL
     		else if (runVideoDL==1) {
     			Vector<Mat> panels= Utilities.SignPanels();
  	    		InterfaceVideo windowProc= new InterfaceVideo();
@@ -104,16 +84,24 @@ public class Main {
 	    			VideoStreamDL video_stream = new VideoStreamDL(windowProc);
 	    			video_stream.VideoProcessing(panels);
 	    			video_stream.closeConnection();
-	    			video_stream.stop=0;
+	    			VideoStreamDL.setStop(0);
 	    		}	
     		}
     	}
+    	
  
     	
 		
     	
 
    }
+	
+	
+	public static void printChoice() {
+		if (runImage==0 && runVideo==0 && runImageDL==0 && runVideoDL==0 ) {
+			System.out.println("please choose one of the options");
+		}
+	}
 
 	public static int getRunImage() {
 		return runImage;
@@ -147,12 +135,4 @@ public class Main {
 		Main.runVideoDL = runVideoDL;
 	}
 	
-	public static void loadLibrary() {
-		File f = new File("Images/Interface_Images/white.png");
-		String filePath = f.getAbsolutePath();
-		String githubRepoPath=filePath.substring(0, filePath.indexOf("Images/Interface_Images/white.png"));
-		String libraryPath= githubRepoPath +"/Resources/libopencv_java455.so";
-	
-		System.load(libraryPath);
-	}
 }

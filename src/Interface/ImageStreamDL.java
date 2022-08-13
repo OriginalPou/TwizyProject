@@ -31,7 +31,7 @@ import ImageProcessing.Utilities;
 public class ImageStreamDL {
 	public InterfaceImage window;
 	public static File file;
-	public static int filechanged=0;
+	private static int filechanged=0;
 	ImageIcon image;
 	Image empty;
 	public static  int CloseImageProc=0;

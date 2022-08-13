@@ -23,7 +23,7 @@ public class videoButton extends JButton implements MouseListener {
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		Main.runVideo=1;
+		Main.setRunVideo(1);
 	}
 	
 	@Override

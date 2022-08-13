@@ -11,6 +11,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
 import ImageProcessing.Main;
+import Interface.Filename;
 import Interface.ImageStream;
 import Interface.ImageStreamDL;
 import Interface.InterfaceImage;
@@ -38,21 +39,11 @@ public class LeftButton extends JButton implements  MouseListener{
 	public void mouseClicked(MouseEvent e) {
 		
 		// if working on basic part
-		if (Main.runImage==1) {
-		String file_name=ImageStream.file.toString();
-		int i= ImageStream.getIndex(file_name);
-		i--;
-		if ((i==0)&&(file_name.contains(".jpg"))) { //go to last image
-			i=10;
-		}
-		if((i==0)&&(file_name.contains(".png"))) { 
-			i=51;
-		}
-		file_name= ImageStream.setIndex(i,file_name);
-		InterfaceImage.setFile( new File(file_name));
+		if (Main.getRunImage()==1) {
+			Filename.getPreviousImage();
 		}
 		//if working on Deeplearning part
-		if (Main.runImageDL==1) {
+		if (Main.getRunImageDL()==1) {
 			String file_name=ImageStreamDL.file.toString();
 			int i= ImageStreamDL.getIndex(file_name);
 			i--;
@@ -63,7 +54,7 @@ public class LeftButton extends JButton implements  MouseListener{
 				i=51;
 			}
 			file_name= ImageStreamDL.setIndex(i,file_name);
-			InterfaceImage.setFile( new File(file_name));
+			//InterfaceImage.setFile( new File(file_name));
 		
 			
 		}

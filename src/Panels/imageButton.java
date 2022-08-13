@@ -38,7 +38,7 @@ public class imageButton extends JButton implements MouseListener{
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {	
-		Main.runImage=1;	
+		Main.setRunImage(1);	
 	}
 	
 	@Override

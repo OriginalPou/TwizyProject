@@ -83,11 +83,18 @@
             <artifactId>opencv</artifactId>
             <version>4.5.5</version>
         </dependency-->
-        <dependency>
+        <!--dependency>
 		<groupId>io.github.dmitributorchin</groupId>
 		<artifactId>opencv</artifactId>
 		<version>4.5.5</version>
+	</dependency-->
+	<dependency>
+		<groupId>org.openpnp</groupId>
+		<artifactId>opencv</artifactId>
+		<version>4.5.1-2</version>
 	</dependency>
+
+
 
 
 

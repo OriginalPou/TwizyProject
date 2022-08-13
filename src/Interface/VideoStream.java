@@ -27,7 +27,8 @@ public class VideoStream {
 	public VideoCapture camera ;
 	public static File file;
 	public static int filechanged=0;
-	public static  int stop=0;
+	private static int stop=0;
+	
 	//Mat PanneauAAnalyser = null;
 	ImageIcon image;
 	Image empty;
@@ -125,6 +126,10 @@ public class VideoStream {
 				done=1;
 			}
 		}		
+	}
+	
+	public static void setStop(int stop) {
+		VideoStream.stop = stop;
 	}
 	
 	//change the file name to run another video

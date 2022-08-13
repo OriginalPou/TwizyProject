@@ -36,7 +36,9 @@ public class VideoStreamDL {
 	public VideoCapture camera ;
 	public static File file;
 	public static int filechanged=0;
-	public static  int stop=0;
+	private static int stop=0;
+	
+
 	//Mat PanneauAAnalyser = null;
 	ImageIcon image;
 	Image empty;
@@ -160,7 +162,14 @@ public class VideoStreamDL {
 	public void closeConnection() throws IOException {
 		this.yoloClient.sendMessage("q"); // closes connection from server side
 		this.yoloClient.stopConnection();
-		Main.runVideoDL=0;
+		Main.setRunVideoDL(0);
+	}
+	
+	public static int getStop() {
+		return stop;
+	}
+	public static void setStop(int stop) {
+		VideoStreamDL.stop = stop;
 	}
 
 }
