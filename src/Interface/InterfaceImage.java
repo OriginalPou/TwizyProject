@@ -13,7 +13,6 @@ import java.io.File;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,13 +20,15 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
 
 import ImageProcessing.Main;
 import Panels.LeftButton;
 import Panels.RightButton;
 import Panels.imagePanel;
-import Panels.videoPanel;
+
+/*
+ * This class is used to create and initialize the user interface for Image prcessing 
+ */
 
 public class InterfaceImage extends JFrame{
 	public JPanel container_data = new JPanel(); // container of the panel of the image to process 
@@ -51,12 +52,11 @@ public class InterfaceImage extends JFrame{
 	
 	public int width=1920;
 	public int height=1080;
-	public File File;
 
 	public InterfaceImage(){
-		if (Main.runImage==1)
+		if (Main.getRunImage()==1)
 			this.setTitle("Interface Twizzy: OpenCv");
-		else if(Main.runImageDL==1) 
+		else if(Main.getRunImageDL()==1) 
 			this.setTitle("Interface Twizzy: Yolov5");
 		this.setSize(width,height);
 		this.setVisible(true);
@@ -66,8 +66,8 @@ public class InterfaceImage extends JFrame{
 		this.addWindowListener( new WindowAdapter() {
 		      @Override
 		      public void windowClosing(WindowEvent we) {
-		        if (Main.runImage==1) Main.runImage=0;
-		        if (Main.runImageDL==1) Main.runImageDL=0;
+		        if (Main.getRunImage()==1) Main.setRunImage(0);
+		        if (Main.getRunImageDL()==1) Main.setRunImageDL(0);
 		      }
 		});
 		
@@ -135,7 +135,12 @@ private void DisplayWindow() {
 	                    chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 	                    if (chooser.showOpenDialog(frame) == JFileChooser.OPEN_DIALOG) {
 	                        file = chooser.getSelectedFile();
-	                        setFile(file);
+	                        try {
+								Filename.initiateFilename(file);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+	                        //setFile(file);
 	                    }
 	                    else {
 	                    	System.out.println("error");
@@ -148,20 +153,5 @@ private void DisplayWindow() {
 		pack();
 		
 	}
-	//set file name
-	public static void setFile(File file) {
-		
-		if (Main.runImage==1) {
-			System.out.println("hey");
-			ImageStream.file=file;	
-			System.out.println(file);
-			ImageStream.filechanged=1;
-		}
-		if (Main.runImageDL==1) {
-			ImageStreamDL.file=file;	
-			System.out.println(file);
-			ImageStreamDL.filechanged=1;
-			
-		}
-	}
+
 }

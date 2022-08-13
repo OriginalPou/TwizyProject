@@ -46,7 +46,7 @@ public class imageButtonDL extends JButton implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		//TO DO : run deepL model for images
-		Main.runImageDL=1;	
+		Main.setRunImageDL(1);	
 	}
 	
 	@Override

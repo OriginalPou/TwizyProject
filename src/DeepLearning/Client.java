@@ -7,6 +7,11 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+/*
+ * This class is the one responsible for the communication with the python server
+ * using sockets
+ */
+
 public class Client {
 	
 	
@@ -24,8 +29,6 @@ public class Client {
         out.println(msg);
         out.flush();
         String resp = in.readLine();
-        //System.out.println(resp);
-        //out.println("okay");
         return resp;
     }
 
@@ -34,21 +37,6 @@ public class Client {
         out.close();
         clientSocket.close();
     }
-	/*
-	
-	public void sendImagePath(String path) {
-		while(true)
-			this.writer.println(path);
-	}
-	
-	public void listenToInferenceResults() throws IOException {
-		String line;
-		while(true) {
-			while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-            }
-		}
-	}*/
 	
 	
 }

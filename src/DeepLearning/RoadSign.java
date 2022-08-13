@@ -1,5 +1,12 @@
 package DeepLearning;
 
+/*
+ * This class is used to decode the information incoming from the yolov5 server
+ * such as :
+ * 1)The type of the sign
+ * 2)the location of the sign
+ */
+
 public class RoadSign {
 	
 	private int xmin;

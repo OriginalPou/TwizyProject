@@ -9,13 +9,16 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+/*
+ * This is the panel where the images are displayed on the user interface
+ */
+
 public class imagePanel extends JPanel {
 	Image image;
 	public imagePanel() {
 		try {
 			image = ImageIO.read(new File("Images/Interface_Images/white.png"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

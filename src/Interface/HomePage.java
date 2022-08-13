@@ -2,10 +2,6 @@ package Interface;
 
 import java.awt.Dimension;
 
-
-
-
-import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,7 +15,6 @@ import Panels.videoButton;
 import Panels.videoButtonDL;
 
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Font;
 
@@ -111,7 +106,7 @@ public class HomePage extends JFrame{
 		//split the frame
         splitPane.setSize(width, height);
         splitPane.setDividerSize(0);
-        splitPane.setDividerLocation(width);
+        splitPane.setDividerLocation(width/2);
         splitPane.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
         splitPane.setLeftComponent(container_button);
         splitPane.setRightComponent(container_button_DL);

@@ -3,13 +3,15 @@ package Panels;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
-import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 
 import ImageProcessing.Main;
-import Interface.VideoStream;
+
+/*
+ * This class implements a mouse listener that starts the video interface
+ * which uses opencv to detect and recognize traffic panels
+ */
 
 public class videoButton extends JButton implements MouseListener {
 	
@@ -23,7 +25,7 @@ public class videoButton extends JButton implements MouseListener {
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		Main.runVideo=1;
+		Main.setRunVideo(1);
 	}
 	
 	@Override

@@ -1,4 +1,4 @@
 module TwizyProject {
-	requires opencv;
 	requires java.desktop;
+	requires opencv;    
 }
