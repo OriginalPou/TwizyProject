@@ -1,21 +1,33 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 # Twizy Project
 
-`Twizy project` is an Eclipse project that uses [OpenCv](https://opencv.org/) and [YOLOv5](https://github.com/ultralytics/yolov5) to detect and recognize traffic signs.
+`Twizy project` is an Maven project that uses [OpenCv](https://opencv.org/) and [YOLOv5](https://github.com/ultralytics/yolov5) to detect and recognize traffic signs. `Twizy project` is inspired by the driver aid systems found in many modern cars that help the drivers keep the speed of their cars under the limit required by the law.
 
 https://user-images.githubusercontent.com/72141519/170539305-4bd60749-9691-4d99-b806-ef5a321dba3d.mp4
 
+## Features
+This software allows the user to detect and recognize traffic signs in both images and videos. There are two options for detection and recognition:
+1) Detection and recognition using ML algorithms coded in OpenCV
+2) Detection and recognition using DL algorithms and Yolov5 models
+
 ## Installation
 ### Prerequisites
-You need [OpenCv 4.5.5](https://opencv.org/releases/) to build and run this project.
+You need [Maven](https://maven.apache.org/) to run this software.
+
 You need to clone the [YOLOv5 repo](https://github.com/ultralytics/yolov5) and install its requirements
 ```bash
 git clone https://github.com/ultralytics/yolov5  # clone
 cd yolov5
 pip install -r requirements.txt  # install
 ```
-## How to run the deep learning tool
-In order to use the YOLOv5 model for detection and recognition you need to run the server that loads the model into memory and waits for requests from Java to run inference on images.
+## How to
+### Run the GUI
+```bash
+mvn compile
+mvn exec:java -Dexec.mainClass=ImageProcessing.Main
+```
+### Run the deep learning tool
+Before using the traffic sign detection and recognition DL feature, you need to seperately run the server that loads the model into memory and waits for requests from Java to run inference on images.
 ```bash
 cd DeepLeaning
 python server.py
@@ -45,7 +57,7 @@ To train our model we used [Custom Training with YOLOv5](https://colab.research.
 ![myimage](https://user-images.githubusercontent.com/72141519/170539263-08b4b8da-fe04-4d98-886d-2a8bd2d6e2d8.gif)
 
 
-Our algorithms detect signs of the type :
+Our algorithms detect these types of signs :
 - 30km/h
 - 50km/h
 - 70km/h
@@ -54,11 +66,17 @@ Our algorithms detect signs of the type :
 - no overtaking
 - no entry
 
+## Issues
+### Running video
+Unfortunately, the software in its current configuration is not capable of running videos because of a licencing issues with the library loaded by Maven. You can read more about the issue [here](https://github.com/openpnp/opencv/issues/55).
+
+For the time being, we are not yet aware of a permanent fix. You can however follow these [steps](RunVideoCapture.md) in you wish to run video.
+
 ## Support
 If you encounter a problem, want to ask for help, or want to suggest a feature, feel free to [open an issue](https://github.com/OriginalPou/TwizyProject/issues).
 
 ## Authors
 This project was created by [Maha Gaied](https://github.com/mahagaied), [Oumnia Anouk](https://github.com/WishAnk), [Moad Benslimane](https://github.com/MoadBens), [Salma Maghraoui](https://github.com/Salmamagh01),  [Mahdi Chaari](https://github.com/OriginalPou) and [Ali Chouchene](https://github.com/ALICHOUCHENE) 
 
-# License
+## License
 Twizy Project is licensed under the [MIT license](LICENSE).

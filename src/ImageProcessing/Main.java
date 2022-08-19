@@ -39,8 +39,8 @@ public class Main {
 		 * Load the libraries needed
 		 */
 		
-		//nu.pattern.OpenCV.loadShared();
-    	System.load("/home/mahdi/opencv_build/opencv/build/lib/libopencv_java455.so");
+		nu.pattern.OpenCV.loadShared();
+		//System.load("path to libopencv_java455.so");
     	
 		
 		HomePage window = new HomePage();
